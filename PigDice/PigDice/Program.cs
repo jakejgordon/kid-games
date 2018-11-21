@@ -10,11 +10,15 @@ namespace PigDice
         private static Dictionary<bool, Player> _playerDictionary = new Dictionary<bool, Player>();
         private static bool _player1Turn = true;
         private static int _temporaryPoints = 0;
+        private static int _pointsRequired = 20;
         static void Main(string[] args)
         {
             _playerDictionary.Add(true, new Player());
             _playerDictionary.Add(false, new Player());
             Console.WriteLine("Are you ready for an awesome game!? How about PIG DICE!!!");
+            Console.WriteLine();
+            _pointsRequired = _random.Next(20, 50);
+            Console.WriteLine($"***For this battle, you must get to {_pointsRequired} to win!***");
             Console.WriteLine();
             Console.WriteLine("What is your name, first player?");
             var firstPlayerName = Console.ReadLine();
@@ -34,7 +38,7 @@ namespace PigDice
 
             while (true)
             {
-                Console.WriteLine("<press any key to roll>:");
+                Console.WriteLine($"{currentPlayer.Name}: <press any key to roll>:");
                 Console.ReadKey();
                 Console.WriteLine();
                 Thread.Sleep(500);
@@ -43,7 +47,7 @@ namespace PigDice
                 if (dieRoll == 1)
                 {
                     Console.WriteLine(
-                        $"Oh no! You rolled a 1! {currentPlayer.Name} just lost all of their points this round. They have {currentPlayer.TotalPoints} total points.");
+                        $"********* Oh no! You rolled a 1! {currentPlayer.Name} just lost all of their points this round. They have {currentPlayer.TotalPoints} total points. *********");
                     Console.WriteLine();
 
                     currentPlayer = SwitchPlayerTurns();
@@ -54,7 +58,7 @@ namespace PigDice
 
                 Console.WriteLine(
                     $"You rolled a {dieRoll}! You now have {_temporaryPoints} temporary points.");
-                Console.WriteLine("Do you want to test your luck and roll again? Y/N:");
+                Console.WriteLine($"{currentPlayer.Name}, do you want to test your luck and roll again? Y/N:");
                 var rollAgain = Console.ReadKey();
                 Thread.Sleep(500);
 
@@ -122,6 +126,7 @@ namespace PigDice
             _temporaryPoints = 0;
             _player1Turn = !_player1Turn;
             var currentPlayer = _playerDictionary[_player1Turn];
+            Console.WriteLine("--------------------------------------------------------------------");
             Console.WriteLine($"It's now your turn, {currentPlayer.Name}! The score is: ");
             Console.WriteLine(_playerDictionary[true].Name + ": " + _playerDictionary[true].TotalPoints + " points");
             Console.WriteLine(_playerDictionary[false].Name + ": " + _playerDictionary[false].TotalPoints + " points");
@@ -131,7 +136,7 @@ namespace PigDice
 
         private static void CheckForWinner(Player currentPlayer)
         {
-            if (currentPlayer.TotalPoints >= WinningPoints)
+            if (currentPlayer.TotalPoints >= _pointsRequired)
             {
                 const string winnerBorder =
                     "!***************************************************************************************************!";
@@ -145,8 +150,6 @@ namespace PigDice
                 Environment.Exit(0);
             }
         }
-
-        public static int WinningPoints { get; } = 20;
     }
 
     internal class Player
