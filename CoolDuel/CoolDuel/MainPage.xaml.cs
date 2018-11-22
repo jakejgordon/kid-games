@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -39,21 +40,49 @@ namespace CoolDuel
         private void Character1AddHitPoints_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.Character1.IncreaseMaxHitPoints();
+            CheckForBattleStart();
         }
 
         private void Character1AttackDamageButton_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.Character1.IncreaseAttackDamage();
+            CheckForBattleStart();
         }
 
         private void Character2AddHitPoints_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.Character2.IncreaseMaxHitPoints();
+            CheckForBattleStart();
         }
 
         private void Character2AttackDamageButton_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.Character2.IncreaseAttackDamage();
+            CheckForBattleStart();
+        }
+
+        private void CheckForBattleStart()
+        {
+            if (!ViewModel.Character1.HasAttributePoints && !ViewModel.Character2.HasAttributePoints)
+            {
+                StartBattleAnimation();
+            }
+        }
+
+        private void StartBattleAnimation()
+        {
+            var announcement = "The players are ready. It's battle time!";
+            
+            ViewModel.Announcement = announcement;
+            //StartBattleText.Visibility = Visibility.Visible;
+            //ViewModel.Announcement = string.Format(announcement, 2);
+            //Task.Delay(1000).Wait();
+            //ViewModel.Announcement = string.Format(announcement, 1);
+            //Task.Delay(1000).Wait();
+            //ViewModel.Announcement = "FIGHT!";
+            //StartBattleText.FontSize = 40;
+            //Task.Delay(500).Wait();
+            //StartBattleText.Visibility = Visibility.Collapsed;
         }
     }
 }
