@@ -32,11 +32,8 @@ namespace CoolDuel
             ViewModel = new DuelViewModel();
             Character1Name.IsEnabled = true;
             Character1Name.Focus(FocusState.Programmatic);
-        }
-
-        private void Character1Name_OnLostFocus(object sender, RoutedEventArgs e)
-        {
-            Character1Name.IsEnabled = false;
+            Character1Grid.DataContext = ViewModel.Character1;
+            Character2Grid.DataContext = ViewModel.Character2;
         }
 
         private void Character1AddHitPoints_Click(object sender, RoutedEventArgs e)
@@ -47,6 +44,16 @@ namespace CoolDuel
         private void Character1AttackDamageButton_Click(object sender, RoutedEventArgs e)
         {
             ViewModel.Character1.IncreaseAttackDamage();
+        }
+
+        private void Character2AddHitPoints_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Character2.IncreaseMaxHitPoints();
+        }
+
+        private void Character2AttackDamageButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Character2.IncreaseAttackDamage();
         }
     }
 }
