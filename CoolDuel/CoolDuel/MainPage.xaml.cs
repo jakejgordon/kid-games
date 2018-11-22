@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using CoolDuel.ViewModels;
 using FocusState = Windows.UI.Xaml.FocusState;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -23,9 +24,12 @@ namespace CoolDuel
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        public DuelViewModel ViewModel;
+
         public MainPage()
         {
             this.InitializeComponent();
+            ViewModel = new DuelViewModel();
             Character1Name.IsEnabled = true;
             Character1Name.Focus(FocusState.Programmatic);
         }
@@ -35,17 +39,14 @@ namespace CoolDuel
             Character1Name.IsEnabled = false;
         }
 
-        private void AddHitPoints_Click(object sender, RoutedEventArgs e)
+        private void Character1AddHitPoints_Click(object sender, RoutedEventArgs e)
         {
-            var availablePoints = int.Parse(Character1AvailablePoints.Text);
-            var hitPoints = int.Parse(Character1HitPoints.Text);
-            Character1HitPoints.Text = (hitPoints + 5).ToString();
-            Character1AvailablePoints.Text = (availablePoints - 1).ToString();
+            ViewModel.Character1.IncreaseMaxHitPoints();
+        }
 
-            if (availablePoints == 0)
-            {
-                Character1HitPoints.Text = (hitPoints + 5).ToString();
-            }
+        private void Character1AttackDamageButton_Click(object sender, RoutedEventArgs e)
+        {
+            ViewModel.Character1.IncreaseAttackDamage();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿<Page
     x:Class="CoolDuel.MainPage"
+    xmlns:viewmodel="using:CoolDuel.ViewModels"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:CoolDuel"
@@ -7,7 +8,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <!--<Page.DataContext>
+        <viewmodel:DuelViewModel x:Name="ViewModel"/>
+    </Page.DataContext>-->
     <Grid>
         <TextBlock HorizontalAlignment="Left" Height="45" Margin="345,16,0,0" Text="Welcome to Cool Duel!" TextWrapping="Wrap" VerticalAlignment="Top" Width="530" FontSize="40"/>
         <TextBlock HorizontalAlignment="Left" Margin="345,83,0,0" Text="In Cool Duel you'll be dueling another player for glory and fun!" TextWrapping="Wrap" VerticalAlignment="Top"/>
@@ -22,12 +25,13 @@
                 <ColumnDefinition Width="200"></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Row="0" Grid.Column="0" Name="Character1Name" IsEnabled="False" Text="" Header="Character 1 Name" PlaceholderText="Enter name" LostFocus="Character1Name_OnLostFocus"/>
-            <TextBox Grid.Row="0" Grid.Column="1" Name="Character1AvailablePoints" IsEnabled="False" InputScope="Number" Header="Available Points" Text="3" Margin="20,0" />
-            <TextBox Grid.Row="1" Grid.Column="0" Name="Character1HitPoints" IsEnabled = "False" InputScope="Number" Header="Hit Points" Text="20"/>
-            <Button Grid.Row="1" Grid.Column="1" Name="Character1HitPointsButton" Content="+" ToolTipService.ToolTip="Add 5 hit points" Click="AddHitPoints_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,23,0,0"/>
-            <TextBox Grid.Row="2" Grid.Column="0" Name="Character1AttackDamage" IsEnabled = "False" InputScope="Number" Header="Attack Damage" Text="2"/>
-            <Button Grid.Row="2" Grid.Column="1" Name="Character1AttackDamageButton" Content="+" ToolTipService.ToolTip="Add 1 bonus damage to each hit you make" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,23,0,0"/>
+            <!--Content="{x:Bind Path=ViewModel.Character1.Name, Mode=TwoWay}"-->
+            <TextBox Grid.Row="0" Grid.Column="0" Name="Character1Name" IsEnabled="False" Text="{x:Bind Path=ViewModel.Character1.Name, Mode=TwoWay}" Header="Character 1 Name" PlaceholderText="Enter name" LostFocus="Character1Name_OnLostFocus"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Name="Character1AvailablePoints" IsEnabled="False" InputScope="Number" Header="Available Points" Text="{x:Bind Path=ViewModel.Character1.AvailableAttributePoints, Mode=TwoWay}" Margin="20,0" />
+            <TextBox Grid.Row="1" Grid.Column="0" Name="Character1HitPoints" IsEnabled = "False" InputScope="Number" Header="Hit Points" Text="{x:Bind Path=ViewModel.Character1.HitPoints, Mode=TwoWay}"/>
+            <Button Grid.Row="1" Grid.Column="1" Name="Character1HitPointsButton" IsEnabled="{x:Bind Path=ViewModel.Character1.HasAttributePoints, Mode=OneWay}" Content="+" ToolTipService.ToolTip="Add 5 hit points" Click="Character1AddHitPoints_Click" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,23,0,0"/>
+            <TextBox Grid.Row="2" Grid.Column="0" Name="Character1AttackDamage" IsEnabled = "False" InputScope="Number" Header="Attack Damage" Text="{x:Bind Path=ViewModel.Character1.AttackDamage, Mode=TwoWay}"/>
+            <Button Grid.Row="2" Grid.Column="1" Name="Character1AttackDamageButton" IsEnabled="{x:Bind Path=ViewModel.Character1.HasAttributePoints, Mode=OneWay}" Content="+" ToolTipService.ToolTip="Add 1 bonus damage to each hit you make" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="20,23,0,0" Click="Character1AttackDamageButton_Click"/>
 
         </Grid>
 
