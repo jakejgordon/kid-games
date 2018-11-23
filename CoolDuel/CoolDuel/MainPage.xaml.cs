@@ -81,8 +81,8 @@ namespace CoolDuel
                 Title = $"{basicAttack.AttackingCharacter.Name} is attacking {basicAttack.DefendingCharacter.Name}!",
                 Content =
                     $"{basicAttack.AttackingCharacter.Name} rolled a {basicAttack.AttackRoll}! Does {basicAttack.DefendingCharacter.Name} "
-                    + $"want to attempt to block the attack with a maximum defense roll of {basicAttack.DefendingCharacter.MaxDefenseRoll}"
-                    + $" or do they want to take the hit and counterattack with a bonus of {basicAttack.DefendingCharacter.CounterattackDamage} damage?",
+                    + $"want to attempt to block the attack with a maximum defense roll of {basicAttack.DefendingCharacter.MaxDefenseRoll} "
+                    + $" --OR-- do they want to take the hit and counterattack with a bonus of {basicAttack.DefendingCharacter.CounterattackDamage} damage?",
                 CloseButtonText = "Counterattack",
                 PrimaryButtonText = "Block"
             };
@@ -102,7 +102,36 @@ namespace CoolDuel
                 throw new InvalidOperationException("Invalid ContentDialogResult detected");
             }
 
+            await CheckForGameEnd(basicAttack);
+
             SwitchTurns();
+        }
+
+        private async Task CheckForGameEnd(BasicAttack basicAttack)
+        {
+            if (basicAttack.DefendingCharacter.Dead)
+            {
+                ContentDialog winnerDialog = new ContentDialog
+                {
+                    Title = "WINNER!",
+                    Content =
+                        $"{basicAttack.AttackingCharacter.Name} defeated {basicAttack.DefendingCharacter.Name}! Do you want to play again?",
+                    CloseButtonText = "Exit Game",
+                    PrimaryButtonText = "Play Again"
+                };
+
+                ContentDialogResult winnerDialogResult = await winnerDialog.ShowAsync();
+                if (winnerDialogResult == ContentDialogResult.Primary)
+                {
+                    //--TODO THIS DOESN'T WORK
+                    InitializeComponent();
+                    ViewModel = new DuelViewModel();
+                }
+                else
+                {
+                    Application.Current.Exit();
+                }
+            }
         }
 
         private void SwitchTurns()

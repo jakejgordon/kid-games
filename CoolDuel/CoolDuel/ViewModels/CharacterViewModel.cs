@@ -198,5 +198,6 @@ namespace CoolDuel.ViewModels
         }
 
         public Stack<BonusDamage> NextAttackBonusDamageStack { get; set; } = new Stack<BonusDamage>();
+        public bool Dead => HitPoints <= 0;
     }
 }
