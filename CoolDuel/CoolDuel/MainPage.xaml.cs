@@ -26,6 +26,8 @@ namespace CoolDuel
     public sealed partial class MainPage : Page
     {
         public DuelViewModel ViewModel;
+        public CharacterViewModel Character1;
+        public CharacterViewModel Character2;
 
         public MainPage()
         {
@@ -66,7 +68,44 @@ namespace CoolDuel
             if (!ViewModel.Character1.HasAttributePoints && !ViewModel.Character2.HasAttributePoints)
             {
                 StartBattleAnimation();
+
+                
+                BattleAsync();
+                
             }
+        }
+
+        private async void BattleAsync()
+        {
+            var basicAttack = ViewModel.NextAttack();
+
+            var defenseDialog = new ContentDialog
+            {
+                Title = $"{basicAttack.AttackingCharacter.Name} is attacking {basicAttack.DefendingCharacter.Name}!",
+                Content =
+                    $"{basicAttack.AttackingCharacter.Name} rolled a {basicAttack.AttackRoll}! Does {basicAttack.DefendingCharacter.Name} "
+                    + $"want to attempt to block the attack with a maximum defense roll of {basicAttack.DefendingCharacter.MaxDefenseRoll}"
+                    + $"or do they want to take the hit and counterattack with a bonus of {basicAttack.DefendingCharacter.CounterattackDamage} damage?",
+                CloseButtonText = "Counterattack",
+                PrimaryButtonText = "Block"
+            };
+
+             ContentDialogResult result = await defenseDialog.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                var defenseResult = basicAttack.Defend();
+                ViewModel.Announcement = defenseResult.ResultText;
+            }else if (result == ContentDialogResult.None)
+            {
+                var counterattackResult = basicAttack.Counterattack();
+                ViewModel.Announcement = counterattackResult.ResultText;
+            }
+            else
+            {
+                throw new InvalidOperationException("Invalid ContentDialogResult detected");
+            }
+
+            ViewModel.Character1Turn = !ViewModel.Character1Turn;
         }
 
         private void StartBattleAnimation()
@@ -74,15 +113,6 @@ namespace CoolDuel
             var announcement = "The players are ready. It's battle time!";
             
             ViewModel.Announcement = announcement;
-            //StartBattleText.Visibility = Visibility.Visible;
-            //ViewModel.Announcement = string.Format(announcement, 2);
-            //Task.Delay(1000).Wait();
-            //ViewModel.Announcement = string.Format(announcement, 1);
-            //Task.Delay(1000).Wait();
-            //ViewModel.Announcement = "FIGHT!";
-            //StartBattleText.FontSize = 40;
-            //Task.Delay(500).Wait();
-            //StartBattleText.Visibility = Visibility.Collapsed;
         }
     }
 }
