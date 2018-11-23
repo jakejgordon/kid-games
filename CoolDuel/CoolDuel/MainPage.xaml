@@ -54,6 +54,6 @@
 
         </Grid>
 
-        <TextBlock Name="StartBattleText" HorizontalAlignment="Left" Margin="414,245,0,0" Text="{x:Bind Mode=OneWay, Path=ViewModel.Announcement}" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30"/>
+        <TextBlock Name="StartBattleText" TextAlignment="Center" HorizontalAlignment="Left" Margin="414,245,0,0" Text="{x:Bind Mode=OneWay, Path=ViewModel.Announcement}" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" Width="361" Height="150"/>
     </Grid>
 </Page>
