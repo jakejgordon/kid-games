@@ -13,14 +13,14 @@ namespace CoolDuel.ViewModels
         public const int StartingAttributePoints = 3;
         public const int StartingMaxAttackRoll = 6;
         public const int StartingMaxDefenseRoll = 6;
-        public const int StartingCounterattackDamage = 6;
+        public const int StartingCounterattackDamage = 2;
         public const int AttributeToHitPointRatio = 5;
         public const int AttributeToAttackDamageRatio = 1;
 
         private int _maxHitPoints = StartingHitPoints;
         private int _hitPoints = StartingHitPoints;
         private int _maxAttackRoll = StartingMaxAttackRoll;
-        private int _maxDefenseRoll = StartingMaxAttackRoll;
+        private int _maxDefenseRoll = StartingMaxDefenseRoll;
         private string _name;
         private int _availableAttributePoints = StartingAttributePoints;
         private int _attackDamage = StartingAttackDamage;
@@ -165,12 +165,12 @@ namespace CoolDuel.ViewModels
 
         public int GetDefenseRoll()
         {
-            return _random.Next(_maxDefenseRoll);
+            return _random.Next(1, _maxDefenseRoll);
         }
 
         public int GetBasicAttackRoll()
         {
-            return _random.Next(_maxAttackRoll);
+            return _random.Next(1, _maxAttackRoll);
         }
 
         public int TakeDamage(CharacterViewModel attackingCharacter)
