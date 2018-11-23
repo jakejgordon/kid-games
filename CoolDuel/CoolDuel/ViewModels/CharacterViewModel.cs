@@ -197,6 +197,6 @@ namespace CoolDuel.ViewModels
             NextAttackBonusDamageStack.Push(bonusDamage);
         }
 
-        public Stack<BonusDamage> NextAttackBonusDamageStack { get; set; }
+        public Stack<BonusDamage> NextAttackBonusDamageStack { get; set; } = new Stack<BonusDamage>();
     }
 }

@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using CoolDuel.ViewModels;
 using FocusState = Windows.UI.Xaml.FocusState;
@@ -68,10 +69,6 @@ namespace CoolDuel
             if (!ViewModel.Character1.HasAttributePoints && !ViewModel.Character2.HasAttributePoints)
             {
                 StartBattleAnimation();
-
-                
-                BattleAsync();
-                
             }
         }
 
@@ -85,12 +82,12 @@ namespace CoolDuel
                 Content =
                     $"{basicAttack.AttackingCharacter.Name} rolled a {basicAttack.AttackRoll}! Does {basicAttack.DefendingCharacter.Name} "
                     + $"want to attempt to block the attack with a maximum defense roll of {basicAttack.DefendingCharacter.MaxDefenseRoll}"
-                    + $"or do they want to take the hit and counterattack with a bonus of {basicAttack.DefendingCharacter.CounterattackDamage} damage?",
+                    + $" or do they want to take the hit and counterattack with a bonus of {basicAttack.DefendingCharacter.CounterattackDamage} damage?",
                 CloseButtonText = "Counterattack",
                 PrimaryButtonText = "Block"
             };
 
-             ContentDialogResult result = await defenseDialog.ShowAsync();
+            ContentDialogResult result = await defenseDialog.ShowAsync();
             if (result == ContentDialogResult.Primary)
             {
                 var defenseResult = basicAttack.Defend();
@@ -105,7 +102,20 @@ namespace CoolDuel
                 throw new InvalidOperationException("Invalid ContentDialogResult detected");
             }
 
+            SwitchTurns();
+        }
+
+        private void SwitchTurns()
+        {
             ViewModel.Character1Turn = !ViewModel.Character1Turn;
+            if (ViewModel.Character1Turn)
+            {
+                AttackImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/BattleIcons/c1_sword.png"));
+            }
+            else
+            {
+                AttackImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/BattleIcons/c2_sword.png"));
+            }
         }
 
         private void StartBattleAnimation()
@@ -113,6 +123,12 @@ namespace CoolDuel
             var announcement = "The players are ready. It's battle time!";
             
             ViewModel.Announcement = announcement;
+            AttackButton.IsEnabled = true;
+        }
+
+        private void Attack_Click(object sender, RoutedEventArgs e)
+        {
+            BattleAsync();
         }
     }
 }

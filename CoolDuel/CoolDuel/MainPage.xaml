@@ -54,6 +54,10 @@
 
         </Grid>
 
-        <TextBlock Name="StartBattleText" TextAlignment="Center" HorizontalAlignment="Left" Margin="414,245,0,0" Text="{x:Bind Mode=OneWay, Path=ViewModel.Announcement}" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" Width="361" Height="150"/>
+        <TextBlock Name="StartBattleText" TextAlignment="Center" HorizontalAlignment="Left" Margin="415,320,0,0" Text="{x:Bind Mode=OneWay, Path=ViewModel.Announcement}" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="30" Width="361" Height="150"/>
+
+        <Button Name="AttackButton" IsEnabled="False" HorizontalContentAlignment="Center" Click="Attack_Click" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="541,182,0,0">
+            <Image Name="AttackImage"  HorizontalAlignment="Left" Source="Assets/BattleIcons/c1_sword.png" Height="100" VerticalAlignment="Top" Width="100"/>
+        </Button>
     </Grid>
 </Page>
