@@ -21,7 +21,7 @@ namespace CoolDuel
             InitializeComponent();
             ViewModel = new DuelViewModel();
             Character1Grid.DataContext = ViewModel.Character1;
-            //Character1Name.Focus(FocusState.Programmatic);
+            Character2Grid.DataContext = ViewModel.Character2;
         }
 
         private void Character1AddHitPoints_Click(object sender, RoutedEventArgs e)
