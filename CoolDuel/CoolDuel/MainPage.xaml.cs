@@ -24,18 +24,39 @@ namespace CoolDuel
             Character2Grid.DataContext = ViewModel.Character2;
         }
 
-        private void Character1AddHitPoints_Click(object sender, RoutedEventArgs e)
+        private void AddFiveHitPoints_Click(object sender, RoutedEventArgs e)
         {
             var character = GetActiveCharacter(sender);
             character.IncreaseMaxHitPoints();
             CheckForBattleStart();
         }
 
-        private void Character1AttackDamageButton_Click(object sender, RoutedEventArgs e)
+        private void AddOneAttackDamage_Click(object sender, RoutedEventArgs e)
         {
             var character = GetActiveCharacter(sender);
 
             character.IncreaseAttackDamage();
+            CheckForBattleStart();
+        }
+
+        private void AddOneAttackRoll_Click(object sender, RoutedEventArgs e)
+        {
+            var character = GetActiveCharacter(sender);
+            character.IncreaseAttackRoll();
+            CheckForBattleStart();
+        }
+
+        private void AddOneDefenseRoll_Click(object sender, RoutedEventArgs e)
+        {
+            var character = GetActiveCharacter(sender);
+            character.IncreaseDefenseRoll();
+            CheckForBattleStart();
+        }
+
+        private void AddTwoCounterattackDamage_Click(object sender, RoutedEventArgs e)
+        {
+            var character = GetActiveCharacter(sender);
+            character.IncreaseCounterattackDamageByTwo();
             CheckForBattleStart();
         }
 

@@ -151,8 +151,6 @@ namespace CoolDuel.ViewModels
             MaxHitPoints += AttributeToHitPointRatio;
             HitPoints += AttributeToHitPointRatio;
             OnPropertyChanged(nameof(HasAttributePoints));
-            OnPropertyChanged(nameof(AvailableAttributePoints));
-            OnPropertyChanged(nameof(MaxHitPoints));
         }
 
         private void ValidateAvailableAttributePoints()
@@ -164,7 +162,7 @@ namespace CoolDuel.ViewModels
             }
         }
 
-        public bool HasAttributePoints =>AvailableAttributePoints > 0;
+        public bool HasAttributePoints => AvailableAttributePoints > 0;
 
         public void IncreaseAttackDamage()
         {
@@ -173,8 +171,33 @@ namespace CoolDuel.ViewModels
             AvailableAttributePoints -= 1;
             AttackDamage += AttributeToAttackDamageRatio;
             OnPropertyChanged(nameof(HasAttributePoints));
-            OnPropertyChanged(nameof(AvailableAttributePoints));
-            OnPropertyChanged(nameof(AttackDamage));
+        }
+
+        public void IncreaseAttackRoll()
+        {
+            ValidateAvailableAttributePoints();
+
+            AvailableAttributePoints -= 1;
+            MaxAttackRoll += 1;
+            OnPropertyChanged(nameof(HasAttributePoints));
+        }
+
+        public void IncreaseDefenseRoll()
+        {
+            ValidateAvailableAttributePoints();
+
+            AvailableAttributePoints -= 1;
+            MaxDefenseRoll += 1;
+            OnPropertyChanged(nameof(HasAttributePoints));
+        }
+
+        public void IncreaseCounterattackDamageByTwo()
+        {
+            ValidateAvailableAttributePoints();
+
+            AvailableAttributePoints -= 1;
+            CounterattackDamage += 2;
+            OnPropertyChanged(nameof(HasAttributePoints));
         }
 
         public BasicAttack MakeBasicAttack(CharacterViewModel defendingCharacter)
