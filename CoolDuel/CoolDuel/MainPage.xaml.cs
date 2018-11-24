@@ -1,19 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
 using CoolDuel.ViewModels;
 using FocusState = Windows.UI.Xaml.FocusState;
 
@@ -30,10 +18,10 @@ namespace CoolDuel
 
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             ViewModel = new DuelViewModel();
-            Character1Name.IsEnabled = true;
-            Character1Name.Focus(FocusState.Programmatic);
+            Character1Grid.DataContext = ViewModel.Character1;
+            //Character1Name.Focus(FocusState.Programmatic);
         }
 
         private void Character1AddHitPoints_Click(object sender, RoutedEventArgs e)

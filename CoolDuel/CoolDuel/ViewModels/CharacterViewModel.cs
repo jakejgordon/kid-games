@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using CoolDuel.Annotations;
 
 namespace CoolDuel.ViewModels
@@ -36,6 +37,9 @@ namespace CoolDuel.ViewModels
             _character1 = character1;
             //--use the property so the fancy setter stuff runs
             EquippedWeapon = weapon;
+            CharacterImage = character1
+                ? new BitmapImage(new Uri("ms-appx:///Assets/BattleIcons/c1_knight.png"))
+                : new BitmapImage(new Uri("ms-appx:///Assets/BattleIcons/c2_knight.png"));
         }
 
         public int AvailableAttributePoints
@@ -128,6 +132,8 @@ namespace CoolDuel.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        public BitmapImage CharacterImage { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
