@@ -28,6 +28,8 @@
                     <ColumnDefinition Width="155"></ColumnDefinition>
                     <ColumnDefinition Width="45"></ColumnDefinition>
                     <ColumnDefinition Width="50"></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
+                    <ColumnDefinition Width="25"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Name="Character1Name" IsEnabled="True" Text="{x:Bind Path=Name, Mode=TwoWay}" Header="Character 1 Name" PlaceholderText="Enter name"/>
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Attribute Points:" VerticalAlignment="Center" HorizontalAlignment="Center" />
@@ -36,10 +38,14 @@
                 <TextBlock Grid.Row="2" Grid.Column="1" FontSize="28" Text="{x:Bind Path=HitPoints, Mode=TwoWay}"/>
                 <Button Grid.Row="2" Grid.Column="2" IsEnabled="{x:Bind Path=HasAttributePoints, Mode=OneWay}" Content="+" ToolTipService.ToolTip="Add 5 hit points" Click="AddFiveHitPoints_Click" HorizontalAlignment="Left" VerticalAlignment="Center" />
                 <Image Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  Source="{x:Bind Path=CharacterImage}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200"/>
-                <Image Grid.Row="4" Grid.Column="0" Margin="0,20,0,0" Source="{x:Bind Path=EquippedWeapon.ImageSourceFlowDirectionLeftToRight}"></Image>
+                <Button Grid.Row="4" Grid.Column="0" Margin="0,20,0,0" Click="ChangeWeapon_Click" HorizontalAlignment="Center" ToolTipService.ToolTip="Change your weapon">
+                    <Image Source="{x:Bind Path=EquippedWeapon.ImageSourceFlowDirectionLeftToRight}"></Image>
+                </Button>
                 <TextBlock Grid.Row="6" Grid.Column="0" Text="Attack Damage:" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                 <TextBlock Grid.Row="6" Grid.Column="1" Text="{x:Bind Path=AttackDamage, Mode=TwoWay}" FontSize="28"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 <Button Grid.Row="6" Grid.Column="2" IsEnabled="{x:Bind Path=HasAttributePoints, Mode=OneWay}" Content="+" ToolTipService.ToolTip="Add 1 bonus damage to each hit you make" HorizontalAlignment="Left" VerticalAlignment="Center" Click="AddOneAttackDamage_Click"/>
+                <TextBlock Grid.Row="6" Grid.Column="3" Text="+" Foreground="Red" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                <TextBlock Grid.Row="6" Grid.Column="4" Text="{x:Bind Path=PendingCounterattackDamage, Mode=OneWay}" Foreground="Red" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                 <TextBlock Grid.Row="7" Grid.Column="0" Text="Attack Roll:" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                 <TextBlock Grid.Row="7" Grid.Column="1" Text="{x:Bind Path=MaxAttackRoll, Mode=TwoWay}" FontSize="28"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 <Button Grid.Row="7" Grid.Column="2" IsEnabled="{x:Bind Path=HasAttributePoints, Mode=OneWay}" Content="+" ToolTipService.ToolTip="Add 1 to the character's attack roll, increasing the chances of scoring a hit" HorizontalAlignment="Left" VerticalAlignment="Center" Click="AddOneAttackRoll_Click"/>
@@ -66,7 +72,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Height="45" Text="Welcome to Cool Duel!" TextWrapping="Wrap" VerticalAlignment="Top" FontSize="40"/>
+        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Height="45" Text="Welcome to Cool Duel!" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalTextAlignment="Center" FontSize="40"/>
         <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Text="In Cool Duel you'll be dueling another player for glory and fun!" TextWrapping="Wrap"/>
         <TextBlock Grid.Row="1" Grid.Column="2"  HorizontalAlignment="Left" Text="Players will assign attribute points to their character at the start and throughout the duel, all the while attacking, blocking, and counterattacking until one player's hit points are reduced to 0!" TextWrapping="Wrap"/>
 

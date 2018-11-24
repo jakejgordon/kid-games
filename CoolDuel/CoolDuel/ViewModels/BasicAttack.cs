@@ -24,11 +24,13 @@
             }else if (AttackRoll == defenseRoll)
             {
                 defenseResult.ResultText = $"Both the attacker and defender rolled a {AttackRoll}! Nobody was hurt.";
+                AttackingCharacter.ConsumeOneTimeBonusDamage();
             }
             else
             {
                 defenseResult.ResultText =
                     $"{DefendingCharacter.Name} rolled a {defenseRoll}, which successfully blocked a {AttackRoll}! No damage was taken.";
+                AttackingCharacter.ConsumeOneTimeBonusDamage();
             }
 
             return defenseResult;

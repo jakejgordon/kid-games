@@ -83,7 +83,7 @@ namespace CoolDuel
                 Content =
                     $"{basicAttack.AttackingCharacter.Name} rolled a {basicAttack.AttackRoll}! Does {basicAttack.DefendingCharacter.Name} "
                     + $"want to attempt to block the attack with a maximum defense roll of {basicAttack.DefendingCharacter.MaxDefenseRoll} "
-                    + $" --OR-- do they want to take the hit and counterattack with a bonus of {basicAttack.DefendingCharacter.CounterattackDamage} damage?",
+                    + $" --OR-- do they want to take the hit and {basicAttack.DefendingCharacter.CounterattackDamage} counterattack damage to the next attack if it hits?",
                 CloseButtonText = "Counterattack",
                 PrimaryButtonText = "Block"
             };
@@ -154,6 +154,11 @@ namespace CoolDuel
         private void Attack_Click(object sender, RoutedEventArgs e)
         {
             BattleAsync();
+        }
+
+        private void ChangeWeapon_Click(object sender, RoutedEventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

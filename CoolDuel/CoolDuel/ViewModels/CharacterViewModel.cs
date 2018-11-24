@@ -230,7 +230,7 @@ namespace CoolDuel.ViewModels
             return totalDamage;
         }
 
-        private int ConsumeOneTimeBonusDamage()
+        public int ConsumeOneTimeBonusDamage()
         {
             int bonusDamage = 0;
             while (NextAttackBonusDamageStack.Count > 0)
@@ -238,16 +238,33 @@ namespace CoolDuel.ViewModels
                 bonusDamage += NextAttackBonusDamageStack.Pop().Damage;
             }
 
+            OnPropertyChanged(nameof(PendingCounterattackDamage));
+
             return bonusDamage;
         }
 
         public void AddNextAttackBonusDamage(BonusDamage bonusDamage)
         {
             NextAttackBonusDamageStack.Push(bonusDamage);
+            OnPropertyChanged(nameof(PendingCounterattackDamage));
         }
 
         public Stack<BonusDamage> NextAttackBonusDamageStack { get; set; } = new Stack<BonusDamage>();
         public bool Dead => HitPoints <= 0;
+
+        public int PendingCounterattackDamage
+        {
+            get
+            {
+                int pendingDamage = 0;
+                foreach (var damage in NextAttackBonusDamageStack)
+                {
+                    pendingDamage += damage.Damage;
+                }
+
+                return pendingDamage;
+            }
+        }
 
         public ImageSource WeaponImage
         {
