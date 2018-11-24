@@ -107,6 +107,7 @@
     <Compile Include="ViewModels\CounterattackResult.cs" />
     <Compile Include="ViewModels\DefenseResult.cs" />
     <Compile Include="ViewModels\DuelViewModel.cs" />
+    <Compile Include="ViewModels\Weapon.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -116,9 +117,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\BattleIcons\c1_knight.png" />
-    <Content Include="Assets\BattleIcons\c1_sword.png" />
     <Content Include="Assets\BattleIcons\c2_knight.png" />
-    <Content Include="Assets\BattleIcons\c2_sword.png" />
+    <Content Include="Assets\Weapons\bo_staff.png" />
+    <Content Include="Assets\Weapons\bo_staff_right_to_left.png" />
+    <Content Include="Assets\Weapons\mace_right_to_left.jpg" />
+    <Content Include="Assets\Weapons\one_handed_axe_right_to_left.png" />
+    <Content Include="Assets\Weapons\spear_right_to_left.png" />
+    <Content Include="Assets\Weapons\sword.png" />
+    <Content Include="Assets\Weapons\sword_right_to_left.png" />
+    <Content Include="Assets\Weapons\two_handed_axe_right_to_left.jpg" />
+    <Content Include="Assets\Weapons\war_hammer.jpg" />
+    <Content Include="Assets\Weapons\mace.jpg" />
+    <Content Include="Assets\Weapons\one_handed_axe.png" />
+    <Content Include="Assets\Weapons\spear.png" />
+    <Content Include="Assets\Weapons\two_handed_axe.jpg" />
+    <Content Include="Assets\Weapons\war_hammer_right_to_left.jpg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

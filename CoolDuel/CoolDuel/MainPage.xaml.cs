@@ -27,8 +27,6 @@ namespace CoolDuel
     public sealed partial class MainPage : Page
     {
         public DuelViewModel ViewModel;
-        public CharacterViewModel Character1;
-        public CharacterViewModel Character2;
 
         public MainPage()
         {
@@ -36,8 +34,6 @@ namespace CoolDuel
             ViewModel = new DuelViewModel();
             Character1Name.IsEnabled = true;
             Character1Name.Focus(FocusState.Programmatic);
-            Character1Grid.DataContext = ViewModel.Character1;
-            Character2Grid.DataContext = ViewModel.Character2;
         }
 
         private void Character1AddHitPoints_Click(object sender, RoutedEventArgs e)
@@ -137,14 +133,9 @@ namespace CoolDuel
         private void SwitchTurns()
         {
             ViewModel.Character1Turn = !ViewModel.Character1Turn;
-            if (ViewModel.Character1Turn)
-            {
-                AttackImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/BattleIcons/c1_sword.png"));
-            }
-            else
-            {
-                AttackImage.Source = new BitmapImage(new Uri("ms-appx:///Assets/BattleIcons/c2_sword.png"));
-            }
+
+            AttackImage.Source = ViewModel.Character1Turn ? ViewModel.Character1.WeaponImage 
+                : ViewModel.Character2.WeaponImage;
         }
 
         private void StartBattleAnimation()

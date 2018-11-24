@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using Windows.UI.Xaml.Media;
 using CoolDuel.Annotations;
 
 namespace CoolDuel.ViewModels
@@ -27,6 +28,15 @@ namespace CoolDuel.ViewModels
 
         private readonly Random _random = new Random();
         private int _counterattackDamage = StartingCounterattackDamage;
+        private Weapon _equippedWeapon;
+        private readonly bool _character1;
+
+        public CharacterViewModel(bool character1, Weapon weapon)
+        {
+            _character1 = character1;
+            //--use the property so the fancy setter stuff runs
+            EquippedWeapon = weapon;
+        }
 
         public int AvailableAttributePoints
         {
@@ -98,6 +108,16 @@ namespace CoolDuel.ViewModels
             }
         }
 
+        public Weapon EquippedWeapon
+        {
+            get => _equippedWeapon;
+            set
+            {
+                _equippedWeapon = value;
+
+                OnPropertyChanged();
+            }
+        }
 
         public string Name
         {
@@ -199,5 +219,18 @@ namespace CoolDuel.ViewModels
 
         public Stack<BonusDamage> NextAttackBonusDamageStack { get; set; } = new Stack<BonusDamage>();
         public bool Dead => HitPoints <= 0;
+
+        public ImageSource WeaponImage
+        {
+            get
+            {
+                if (_character1)
+                {
+                    return EquippedWeapon.ImageSourceFlowDirectionLeftToRight;
+                }
+
+                return EquippedWeapon.ImageSourceFlowDirectionRightToLeft;
+            }
+        }
     }
 }

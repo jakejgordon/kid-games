@@ -30,11 +30,10 @@ namespace CoolDuel.ViewModels
             }
         }
 
-
         public DuelViewModel()
         {
-            Character1 = new CharacterViewModel();
-            Character2 = new CharacterViewModel();
+            Character1 = new CharacterViewModel(true, Weapon.Sword);
+            Character2 = new CharacterViewModel(false, Weapon.Sword);
         }
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
