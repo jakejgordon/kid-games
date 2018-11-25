@@ -76,9 +76,7 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Left" Height="45" Text="Welcome to Cool Duel!" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalTextAlignment="Center" FontSize="40"/>
-        <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Text="In Cool Duel you'll be dueling another player for glory and fun!" TextWrapping="Wrap"/>
-        <TextBlock Grid.Row="1" Grid.Column="2"  HorizontalAlignment="Left" Text="Players will assign attribute points to their character at the start and throughout the duel, all the while attacking, blocking, and counterattacking until one player's hit points are reduced to 0!" TextWrapping="Wrap"/>
+        <TextBlock Grid.Row="0" Grid.Column="1" Height="45" Text="Welcome to Cool Duel!" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Center"  HorizontalTextAlignment="Center" FontSize="40"/>
 
         <Button Grid.Row="3" Grid.Column="1" Margin="0,50,0,0" Name="AttackButton" IsEnabled="False" HorizontalContentAlignment="Center" Click="Attack_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100">
             <Image Name="AttackImage"  HorizontalAlignment="Center" Source="Assets/Weapons/sword.png" Height="100" VerticalAlignment="Top"/>
@@ -91,9 +89,9 @@
         <TextBlock Grid.Row="4" Grid.Column="1" Margin="0,150,0,0" TextAlignment="Center" HorizontalAlignment="Center" Text="{x:Bind Mode=OneWay, Path=ViewModel.Announcement}" TextWrapping="Wrap" FontSize="30"/>
 
 
-        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Name="Character1ContentDialogGrid" Margin="260,0,0,0">
+        <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Name="Character1ContentDialogGrid" Margin="260,0,0,260">
         </Grid>
-        <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Name="Character2ContentDialogGrid" Margin="0,0,260,0">
+        <Grid Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Name="Character2ContentDialogGrid" Margin="0,0,260,260">
         </Grid>
     </Grid>
 </Page>
