@@ -33,14 +33,14 @@ namespace CoolDuel
 
         private void AddFiveHitPoints_Click(object sender, RoutedEventArgs e)
         {
-            var character = GetActiveCharacter(sender);
+            var character = GetActiveCharacter<Button>(sender);
             character.IncreaseMaxHitPoints();
             CheckForBattleStart();
         }
 
         private void AddOneAttackDamage_Click(object sender, RoutedEventArgs e)
         {
-            var character = GetActiveCharacter(sender);
+            var character = GetActiveCharacter<Button>(sender);
 
             character.IncreaseAttackDamage();
             CheckForBattleStart();
@@ -48,28 +48,28 @@ namespace CoolDuel
 
         private void AddOneAttackRoll_Click(object sender, RoutedEventArgs e)
         {
-            var character = GetActiveCharacter(sender);
+            var character = GetActiveCharacter<Button>(sender);
             character.IncreaseAttackRoll();
             CheckForBattleStart();
         }
 
         private void AddOneDefenseRoll_Click(object sender, RoutedEventArgs e)
         {
-            var character = GetActiveCharacter(sender);
+            var character = GetActiveCharacter<Button>(sender);
             character.IncreaseDefenseRoll();
             CheckForBattleStart();
         }
 
         private void AddTwoCounterattackDamage_Click(object sender, RoutedEventArgs e)
         {
-            var character = GetActiveCharacter(sender);
+            var character = GetActiveCharacter<Button>(sender);
             character.IncreaseCounterattackDamageByTwo();
             CheckForBattleStart();
         }
 
-        private static CharacterViewModel GetActiveCharacter(object sender)
+        private static CharacterViewModel GetActiveCharacter<T>(object sender) where T : FrameworkElement
         {
-            return ((FrameworkElement)(sender as Button).Parent).DataContext as CharacterViewModel;
+            return ((FrameworkElement)(sender as T).Parent).DataContext as CharacterViewModel;
         }
 
         private void CheckForBattleStart()
@@ -176,9 +176,13 @@ namespace CoolDuel
             BattleAsync();
         }
 
-        private void ChangeWeapon_Click(object sender, RoutedEventArgs e)
+        private void Weapon_SelectionChanged(object sender, RoutedEventArgs e)
         {
-            throw new NotImplementedException();
+            var selectedComboBox = sender as ComboBox;
+            var selectedWeaponName = (selectedComboBox.SelectedItem as ComboBoxItem).Content.ToString();
+            var newWeapon = Weapon.GetWeapon(selectedWeaponName);
+            var character = GetActiveCharacter<ComboBox>(sender);
+            character.EquippedWeapon = newWeapon;
         }
 
         private void WeaponsComboBox_OnLoaded(object sender, RoutedEventArgs e)

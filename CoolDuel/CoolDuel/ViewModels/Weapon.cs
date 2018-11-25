@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace CoolDuel.ViewModels
@@ -44,11 +45,23 @@ namespace CoolDuel.ViewModels
             "Sword",
             new BitmapImage(new Uri("ms-appx:///Assets/Weapons/sword.png")),
             new BitmapImage(new Uri("ms-appx:///Assets/Weapons/sword_right_to_left.png")));
-            
+
+        public static Weapon Mace { get; } = new Weapon(
+            2,
+            "Mace",
+            new BitmapImage(new Uri("ms-appx:///Assets/Weapons/mace.jpg")),
+            new BitmapImage(new Uri("ms-appx:///Assets/Weapons/mace_right_to_left.jpg")));
+
 
         public static ObservableCollection<Weapon> AllWeapons { get; } = new ObservableCollection<Weapon>
         {
-            Sword
+            Sword,
+            Mace
         };
+
+        public static Weapon GetWeapon(string selectedWeaponName)
+        {
+            return AllWeapons.Single(weapon => weapon.Name == selectedWeaponName);
+        }
     }
 }
