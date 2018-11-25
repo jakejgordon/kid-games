@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -17,6 +18,8 @@ namespace CoolDuel
     public sealed partial class MainPage : Page
     {
         public DuelViewModel ViewModel;
+
+        public ObservableCollection<Weapon> Weapons = Weapon.AllWeapons;
 
         public MainPage()
         {
@@ -176,6 +179,12 @@ namespace CoolDuel
         private void ChangeWeapon_Click(object sender, RoutedEventArgs e)
         {
             throw new NotImplementedException();
+        }
+
+        private void WeaponsComboBox_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            var weaponsComboBox = sender as ComboBox;
+            weaponsComboBox.SelectedIndex = 0;
         }
     }
 }

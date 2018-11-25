@@ -43,7 +43,7 @@
                 </Button>
 
                 <ComboBox Grid.Row="5" Grid.Column="0" Header="Weapons Arsenal"
-                          ItemsSource="{x:Bind AvailableWeapons, Mode=TwoWay}" SelectedValue="Sword" DisplayMemberPath="AvailableWeapons.Name"/>
+                          ItemsSource="{x:Bind AvailableWeapons, Mode=TwoWay}" DisplayMemberPath="AvailableWeapons.Name" Loaded="WeaponsComboBox_OnLoaded"/>
 
                 <TextBlock Grid.Row="6" Grid.Column="0" Text="Attack Damage:" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                 <TextBlock Grid.Row="6" Grid.Column="1" Text="{x:Bind Path=AttackDamage, Mode=TwoWay}" FontSize="28"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
