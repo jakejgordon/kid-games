@@ -41,14 +41,14 @@
             var damageTaken = DefendingCharacter.TakeDamage(AttackingCharacter);
             var bonusDamage = new BonusDamage
             {
-                Damage = DefendingCharacter.CounterattackDamage,
+                Damage = DefendingCharacter.TotalCounterattackDamage,
                 Reason = BonusDamage.BonusDamageReason.Counterattack
             };
             DefendingCharacter.AddNextAttackBonusDamage(bonusDamage);
             return new CounterattackResult
             {
                 DamageTaken = damageTaken,
-                ResultText = $"{DefendingCharacter.Name} chose to take {damageTaken}. On their next attack, if they hit they will do an extra {DefendingCharacter.CounterattackDamage} damage!"
+                ResultText = $"{DefendingCharacter.Name} chose to take {damageTaken}. On their next attack, if they hit they will do an extra {DefendingCharacter.TotalCounterattackDamage} damage!"
             };
         }
     }

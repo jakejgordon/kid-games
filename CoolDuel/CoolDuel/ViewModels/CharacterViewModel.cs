@@ -14,24 +14,22 @@ namespace CoolDuel.ViewModels
     public class CharacterViewModel : INotifyPropertyChanged
     {
         public const int StartingHitPoints = 20;
-        public const int StartingAttackDamage = 2;
         public const int StartingAttributePoints = 3;
-        public const int StartingMaxAttackRoll = 6;
-        public const int StartingMaxDefenseRoll = 6;
-        public const int StartingCounterattackDamage = 2;
         public const int AttributeToHitPointRatio = 5;
         public const int AttributeToAttackDamageRatio = 1;
 
         private int _maxHitPoints = StartingHitPoints;
         private int _hitPoints = StartingHitPoints;
-        private int _maxAttackRoll = StartingMaxAttackRoll;
-        private int _maxDefenseRoll = StartingMaxDefenseRoll;
         private string _name;
         private int _availableAttributePoints = StartingAttributePoints;
-        private int _attackDamage = StartingAttackDamage;
+        private int _bonusAttackDamage;
+        private int _bonusAttackRoll;
+        private int _bonusDefenseRoll;
+        private int _bonusCounterattackDamage;
+
 
         private readonly Random _random = new Random();
-        private int _counterattackDamage = StartingCounterattackDamage;
+        private int _bonusCounterattackDamage_totalCounterattackDamage;
         private Weapon _equippedWeapon;
         private readonly bool _character1;
 
@@ -75,45 +73,57 @@ namespace CoolDuel.ViewModels
             }
         }
 
-        public int AttackDamage
+        public int BonusAttackDamage
         {
-            get => _attackDamage;
+            get => _bonusAttackDamage;
             set
             {
-                _attackDamage = value;
+                _bonusAttackDamage = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(TotalAttackDamage));
             }
         }
 
-        public int MaxAttackRoll
+        public int TotalAttackDamage => BonusAttackDamage + EquippedWeapon.AttackDamage;
+
+        public int BonusAttackRoll
         {
-            get => _maxAttackRoll;
+            get => _bonusAttackRoll;
             set
             {
-                _maxAttackRoll = value;
+                _bonusAttackRoll = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(TotalAttackRoll));
             }
         }
 
-        public int MaxDefenseRoll
+        public int TotalAttackRoll => BonusAttackRoll + EquippedWeapon.AttackRoll;
+
+        public int BonusDefenseRoll
         {
-            get => _maxDefenseRoll;
+            get => _bonusDefenseRoll;
             set
             {
-                _maxDefenseRoll = value;
+                _bonusDefenseRoll = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(TotalDefenseRoll));
             }
         }
 
-        public int CounterattackDamage
+        public int TotalDefenseRoll => BonusDefenseRoll + EquippedWeapon.DefenseRoll;
+
+        public int BonusCounterattackDamage
         {
-            get => _counterattackDamage;
+            get => _bonusCounterattackDamage;
             set
             {
-                _counterattackDamage = value;
+                _bonusCounterattackDamage = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(TotalCounterattackDamage));
             }
         }
+
+        public int TotalCounterattackDamage => BonusCounterattackDamage + EquippedWeapon.CounterAttackDamage;
 
         public Weapon EquippedWeapon
         {
@@ -123,6 +133,10 @@ namespace CoolDuel.ViewModels
                 _equippedWeapon = value;
 
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(TotalAttackDamage));
+                OnPropertyChanged(nameof(TotalDefenseRoll));
+                OnPropertyChanged(nameof(TotalAttackRoll));
+                OnPropertyChanged(nameof(TotalCounterattackDamage));
             }
         }
 
@@ -172,7 +186,7 @@ namespace CoolDuel.ViewModels
             ValidateAvailableAttributePoints();
 
             AvailableAttributePoints -= 1;
-            AttackDamage += AttributeToAttackDamageRatio;
+            BonusAttackDamage += AttributeToAttackDamageRatio;
             OnPropertyChanged(nameof(HasAttributePoints));
         }
 
@@ -181,7 +195,7 @@ namespace CoolDuel.ViewModels
             ValidateAvailableAttributePoints();
 
             AvailableAttributePoints -= 1;
-            MaxAttackRoll += 1;
+            BonusAttackRoll += 1;
             OnPropertyChanged(nameof(HasAttributePoints));
         }
 
@@ -190,16 +204,16 @@ namespace CoolDuel.ViewModels
             ValidateAvailableAttributePoints();
 
             AvailableAttributePoints -= 1;
-            MaxDefenseRoll += 1;
+            BonusDefenseRoll += 1;
             OnPropertyChanged(nameof(HasAttributePoints));
         }
 
-        public void IncreaseCounterattackDamageByTwo()
+        public void IncreaseCounterattackDamageByThree()
         {
             ValidateAvailableAttributePoints();
 
             AvailableAttributePoints -= 1;
-            CounterattackDamage += 2;
+            BonusCounterattackDamage += 3;
             OnPropertyChanged(nameof(HasAttributePoints));
         }
 
@@ -217,17 +231,17 @@ namespace CoolDuel.ViewModels
 
         public int GetDefenseRoll()
         {
-            return _random.Next(1, _maxDefenseRoll);
+            return _random.Next(1, TotalDefenseRoll);
         }
 
         public int GetBasicAttackRoll()
         {
-            return _random.Next(1, _maxAttackRoll);
+            return _random.Next(1, TotalAttackRoll);
         }
 
         public int TakeDamage(CharacterViewModel attackingCharacter)
         {
-            var totalDamage = attackingCharacter.AttackDamage + attackingCharacter.ConsumeOneTimeBonusDamage();
+            var totalDamage = attackingCharacter.TotalAttackDamage + attackingCharacter.ConsumeOneTimeBonusDamage();
             HitPoints -= totalDamage;
  
             return totalDamage;
@@ -286,5 +300,6 @@ namespace CoolDuel.ViewModels
         {
             Content = weapon.Name
         }).ToList();
+
     }
 }

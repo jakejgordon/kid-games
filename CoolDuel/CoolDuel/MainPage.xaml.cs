@@ -60,10 +60,10 @@ namespace CoolDuel
             CheckForBattleStart();
         }
 
-        private void AddTwoCounterattackDamage_Click(object sender, RoutedEventArgs e)
+        private void AddThreeCounterattackDamage_Click(object sender, RoutedEventArgs e)
         {
             var character = GetActiveCharacter<Button>(sender);
-            character.IncreaseCounterattackDamageByTwo();
+            character.IncreaseCounterattackDamageByThree();
             CheckForBattleStart();
         }
 
@@ -89,8 +89,8 @@ namespace CoolDuel
                 Title = $"{basicAttack.AttackingCharacter.Name} is attacking {basicAttack.DefendingCharacter.Name}!",
                 Content =
                     $"{basicAttack.AttackingCharacter.Name} rolled a {basicAttack.AttackRoll}! Does {basicAttack.DefendingCharacter.Name} "
-                    + $"want to attempt to block the attack with a maximum defense roll of {basicAttack.DefendingCharacter.MaxDefenseRoll} "
-                    + $" --OR-- do they want to take the hit and {basicAttack.DefendingCharacter.CounterattackDamage} counterattack damage to the next attack if it hits?",
+                    + $"want to attempt to block the attack with a maximum defense roll of {basicAttack.DefendingCharacter.TotalDefenseRoll} "
+                    + $" --OR-- do they want to take the hit and {basicAttack.DefendingCharacter.TotalCounterattackDamage} counterattack damage to the next attack if it hits?",
                 CloseButtonText = "Counterattack",
                 PrimaryButtonText = "Block"
             };
