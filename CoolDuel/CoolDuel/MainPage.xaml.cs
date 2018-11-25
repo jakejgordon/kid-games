@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using CoolDuel.ViewModels;
@@ -20,8 +22,10 @@ namespace CoolDuel
         {
             InitializeComponent();
             ViewModel = new DuelViewModel();
-            Character1Grid.DataContext = ViewModel.Character1;
-            Character2Grid.DataContext = ViewModel.Character2;
+            Character1ContentControl.DataContext = ViewModel.Character1;
+            Character2ContentControl.DataContext = ViewModel.Character2;
+            ViewModel.Character1.AvailableWeapons[0].IsSelected = true;
+            ViewModel.Character2.AvailableWeapons[0].IsSelected = true;
         }
 
         private void AddFiveHitPoints_Click(object sender, RoutedEventArgs e)
@@ -88,7 +92,20 @@ namespace CoolDuel
                 PrimaryButtonText = "Block"
             };
 
-            ContentDialogResult result = await defenseDialog.ShowAsync();
+            //--add teh dialog to the grid so it will show in the appropriate place on the page
+            if (ViewModel.Character1Turn)
+            {
+                Character2ContentDialogGrid.Children.Add(defenseDialog);
+            }else
+            {
+                Character1ContentDialogGrid.Children.Add(defenseDialog);
+            }
+
+            Grid.SetColumn(defenseDialog, 0);
+            Grid.SetRow(defenseDialog, 0);
+            
+            //--set to in place so the dialog shows centered in the parent grid 
+            ContentDialogResult result = await defenseDialog.ShowAsync(ContentDialogPlacement.InPlace);
             if (result == ContentDialogResult.Primary)
             {
                 var defenseResult = basicAttack.Defend();

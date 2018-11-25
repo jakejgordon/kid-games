@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using CoolDuel.Annotations;
@@ -278,5 +281,10 @@ namespace CoolDuel.ViewModels
                 return EquippedWeapon.ImageSourceFlowDirectionRightToLeft;
             }
         }
+
+        public List<ComboBoxItem> AvailableWeapons = Weapon.AllWeapons.Select(weapon => new ComboBoxItem
+        {
+            Content = weapon.Name
+        }).ToList();
     }
 }

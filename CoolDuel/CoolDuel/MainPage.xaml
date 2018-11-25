@@ -11,7 +11,7 @@
 
     <Page.Resources>
         <DataTemplate x:Key="CharacterGridDataTemplate" x:DataType="viewmodel:CharacterViewModel">
-            <Grid HorizontalAlignment="Left" Margin="75,20,0,0">
+            <Grid Name="{x:Bind Name}"  HorizontalAlignment="Left" Margin="75,20,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
@@ -41,6 +41,10 @@
                 <Button Grid.Row="4" Grid.Column="0" Margin="0,20,0,0" Click="ChangeWeapon_Click" HorizontalAlignment="Center" ToolTipService.ToolTip="Change your weapon">
                     <Image Source="{x:Bind Path=EquippedWeapon.ImageSourceFlowDirectionLeftToRight}"></Image>
                 </Button>
+
+                <ComboBox Grid.Row="5" Grid.Column="0" Header="Weapons Arsenal"
+                          ItemsSource="{x:Bind AvailableWeapons, Mode=TwoWay}" SelectedValue="Sword" DisplayMemberPath="AvailableWeapons.Name"/>
+
                 <TextBlock Grid.Row="6" Grid.Column="0" Text="Attack Damage:" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                 <TextBlock Grid.Row="6" Grid.Column="1" Text="{x:Bind Path=AttackDamage, Mode=TwoWay}" FontSize="28"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 <Button Grid.Row="6" Grid.Column="2" IsEnabled="{x:Bind Path=HasAttributePoints, Mode=OneWay}" Content="+" ToolTipService.ToolTip="Add 1 bonus damage to each hit you make" HorizontalAlignment="Left" VerticalAlignment="Center" Click="AddOneAttackDamage_Click"/>
@@ -79,13 +83,30 @@
         <Button Grid.Row="3" Grid.Column="1" Margin="0,50,0,0" Name="AttackButton" IsEnabled="False" HorizontalContentAlignment="Center" Click="Attack_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100">
             <Image Name="AttackImage"  HorizontalAlignment="Center" Source="Assets/Weapons/sword.png" Height="100" VerticalAlignment="Top"/>
         </Button>
+
+        <ContentControl Grid.Row="3" Grid.RowSpan="2" Grid.Column="0" Name="Character1ContentControl"  HorizontalAlignment="Center" VerticalAlignment="Top" ContentTemplate="{StaticResource CharacterGridDataTemplate}"></ContentControl>
+
+        <ContentControl Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Name="Character2ContentControl"  HorizontalAlignment="Center" VerticalAlignment="Top" ContentTemplate="{StaticResource CharacterGridDataTemplate}"></ContentControl>
+
         <TextBlock Grid.Row="4" Grid.Column="1" Margin="0,150,0,0" TextAlignment="Center" HorizontalAlignment="Center" Text="{x:Bind Mode=OneWay, Path=ViewModel.Announcement}" TextWrapping="Wrap" FontSize="30"/>
 
-        <ContentControl Grid.Row="3" Grid.RowSpan="2" Grid.Column="0" Name="Character1Grid"  HorizontalAlignment="Center" VerticalAlignment="Top" ContentTemplate="{StaticResource CharacterGridDataTemplate}"></ContentControl>
 
-        <ContentControl Grid.Row="3" Grid.RowSpan="2" Grid.Column="2" Name="Character2Grid"  HorizontalAlignment="Center" VerticalAlignment="Top" ContentTemplate="{StaticResource CharacterGridDataTemplate}"></ContentControl>
-
-       
+        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Name="Character1ContentDialogGrid" Margin="260,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+        </Grid>
+        <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Name="Character2ContentDialogGrid" Margin="0,0,260,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+        </Grid>
     </Grid>
 
     <!--<ComboBox SelectedItem="{x:Bind Path=ViewModel.Character1.EquippedWeapon}"

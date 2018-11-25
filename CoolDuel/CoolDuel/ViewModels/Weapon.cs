@@ -1,20 +1,54 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace CoolDuel.ViewModels
 {
     public class Weapon
     {
-        public static Weapon Sword { get; } = new Weapon
+        public int Id { get; }
+        public string Name { get; }
+        public BitmapImage ImageSourceFlowDirectionLeftToRight { get; }
+
+        public BitmapImage ImageSourceFlowDirectionRightToLeft { get; }
+
+        public Weapon(int id, string name, BitmapImage leftToRightImage, BitmapImage rightToLeftImage)
         {
-            Name = "Sword",
-            ImageSourceFlowDirectionLeftToRight = new BitmapImage(new Uri("ms-appx:///Assets/Weapons/sword.png")),
-            ImageSourceFlowDirectionRightToLeft = new BitmapImage(new Uri("ms-appx:///Assets/Weapons/sword_right_to_left.png"))
+            Id = id;
+            Name = name;
+            ImageSourceFlowDirectionLeftToRight = leftToRightImage;
+            ImageSourceFlowDirectionRightToLeft = rightToLeftImage;
+        }
+
+        protected bool Equals(Weapon other)
+        {
+            return Id == other.Id;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+            if (obj.GetType() != this.GetType()) return false;
+            return Equals((Weapon)obj);
+        }
+
+        public override int GetHashCode()
+        {
+            return Id;
+        }
+
+        public static Weapon Sword { get; } = new Weapon(
+            1, 
+            "Sword",
+            new BitmapImage(new Uri("ms-appx:///Assets/Weapons/sword.png")),
+            new BitmapImage(new Uri("ms-appx:///Assets/Weapons/sword_right_to_left.png")));
+            
+
+        public static ObservableCollection<Weapon> AllWeapons { get; } = new ObservableCollection<Weapon>
+        {
+            Sword
         };
-
-        public BitmapImage ImageSourceFlowDirectionLeftToRight { get; set; }
-
-        public string Name { get; set; }
-        public BitmapImage ImageSourceFlowDirectionRightToLeft { get; set; }
     }
 }
