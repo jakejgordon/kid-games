@@ -53,30 +53,84 @@ namespace CoolDuel.ViewModels
         }
 
         public static Weapon Sword { get; } = new Weapon(
-            1, 
-            "Sword",
-            2,
-            6,
-            5,
-            3,
-            new BitmapImage(new Uri("ms-appx:///Assets/Weapons/sword.png")),
-            new BitmapImage(new Uri("ms-appx:///Assets/Weapons/sword_right_to_left.png")));
+            id: 1, 
+            name: "Sword",
+            attackDamage: 2,
+            attackRoll: 6,
+            defenseRoll: 5,
+            counterAttackDamage:3,
+            leftToRightImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/sword.png")),
+            rightToLeftImage:new BitmapImage(new Uri("ms-appx:///Assets/Weapons/sword_right_to_left.png")));
 
         public static Weapon Mace { get; } = new Weapon(
-            2,
-            "Mace",
-            2,
-            7,
-            4,
-            4,
-            new BitmapImage(new Uri("ms-appx:///Assets/Weapons/mace.jpg")),
-            new BitmapImage(new Uri("ms-appx:///Assets/Weapons/mace_right_to_left.jpg")));
+            id: 2,
+            name: "Mace",
+            attackDamage: 2,
+            attackRoll: 7,
+            defenseRoll: 4,
+            counterAttackDamage: 4,
+            leftToRightImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/mace.jpg")),
+            rightToLeftImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/mace_right_to_left.jpg")));
 
+        public static Weapon Spear { get; } = new Weapon(
+            id: 3,
+            name: "Spear",
+            attackDamage: 2,
+            attackRoll: 8,
+            defenseRoll: 3,
+            counterAttackDamage: 4,
+             leftToRightImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/spear.png")),
+            rightToLeftImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/spear_right_to_left.png")));
+
+        public static Weapon WarHammer { get; } = new Weapon(
+            id: 4,
+            name: "War Hammer",
+            attackDamage: 4,
+            attackRoll: 6,
+            defenseRoll: 2,
+            counterAttackDamage: 3,
+            leftToRightImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/war_hammer.jpg")),
+            rightToLeftImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/war_hammer_right_to_left.jpg")));
+
+        public static Weapon OneHandedAxe { get; } = new Weapon(
+            id: 5,
+            name: "One-Handed Axe",
+            attackDamage: 3,
+            attackRoll: 5,
+            defenseRoll: 4,
+            counterAttackDamage: 4,
+            leftToRightImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/one_handed_axe.png")),
+            rightToLeftImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/one_handed_axe_right_to_left.png")));
+
+        public static Weapon TwoHandedAxe { get; } = new Weapon(
+            id: 6,
+            name: "Two-Handed Axe",
+            attackDamage: 5,
+            attackRoll: 5,
+            defenseRoll: 3,
+            counterAttackDamage: 4,
+            leftToRightImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/two_handed_axe.jpg")),
+            rightToLeftImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/one_handed_axe_right_to_left.jpg")));
+
+        public static Weapon BoStaff { get; } = new Weapon(
+            id: 7,
+            name: "Bo Staff",
+            attackDamage: 1,
+            attackRoll: 8,
+            defenseRoll: 6,
+            counterAttackDamage: 1,
+            leftToRightImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/bo_staff.png")),
+            rightToLeftImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/bo_staff_right_to_left.png")));
 
         public static ObservableCollection<Weapon> AllWeapons { get; } = new ObservableCollection<Weapon>
         {
             Sword,
-            Mace
+            Mace,
+            Spear,
+            WarHammer,
+            OneHandedAxe,
+            TwoHandedAxe,
+            BoStaff
         };
 
         public static Weapon GetWeapon(string selectedWeaponName)
