@@ -68,7 +68,7 @@ namespace CoolDuel.ViewModels
             attackDamage: 2,
             attackRoll: 7,
             defenseRoll: 4,
-            counterAttackDamage: 4,
+            counterAttackDamage: 3,
             leftToRightImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/mace.jpg")),
             rightToLeftImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/mace_right_to_left.jpg")));
 
@@ -78,7 +78,7 @@ namespace CoolDuel.ViewModels
             attackDamage: 2,
             attackRoll: 8,
             defenseRoll: 3,
-            counterAttackDamage: 4,
+            counterAttackDamage: 3,
              leftToRightImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/spear.png")),
             rightToLeftImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/spear_right_to_left.png")));
 
@@ -88,7 +88,7 @@ namespace CoolDuel.ViewModels
             attackDamage: 4,
             attackRoll: 6,
             defenseRoll: 2,
-            counterAttackDamage: 3,
+            counterAttackDamage: 4,
             leftToRightImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/war_hammer.jpg")),
             rightToLeftImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/war_hammer_right_to_left.jpg")));
 
@@ -106,7 +106,7 @@ namespace CoolDuel.ViewModels
             id: 6,
             name: "Two-Handed Axe",
             attackDamage: 5,
-            attackRoll: 5,
+            attackRoll: 4,
             defenseRoll: 3,
             counterAttackDamage: 4,
             leftToRightImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/two_handed_axe.jpg")),
