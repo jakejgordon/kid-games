@@ -86,7 +86,7 @@ namespace CoolDuel
 
             var defenseDialog = new ContentDialog
             {
-                Title = $"{basicAttack.AttackingCharacter.Name} is attacking {basicAttack.DefendingCharacter.Name}!",
+                Title = $"{basicAttack.DefendingCharacter.Name} Is Under Attack!",
                 Content =
                     $"{basicAttack.AttackingCharacter.Name} rolled a {basicAttack.AttackRoll}! Does {basicAttack.DefendingCharacter.Name} "
                     + $"want to attempt to block the attack with a maximum defense roll of {basicAttack.DefendingCharacter.TotalDefenseRoll} "
@@ -106,9 +106,14 @@ namespace CoolDuel
 
             Grid.SetColumn(defenseDialog, 0);
             Grid.SetRow(defenseDialog, 0);
-            
+
+            Character1ContentControl.IsEnabled = false;
+            Character2ContentControl.IsEnabled = false;
+
             //--set to in place so the dialog shows centered in the parent grid 
             ContentDialogResult result = await defenseDialog.ShowAsync(ContentDialogPlacement.InPlace);
+            Character1ContentControl.IsEnabled = true;
+            Character2ContentControl.IsEnabled = true;
             if (result == ContentDialogResult.Primary)
             {
                 var defenseResult = basicAttack.Defend();
