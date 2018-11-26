@@ -60,7 +60,7 @@
                     </Grid.RowDefinitions>
 
                     <ComboBox Grid.Row="0" Grid.Column="0" Header="Weapons Arsenal" ItemsSource="{x:Bind AvailableWeapons, Mode=TwoWay}" DisplayMemberPath="AvailableWeapons.Name" Loaded="WeaponsComboBox_OnLoaded" SelectionChanged="Weapon_SelectionChanged"/>
-                    <Image Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" MaxHeight="100" HorizontalAlignment="Center" Source="{x:Bind Path=EquippedWeapon.ImageSourceFlowDirectionLeftToRight, Mode=OneWay}" ToolTipService.ToolTip="Your current weapon"></Image>
+                    <Image Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" MaxHeight="100" HorizontalAlignment="Center" Source="{x:Bind Path=WeaponImage, Mode=OneWay}" ToolTipService.ToolTip="Your current weapon"></Image>
 
                     <TextBlock Grid.Row="0" Grid.Column="1" Text="Attack Damage:" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                     <TextBlock Grid.Row="0" Grid.Column="2" Text="{x:Bind Path=EquippedWeapon.AttackDamage, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
