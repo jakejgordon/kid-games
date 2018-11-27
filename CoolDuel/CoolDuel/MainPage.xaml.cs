@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -18,8 +17,6 @@ namespace CoolDuel
     public sealed partial class MainPage : Page
     {
         public DuelViewModel ViewModel;
-
-        public ObservableCollection<Weapon> Weapons = Weapon.AllWeapons;
 
         public MainPage()
         {
@@ -42,28 +39,28 @@ namespace CoolDuel
         {
             var character = GetActiveCharacter<Button>(sender);
 
-            character.IncreaseAttackDamage();
+            character.IncreaseBonusAttackDamage();
             CheckForBattleStart();
         }
 
         private void AddOneAttackRoll_Click(object sender, RoutedEventArgs e)
         {
             var character = GetActiveCharacter<Button>(sender);
-            character.IncreaseAttackRoll();
+            character.IncreaseBonusAttackRoll();
             CheckForBattleStart();
         }
 
         private void AddOneDefenseRoll_Click(object sender, RoutedEventArgs e)
         {
             var character = GetActiveCharacter<Button>(sender);
-            character.IncreaseDefenseRoll();
+            character.IncreaseBonusDefenseRoll();
             CheckForBattleStart();
         }
 
-        private void AddThreeCounterattackDamage_Click(object sender, RoutedEventArgs e)
+        private void AddCounterattackDamage_Click(object sender, RoutedEventArgs e)
         {
             var character = GetActiveCharacter<Button>(sender);
-            character.IncreaseCounterattackDamageByThree();
+            character.IncreaseBonusCounterattackDamage();
             CheckForBattleStart();
         }
 
@@ -95,25 +92,7 @@ namespace CoolDuel
                 PrimaryButtonText = "Block"
             };
 
-            //--add teh dialog to the grid so it will show in the appropriate place on the page
-            if (ViewModel.Character1Turn)
-            {
-                Character2ContentDialogGrid.Children.Add(defenseDialog);
-            }else
-            {
-                Character1ContentDialogGrid.Children.Add(defenseDialog);
-            }
-
-            Grid.SetColumn(defenseDialog, 0);
-            Grid.SetRow(defenseDialog, 0);
-
-            Character1ContentControl.IsEnabled = false;
-            Character2ContentControl.IsEnabled = false;
-
-            //--set to in place so the dialog shows centered in the parent grid 
-            ContentDialogResult result = await defenseDialog.ShowAsync(ContentDialogPlacement.InPlace);
-            Character1ContentControl.IsEnabled = true;
-            Character2ContentControl.IsEnabled = true;
+            var result = await ShowCharacterSpecificDialog(defenseDialog, ViewModel.Character1Turn);
             if (result == ContentDialogResult.Primary)
             {
                 var defenseResult = basicAttack.Defend();
@@ -131,6 +110,31 @@ namespace CoolDuel
             await CheckForGameEnd(basicAttack);
 
             SwitchTurns();
+        }
+
+        private async Task<ContentDialogResult> ShowCharacterSpecificDialog(ContentDialog dialog, bool showOnCharacter1Side)
+        {
+            //--add the dialog to the grid so it will show in the appropriate place on the page
+            if (showOnCharacter1Side)
+            {
+                Character2ContentDialogGrid.Children.Add(dialog);
+            }
+            else
+            {
+                Character1ContentDialogGrid.Children.Add(dialog);
+            }
+
+            Grid.SetColumn(dialog, 0);
+            Grid.SetRow(dialog, 0);
+
+            Character1ContentControl.IsEnabled = false;
+            Character2ContentControl.IsEnabled = false;
+
+            //--set to in place so the dialog shows centered in the parent grid 
+            ContentDialogResult result = await dialog.ShowAsync(ContentDialogPlacement.InPlace);
+            Character1ContentControl.IsEnabled = true;
+            Character2ContentControl.IsEnabled = true;
+            return result;
         }
 
         private async Task CheckForGameEnd(BasicAttack basicAttack)
@@ -163,9 +167,54 @@ namespace CoolDuel
         private void SwitchTurns()
         {
             ViewModel.Character1Turn = !ViewModel.Character1Turn;
+            if (ViewModel.Character1Turn)
+            {
+                ViewModel.RoundNumber++;
+                CheckForSkillUp();
+            }
 
             AttackImage.Source = ViewModel.Character1Turn ? ViewModel.Character1.WeaponImage 
                 : ViewModel.Character2.WeaponImage;
+        }
+
+        private async void CheckForSkillUp()
+        {
+            var randomNumberUpTo10 = new Random().Next(1, 100);
+            if (randomNumberUpTo10 <= 30 + (ViewModel.RoundNumber*3))
+            {
+                await PromptForSkillUpChoice(ViewModel.Character1);
+                await PromptForSkillUpChoice(ViewModel.Character2);
+            }
+        }
+
+        private async Task PromptForSkillUpChoice(CharacterViewModel character)
+        {
+            var skillUpOptions = new SkillUpOptions();
+
+            var characterSkillUpDialog = new ContentDialog
+            {
+                Title = $"{character.Name} Skill Up!",
+                Content =
+                    $"{character.Name} is getting more skilled in combat! Pick a bonus which you'll have for the rest of the duel:",
+                PrimaryButtonText = skillUpOptions.Option1Text,
+                CloseButtonText = skillUpOptions.Option2Text
+            };
+
+            var result = await ShowCharacterSpecificDialog(characterSkillUpDialog, character.Character1);
+            if (result == ContentDialogResult.Primary)
+            {
+                skillUpOptions.ApplyOption1Bonus(character);
+                ViewModel.Announcement = $"{character.Name} now has {skillUpOptions.Option1Text}";
+            }
+            else if (result == ContentDialogResult.None)
+            {
+                skillUpOptions.ApplyOption2Bonus(ViewModel.Character1);
+                ViewModel.Announcement = $"{character.Name} now has {skillUpOptions.Option2Text}";
+            }
+            else
+            {
+                throw new InvalidOperationException("Invalid ContentDialogResult detected");
+            }
         }
 
         private void StartBattleAnimation()

@@ -10,6 +10,8 @@ namespace CoolDuel.ViewModels
         private bool _character1Turn = true;
         public CharacterViewModel Character1 { get; set; }
         public CharacterViewModel Character2 { get; set; }
+        public int RoundNumber { get; set; } = 1;
+
         public string Announcement
         {
             get => _announcement;
@@ -43,7 +45,6 @@ namespace CoolDuel.ViewModels
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-
 
         public BasicAttack NextAttack()
         {

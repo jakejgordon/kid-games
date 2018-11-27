@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -13,11 +12,21 @@ namespace CoolDuel.ViewModels
 {
     public class CharacterViewModel : INotifyPropertyChanged
     {
-        public const int StartingHitPoints = 20;
-        public const int StartingAttributePoints = 3;
-        public const int AttributeToHitPointRatio = 5;
-        public const int AttributeToAttackDamageRatio = 1;
+        public static readonly int StartingHitPoints = 20;
+        public static readonly  int StartingAttributePoints = 3;
+        public static readonly  int AttributeToHitPointRatio = 5;
+        public static readonly  int AttributeToAttackDamageRatio = 1;
+        public static readonly int AttributeToAttackRollRatio = 1;
+        public static readonly int AttributeToDefenseRollRatio = 1;
+        public static readonly int AttributeToCounterattackDamageRatio = 2;
 
+        //--this was the only way I could find to get dynamic messages in UWP :(
+        public string AddCounterattackDamageMessage = XamlMessages.AddCounterattackDamageMessage;
+        public string AddAttackDamageMessage = XamlMessages.AddAttackDamageMessage;
+        public string AddAttackRollMessage = XamlMessages.AddAttackRollMessage;
+        public string AddDefenseRollMessage = XamlMessages.AddDefenseRollMessage;
+        public string AddHitPointsMessage = XamlMessages.AddHitPointsMessage;
+        
         private int _maxHitPoints = StartingHitPoints;
         private int _hitPoints = StartingHitPoints;
         private string _name;
@@ -29,13 +38,12 @@ namespace CoolDuel.ViewModels
 
 
         private readonly Random _random = new Random();
-        private int _bonusCounterattackDamage_totalCounterattackDamage;
         private Weapon _equippedWeapon;
-        private readonly bool _character1;
+        public bool Character1 { get; }
 
         public CharacterViewModel(bool character1, Weapon weapon)
         {
-            _character1 = character1;
+            Character1 = character1;
             //--use the property so the fancy setter stuff runs
             EquippedWeapon = weapon;
             CharacterImage = character1
@@ -50,6 +58,7 @@ namespace CoolDuel.ViewModels
             {
                 _availableAttributePoints = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(HasAttributePoints));
             }
         }
 
@@ -161,16 +170,6 @@ namespace CoolDuel.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
-        public void IncreaseMaxHitPoints()
-        {
-            ValidateAvailableAttributePoints();
-
-            AvailableAttributePoints -= 1;
-            MaxHitPoints += AttributeToHitPointRatio;
-            HitPoints += AttributeToHitPointRatio;
-            OnPropertyChanged(nameof(HasAttributePoints));
-        }
-
         private void ValidateAvailableAttributePoints()
         {
             if (AvailableAttributePoints <= 0)
@@ -180,42 +179,47 @@ namespace CoolDuel.ViewModels
             }
         }
 
+        public void IncreaseMaxHitPoints()
+        {
+            ValidateAvailableAttributePoints();
+
+            AvailableAttributePoints -= 1;
+            MaxHitPoints += AttributeToHitPointRatio;
+            HitPoints += AttributeToHitPointRatio;
+        }
+
         public bool HasAttributePoints => AvailableAttributePoints > 0;
 
-        public void IncreaseAttackDamage()
+        public void IncreaseBonusAttackDamage()
         {
             ValidateAvailableAttributePoints();
 
             AvailableAttributePoints -= 1;
             BonusAttackDamage += AttributeToAttackDamageRatio;
-            OnPropertyChanged(nameof(HasAttributePoints));
         }
 
-        public void IncreaseAttackRoll()
+        public void IncreaseBonusAttackRoll()
         {
             ValidateAvailableAttributePoints();
 
             AvailableAttributePoints -= 1;
             BonusAttackRoll += 1;
-            OnPropertyChanged(nameof(HasAttributePoints));
         }
 
-        public void IncreaseDefenseRoll()
+        public void IncreaseBonusDefenseRoll()
         {
             ValidateAvailableAttributePoints();
 
             AvailableAttributePoints -= 1;
-            BonusDefenseRoll += 1;
-            OnPropertyChanged(nameof(HasAttributePoints));
+            BonusDefenseRoll += AttributeToDefenseRollRatio;
         }
 
-        public void IncreaseCounterattackDamageByThree()
+        public void IncreaseBonusCounterattackDamage()
         {
             ValidateAvailableAttributePoints();
 
             AvailableAttributePoints -= 1;
-            BonusCounterattackDamage += 3;
-            OnPropertyChanged(nameof(HasAttributePoints));
+            BonusCounterattackDamage += AttributeToCounterattackDamageRatio;
         }
 
         public BasicAttack MakeBasicAttack(CharacterViewModel defendingCharacter)
@@ -288,7 +292,7 @@ namespace CoolDuel.ViewModels
         {
             get
             {
-                if (_character1)
+                if (Character1)
                 {
                     return EquippedWeapon.ImageSourceFlowDirectionLeftToRight;
                 }
@@ -301,6 +305,5 @@ namespace CoolDuel.ViewModels
         {
             Content = weapon.Name
         }).ToList();
-
     }
 }
