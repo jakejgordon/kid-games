@@ -92,7 +92,8 @@ namespace CoolDuel
                 PrimaryButtonText = "Block"
             };
 
-            var result = await ShowCharacterSpecificDialog(defenseDialog, ViewModel.Character1Turn);
+            //--show dialog on opposite side of attacker
+            var result = await ShowCharacterSpecificDialog(defenseDialog, !ViewModel.Character1Turn);
             if (result == ContentDialogResult.Primary)
             {
                 var defenseResult = basicAttack.Defend();
@@ -117,11 +118,11 @@ namespace CoolDuel
             //--add the dialog to the grid so it will show in the appropriate place on the page
             if (showOnCharacter1Side)
             {
-                Character2ContentDialogGrid.Children.Add(dialog);
+                Character1ContentDialogGrid.Children.Add(dialog);
             }
             else
             {
-                Character1ContentDialogGrid.Children.Add(dialog);
+                Character2ContentDialogGrid.Children.Add(dialog);
             }
 
             Grid.SetColumn(dialog, 0);
@@ -208,7 +209,7 @@ namespace CoolDuel
             }
             else if (result == ContentDialogResult.None)
             {
-                skillUpOptions.ApplyOption2Bonus(ViewModel.Character1);
+                skillUpOptions.ApplyOption2Bonus(character);
                 ViewModel.Announcement = $"{character.Name} now has {skillUpOptions.Option2Text}";
             }
             else

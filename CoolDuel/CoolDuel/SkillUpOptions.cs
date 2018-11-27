@@ -69,7 +69,7 @@ namespace CoolDuel
 
         private void ApplySkillUp(CharacterViewModel character, SkillUpOptionEnum skillUpOption)
         {
-            switch (Option1SkillUp)
+            switch (skillUpOption)
             {
                 case SkillUpOptionEnum.IncreaseAttackDamage:
                     character.BonusAttackDamage += CharacterViewModel.AttributeToAttackDamageRatio;
