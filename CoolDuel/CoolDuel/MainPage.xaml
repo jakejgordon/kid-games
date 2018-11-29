@@ -60,7 +60,7 @@
                     </Grid.RowDefinitions>
 
                     <ComboBox Grid.Row="0" Grid.Column="0" Header="Weapons Arsenal" ItemsSource="{x:Bind AvailableWeapons, Mode=TwoWay}" DisplayMemberPath="AvailableWeapons.Name" Loaded="WeaponsComboBox_OnLoaded" SelectionChanged="Weapon_SelectionChanged"/>
-                    <Image Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" MaxHeight="100" HorizontalAlignment="Center" Source="{x:Bind Path=WeaponImage, Mode=OneWay}" ToolTipService.ToolTip="Your current weapon"></Image>
+                    <Image Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" MaxHeight="100" HorizontalAlignment="Center" Source="{x:Bind WeaponImage, Mode=OneWay}" ToolTipService.ToolTip="Your current weapon"></Image>
 
                     <TextBlock Grid.Row="0" Grid.Column="1" Text="Attack Damage:" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                     <TextBlock Grid.Row="0" Grid.Column="2" Text="{x:Bind Path=EquippedWeapon.AttackDamage, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
@@ -114,8 +114,10 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="Welcome to Cool Duel!" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Center"  HorizontalTextAlignment="Center" FontSize="40"/>
 
+        <TextBlock Name="RoundNumber" Grid.Row="3" Grid.Column="2" Margin="0,15,0,0" FontSize="20" Visibility="Collapsed" Text="{x:Bind ViewModel.RoundNumberText, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Top"></TextBlock>
+
         <Button Grid.Row="3" Grid.Column="2" Margin="0,50,0,0" Name="AttackButton" IsEnabled="False" HorizontalContentAlignment="Center" Click="Attack_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100">
-            <Image Name="AttackImage"  HorizontalAlignment="Center" Source="Assets/Weapons/sword.png" Height="100" VerticalAlignment="Top"/>
+            <Image Name="AttackImage" HorizontalAlignment="Center" Source="Assets/Weapons/sword.png" Height="100" VerticalAlignment="Top"/>
         </Button>
 
         <ContentControl Grid.Row="3" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" Name="Character1ContentControl"  HorizontalAlignment="Center" VerticalAlignment="Top" ContentTemplate="{StaticResource CharacterGridDataTemplate}"></ContentControl>

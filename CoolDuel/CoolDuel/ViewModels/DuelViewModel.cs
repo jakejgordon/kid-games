@@ -8,9 +8,26 @@ namespace CoolDuel.ViewModels
     {
         private string _announcement = "Prepare For Battle!";
         private bool _character1Turn = true;
+        private int _roundNumber;
         public CharacterViewModel Character1 { get; set; }
         public CharacterViewModel Character2 { get; set; }
-        public int RoundNumber { get; set; } = 1;
+
+        public int RoundNumber
+        {
+            get => _roundNumber;
+            set
+            {
+                _roundNumber = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(GameNotStarted));
+                OnPropertyChanged(nameof(RoundNumberText));
+            }
+        }
+
+        public string RoundNumberText => $"Round Number: {_roundNumber}";
+
+        public bool GameNotStarted => RoundNumber == 0;
+
 
         public string Announcement
         {

@@ -224,6 +224,8 @@ namespace CoolDuel
             
             ViewModel.Announcement = announcement;
             AttackButton.IsEnabled = true;
+            ViewModel.RoundNumber = 1;
+            RoundNumber.Visibility = Visibility.Visible;
         }
 
         private void Attack_Click(object sender, RoutedEventArgs e)
