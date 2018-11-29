@@ -238,6 +238,12 @@ namespace CoolDuel
             var newWeapon = Weapon.GetWeapon(selectedWeaponName);
             var character = GetActiveCharacter<ComboBox>(sender);
             character.EquippedWeapon = newWeapon;
+            //--if it is this player's turn then update the attack weapon image
+            if (character.Character1 == ViewModel.Character1Turn
+                || !character.Character1 != ViewModel.Character1Turn)
+            {
+                AttackImage.Source = character.WeaponImage;
+            }
         }
 
         private void WeaponsComboBox_OnLoaded(object sender, RoutedEventArgs e)
