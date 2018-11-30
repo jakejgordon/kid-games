@@ -110,7 +110,7 @@ namespace CoolDuel.ViewModels
             defenseRoll: 3,
             counterAttackDamage: 4,
             leftToRightImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/two_handed_axe.jpg")),
-            rightToLeftImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/one_handed_axe_right_to_left.jpg")));
+            rightToLeftImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/two_handed_axe_right_to_left.jpg")));
 
         public static Weapon BoStaff { get; } = new Weapon(
             id: 7,
