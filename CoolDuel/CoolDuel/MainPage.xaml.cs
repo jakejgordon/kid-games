@@ -164,11 +164,25 @@ namespace CoolDuel
             if (ViewModel.Character1Turn)
             {
                 ViewModel.RoundNumber++;
+                ShiftAttackButtonToCharacter1();
+                AttackImage.Source = ViewModel.Character1.WeaponImage;
                 CheckForSkillUp();
             }
+            else
+            {
+                ShiftAttackImageToCharacter2();
+                AttackImage.Source = ViewModel.Character2.WeaponImage;
+            }
 
-            AttackImage.Source = ViewModel.Character1Turn ? ViewModel.Character1.WeaponImage 
-                : ViewModel.Character2.WeaponImage;
+            void ShiftAttackButtonToCharacter1()
+            {
+                AttackButton.Margin = new Thickness(0, 50, 250, 0);
+            }
+
+            void ShiftAttackImageToCharacter2()
+            {
+                AttackButton.Margin = new Thickness(250, 50, 0, 0);
+            }
         }
 
         private async void CheckForSkillUp()
