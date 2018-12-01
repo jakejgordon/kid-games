@@ -12,27 +12,27 @@ namespace CoolDuel
         {
             new SkillUpOption
             {
-                DisplayText = $"Plus {CharacterViewModel.AttributeToAttackDamageRatio} Attack Damage",
+                DisplayText = XamlMessages.AddAttackDamageMessage,
                 SkillUpKey = SkillUpOptionEnum.IncreaseAttackDamage
             },
             new SkillUpOption
             {
-                DisplayText = $"Plus {CharacterViewModel.AttributeToAttackRollRatio}  Attack Roll",
+                DisplayText = XamlMessages.AddAttackRollMessage,
                 SkillUpKey = SkillUpOptionEnum.IncreaseAttackRoll
             },
             new SkillUpOption
             {
-                DisplayText = $"Plus {CharacterViewModel.AttributeToDefenseRollRatio} Defense Roll",
+                DisplayText = XamlMessages.AddDefenseRollMessage,
                 SkillUpKey = SkillUpOptionEnum.IncreaseDefenseRoll
             },
             new SkillUpOption
             {
-                DisplayText = $"Plus {CharacterViewModel.AttributeToCounterattackDamageRatio} Counterattack Damage",
+                DisplayText = XamlMessages.AddCounterattackDamageMessage,
                 SkillUpKey = SkillUpOptionEnum.IncreaseCounterattackDamage
             },
             new SkillUpOption
             {
-                DisplayText = $"Plus {CharacterViewModel.AttributeToHitPointRatio} Hit Points",
+                DisplayText = XamlMessages.AddHitPointsMessage,
                 SkillUpKey = SkillUpOptionEnum.IncreaseHealthPoints
             }
         };
