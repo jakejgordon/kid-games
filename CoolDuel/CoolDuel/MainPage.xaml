@@ -17,12 +17,9 @@
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="200"></RowDefinition>
+                    <RowDefinition Height="10"></RowDefinition>
                     <RowDefinition></RowDefinition>
                     <RowDefinition Height="100"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="155"></ColumnDefinition>
@@ -36,11 +33,17 @@
                 <TextBlock Grid.Row="1" Grid.Column="0" Text="Attribute Points:" VerticalAlignment="Center" HorizontalAlignment="Center" />
                 <TextBlock Grid.Row="1" Grid.Column="1" FontSize="28" Text="{x:Bind Path=AvailableAttributePoints, Mode=TwoWay}"/>
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Hit Points:" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+ 
                 <TextBlock Grid.Row="2" Grid.Column="1" FontSize="28" Text="{x:Bind Path=HitPoints, Mode=OneWay}"/>
                 <Button Grid.Row="2" Grid.Column="2" IsEnabled="{x:Bind Path=HasAttributePoints, Mode=OneWay}" Content="+" ToolTipService.ToolTip="{x:Bind Path=AddHitPointsMessage, Mode=OneTime}" Click="AddFiveHitPoints_Click" HorizontalAlignment="Left" VerticalAlignment="Center" />
+
                 <Image Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  Source="{x:Bind Path=CharacterImage}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200"/>
 
-                <Grid Grid.Row="4" Grid.Column="0" ColumnSpan="6">
+                <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" VerticalAlignment="Top" Height="9">
+                    <Rectangle Fill="Red" Stroke="Black" Height="7" Width="{x:Bind Path=HealthMeter, Mode=OneWay}"/>
+                </StackPanel>
+
+                <Grid Grid.Row="5" Grid.Column="0" ColumnSpan="6">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="155"></ColumnDefinition>
                         <ColumnDefinition Width="120"></ColumnDefinition>
@@ -116,7 +119,7 @@
 
         <TextBlock Name="RoundNumber" Grid.Row="3" Grid.Column="2" Margin="0,15,0,0" FontSize="20" Visibility="Collapsed" Text="{x:Bind ViewModel.RoundNumberText, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Top"></TextBlock>
 
-        <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,50,250,0" Name="AttackButton" IsEnabled="False" HorizontalContentAlignment="Center" Click="Attack_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100">
+        <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Visibility="Collapsed" Name="AttackButton" IsEnabled="False" HorizontalContentAlignment="Center" Click="Attack_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100">
             <Image Name="AttackImage" HorizontalAlignment="Center" Source="Assets/Weapons/sword.png" Height="100" VerticalAlignment="Top"/>
         </Button>
 
@@ -125,7 +128,6 @@
         <ContentControl Grid.Row="3" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" Name="Character2ContentControl"  HorizontalAlignment="Center" VerticalAlignment="Top" ContentTemplate="{StaticResource CharacterGridDataTemplate}"></ContentControl>
 
         <TextBlock Grid.Row="4" Grid.Column="2" Margin="0,150,0,0" TextAlignment="Center" HorizontalAlignment="Center" Text="{x:Bind Mode=OneWay, Path=ViewModel.Announcement}" TextWrapping="Wrap" FontSize="30"/>
-
 
         <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Name="Character1ContentDialogGrid">
         </Grid>

@@ -173,16 +173,16 @@ namespace CoolDuel
                 ShiftAttackImageToCharacter2();
                 AttackImage.Source = ViewModel.Character2.WeaponImage;
             }
+        }
 
-            void ShiftAttackButtonToCharacter1()
-            {
-                AttackButton.Margin = new Thickness(0, 50, 250, 0);
-            }
+        private void ShiftAttackButtonToCharacter1()
+        {
+            AttackButton.Margin = new Thickness(0, 50, 250, 0);
+        }
 
-            void ShiftAttackImageToCharacter2()
-            {
-                AttackButton.Margin = new Thickness(250, 50, 0, 0);
-            }
+        private void ShiftAttackImageToCharacter2()
+        {
+            AttackButton.Margin = new Thickness(250, 50, 0, 0);
         }
 
         private async void CheckForSkillUp()
@@ -235,7 +235,8 @@ namespace CoolDuel
             RoundNumber.Visibility = Visibility.Visible;
             Character1ContentControl.IsEnabled = false;
             Character2ContentControl.IsEnabled = false;
-
+            AttackButton.Visibility = Visibility.Visible;
+            ShiftAttackButtonToCharacter1();
         }
 
         private void Attack_Click(object sender, RoutedEventArgs e)

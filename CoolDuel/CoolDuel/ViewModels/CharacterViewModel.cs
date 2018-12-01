@@ -12,13 +12,14 @@ namespace CoolDuel.ViewModels
 {
     public class CharacterViewModel : INotifyPropertyChanged
     {
-        public static readonly int StartingHitPoints = 20;
-        public static readonly  int StartingAttributePoints = 3;
-        public static readonly  int AttributeToHitPointRatio = 5;
-        public static readonly  int AttributeToAttackDamageRatio = 1;
-        public static readonly int AttributeToAttackRollRatio = 1;
-        public static readonly int AttributeToDefenseRollRatio = 1;
-        public static readonly int AttributeToCounterattackDamageRatio = 2;
+        public const int StartingHitPoints = 20;
+        public const  int StartingAttributePoints = 3;
+        public const  int AttributeToHitPointRatio = 5;
+        public const  int AttributeToAttackDamageRatio = 1;
+        public const int AttributeToAttackRollRatio = 1;
+        public const int AttributeToDefenseRollRatio = 1;
+        public const int AttributeToCounterattackDamageRatio = 2;
+        public const int PixelsPerHitPoint = 6;
 
         //--this was the only way I could find to get dynamic messages in UWP :(
         public string AddCounterattackDamageMessage = XamlMessages.AddCounterattackDamageMessage;
@@ -79,8 +80,11 @@ namespace CoolDuel.ViewModels
             {
                 _hitPoints = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(HealthMeter));
             }
         }
+
+        public int HealthMeter => HitPoints * PixelsPerHitPoint;
 
         public int BonusAttackDamage
         {
