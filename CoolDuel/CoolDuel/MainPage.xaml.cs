@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
 using CoolDuel.ViewModels;
-using FocusState = Windows.UI.Xaml.FocusState;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -128,13 +126,8 @@ namespace CoolDuel
             Grid.SetColumn(dialog, 0);
             Grid.SetRow(dialog, 0);
 
-            Character1ContentControl.IsEnabled = false;
-            Character2ContentControl.IsEnabled = false;
-
             //--set to in place so the dialog shows centered in the parent grid 
-            ContentDialogResult result = await dialog.ShowAsync(ContentDialogPlacement.InPlace);
-            Character1ContentControl.IsEnabled = true;
-            Character2ContentControl.IsEnabled = true;
+            var result = await dialog.ShowAsync(ContentDialogPlacement.InPlace);
             return result;
         }
 
@@ -142,7 +135,7 @@ namespace CoolDuel
         {
             if (basicAttack.DefendingCharacter.Dead)
             {
-                ContentDialog winnerDialog = new ContentDialog
+                var winnerDialog = new ContentDialog
                 {
                     Title = "WINNER!",
                     Content =
@@ -151,7 +144,7 @@ namespace CoolDuel
                     PrimaryButtonText = "Play Again"
                 };
 
-                ContentDialogResult winnerDialogResult = await winnerDialog.ShowAsync();
+                var winnerDialogResult = await winnerDialog.ShowAsync();
                 if (winnerDialogResult == ContentDialogResult.Primary)
                 {
                     //--TODO THIS DOESN'T WORK
@@ -226,6 +219,9 @@ namespace CoolDuel
             AttackButton.IsEnabled = true;
             ViewModel.RoundNumber = 1;
             RoundNumber.Visibility = Visibility.Visible;
+            Character1ContentControl.IsEnabled = false;
+            Character2ContentControl.IsEnabled = false;
+
         }
 
         private void Attack_Click(object sender, RoutedEventArgs e)
