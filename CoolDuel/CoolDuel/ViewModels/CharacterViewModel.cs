@@ -14,7 +14,7 @@ namespace CoolDuel.ViewModels
     {
         public const int StartingHitPoints = 20;
         public const  int StartingAttributePoints = 3;
-        public const  int AttributeToHitPointRatio = 4;
+        public const  int AttributeToHitPointRatio = 3;
         public const  int AttributeToAttackDamageRatio = 1;
         public const int AttributeToAttackRollRatio = 1;
         public const int AttributeToDefenseRollRatio = 1;
