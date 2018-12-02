@@ -123,7 +123,7 @@
             <Image Name="AttackImage" HorizontalAlignment="Center" Source="Assets/Weapons/sword.png" VerticalAlignment="Top"/>
         </Button>
 
-        <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Visibility="Collapsed" Name="PrayButton" IsEnabled="False" ToolTipService.ToolTip="Pray for a 50% chance of a blessing." HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Click="PrayButton_OnClick">
+        <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Visibility="Collapsed" Name="PrayButton" IsEnabled="False" ToolTipService.ToolTip="Pray for a 40% chance of a blessing." HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Width="100" Click="PrayButton_OnClick">
             <Image HorizontalAlignment="Center" Source="Assets/BattleIcons/prayer_hands.png" VerticalAlignment="Top"/>
         </Button>
 

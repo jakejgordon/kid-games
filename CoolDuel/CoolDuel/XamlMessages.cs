@@ -20,6 +20,7 @@ namespace CoolDuel
 
         public static string AddDefenseRollMessage =
             $"Plus {CharacterViewModel.AttributeToDefenseRollRatio} Defense Roll";
+
         public static string AddHitPointsMessage = $"Plus {CharacterViewModel.AttributeToHitPointRatio} Hit Points";
     }
 }

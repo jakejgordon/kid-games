@@ -265,7 +265,7 @@ namespace CoolDuel
             var activeCharacter = ViewModel.Character1Turn ? ViewModel.Character1 : ViewModel.Character2;
 
             var randomNumberUpTo10 = new Random().Next(1, 100);
-            if (randomNumberUpTo10 <= 50)
+            if (randomNumberUpTo10 <= 40)
             {
                 var dialogTitle = $"{activeCharacter.Name} has been blessed!";
                 await PromptForSkillUpChoice(activeCharacter, dialogTitle);
