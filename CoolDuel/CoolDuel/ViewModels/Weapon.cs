@@ -55,7 +55,7 @@ namespace CoolDuel.ViewModels
         public static Weapon Sword { get; } = new Weapon(
             id: 1, 
             name: "Sword",
-            attackDamage: 2,
+            attackDamage: 3,
             attackRoll: 7,
             defenseRoll: 5,
             counterAttackDamage:3,
@@ -65,7 +65,7 @@ namespace CoolDuel.ViewModels
         public static Weapon Mace { get; } = new Weapon(
             id: 2,
             name: "Mace",
-            attackDamage: 2,
+            attackDamage: 3,
             attackRoll: 8,
             defenseRoll: 4,
             counterAttackDamage: 3,
@@ -75,7 +75,7 @@ namespace CoolDuel.ViewModels
         public static Weapon Spear { get; } = new Weapon(
             id: 3,
             name: "Spear",
-            attackDamage: 2,
+            attackDamage: 3,
             attackRoll: 9,
             defenseRoll: 3,
             counterAttackDamage: 3,
@@ -85,7 +85,7 @@ namespace CoolDuel.ViewModels
         public static Weapon WarHammer { get; } = new Weapon(
             id: 4,
             name: "War Hammer",
-            attackDamage: 4,
+            attackDamage: 5,
             attackRoll: 7,
             defenseRoll: 2,
             counterAttackDamage: 4,
@@ -95,7 +95,7 @@ namespace CoolDuel.ViewModels
         public static Weapon OneHandedAxe { get; } = new Weapon(
             id: 5,
             name: "One-Handed Axe",
-            attackDamage: 3,
+            attackDamage: 4,
             attackRoll: 6,
             defenseRoll: 4,
             counterAttackDamage: 4,
@@ -105,7 +105,7 @@ namespace CoolDuel.ViewModels
         public static Weapon TwoHandedAxe { get; } = new Weapon(
             id: 6,
             name: "Two-Handed Axe",
-            attackDamage: 5,
+            attackDamage: 6,
             attackRoll: 5,
             defenseRoll: 3,
             counterAttackDamage: 4,
@@ -115,7 +115,7 @@ namespace CoolDuel.ViewModels
         public static Weapon BoStaff { get; } = new Weapon(
             id: 7,
             name: "Bo Staff",
-            attackDamage: 1,
+            attackDamage: 2,
             attackRoll: 9,
             defenseRoll: 6,
             counterAttackDamage: 1,
