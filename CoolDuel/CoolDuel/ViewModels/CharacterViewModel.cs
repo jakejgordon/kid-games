@@ -78,7 +78,14 @@ namespace CoolDuel.ViewModels
             get => _hitPoints;
             set
             {
-                _hitPoints = value;
+                if (value >= 0)
+                {
+                    _hitPoints = value;
+                }
+                else
+                {
+                    _hitPoints = 0;
+                }
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(HealthMeter));
             }
