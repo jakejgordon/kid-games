@@ -95,11 +95,19 @@ namespace CoolDuel
             if (result == ContentDialogResult.Primary)
             {
                 var defenseResult = basicAttack.Defend();
-                ViewModel.Announcement = defenseResult.ResultText;
+                if (defenseResult.DefenseResultType == DefenseResultType.AttackBlocked)
+                {
+                    AnnouncementHeader.Text = "Attack Blocked!";
+                }else if (defenseResult.DefenseResultType == DefenseResultType.AttackHit)
+                {
+                    AnnouncementHeader.Text = "Hit!";
+                }
+                AnnouncementBody.Text = defenseResult.ResultText;
             }else if (result == ContentDialogResult.None)
             {
                 var counterattackResult = basicAttack.Counterattack();
-                ViewModel.Announcement = counterattackResult.ResultText;
+                AnnouncementHeader.Text = "Counterattack!";
+                AnnouncementBody.Text = counterattackResult.ResultText;
             }
             else
             {
@@ -220,15 +228,17 @@ namespace CoolDuel
             };
 
             var result = await ShowCharacterSpecificDialog(characterSkillUpDialog, character.Character1);
+            AnnouncementHeader.Text = $"{character.Name} Skill Up!";
+
             if (result == ContentDialogResult.Primary)
             {
                 skillUpOptions.ApplyOption1Bonus(character);
-                ViewModel.Announcement = $"{character.Name} now has {skillUpOptions.Option1Text}";
+                AnnouncementBody.Text = $"{character.Name} now has {skillUpOptions.Option1Text}";
             }
             else if (result == ContentDialogResult.None)
             {
                 skillUpOptions.ApplyOption2Bonus(character);
-                ViewModel.Announcement = $"{character.Name} now has {skillUpOptions.Option2Text}";
+                AnnouncementBody.Text = $"{character.Name} now has {skillUpOptions.Option2Text}";
             }
             else
             {
@@ -238,9 +248,10 @@ namespace CoolDuel
 
         private void StartBattleAnimation()
         {
-            var announcement = "The players are ready. It's battle time!";
-            
-            ViewModel.Announcement = announcement;
+            var announcement = $"It's battle time! Your turn first, {ViewModel.Character1.Name}!";
+
+            AnnouncementHeader.Text = "Prepare For Battle!";
+            AnnouncementBody.Text = announcement;
 
             AttackButton.IsEnabled = true;
             AttackButton.Visibility = Visibility.Visible;
@@ -272,7 +283,8 @@ namespace CoolDuel
             }
             else
             {
-                ViewModel.Announcement = $"No blessing was bestowed upon {activeCharacter.Name}.";
+                AnnouncementHeader.Text = "Unanswered Prayers";
+                AnnouncementBody.Text = $"No blessing was bestowed upon {activeCharacter.Name}.";
             }
 
             SwitchTurns();

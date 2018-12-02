@@ -28,17 +28,6 @@ namespace CoolDuel.ViewModels
 
         public bool GameNotStarted => RoundNumber == 0;
 
-
-        public string Announcement
-        {
-            get => _announcement;
-            set
-            {
-                _announcement = value;
-                OnPropertyChanged();
-            }
-        }
-
         public bool Character1Turn
         {
             get => _character1Turn;
