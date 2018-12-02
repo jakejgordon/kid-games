@@ -120,6 +120,7 @@
   <ItemGroup>
     <Content Include="Assets\BattleIcons\c1_knight.png" />
     <Content Include="Assets\BattleIcons\c2_knight.png" />
+    <Content Include="Assets\BattleIcons\prayer_hands.png" />
     <Content Include="Assets\Weapons\bo_staff.png" />
     <Content Include="Assets\Weapons\bo_staff_right_to_left.png" />
     <Content Include="Assets\Weapons\mace_right_to_left.jpg" />

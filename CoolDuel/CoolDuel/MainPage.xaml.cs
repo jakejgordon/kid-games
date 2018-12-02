@@ -164,25 +164,31 @@ namespace CoolDuel
             if (ViewModel.Character1Turn)
             {
                 ViewModel.RoundNumber++;
-                ShiftAttackButtonToCharacter1();
+                ShiftAttackButtonsToCharacter1();
                 AttackImage.Source = ViewModel.Character1.WeaponImage;
                 CheckForSkillUp();
             }
             else
             {
-                ShiftAttackImageToCharacter2();
+                ShiftAttackImagesToCharacter2();
                 AttackImage.Source = ViewModel.Character2.WeaponImage;
             }
         }
 
-        private void ShiftAttackButtonToCharacter1()
+        private readonly Thickness _actionButtonMarginCharacter1 = new Thickness(0, 50, 250, 0);
+        private readonly Thickness _actionButtonMarginCharacter2 = new Thickness(250, 50, 0, 0);
+
+
+        private void ShiftAttackButtonsToCharacter1()
         {
-            AttackButton.Margin = new Thickness(0, 50, 250, 0);
+            AttackButton.Margin = _actionButtonMarginCharacter1;
+            PrayButton.Margin = new Thickness(0, 200, 250, 0);
         }
 
-        private void ShiftAttackImageToCharacter2()
+        private void ShiftAttackImagesToCharacter2()
         {
-            AttackButton.Margin = new Thickness(250, 50, 0, 0);
+            AttackButton.Margin = _actionButtonMarginCharacter2;
+            PrayButton.Margin = new Thickness(250, 200, 0, 0);
         }
 
         private async void CheckForSkillUp()
@@ -195,13 +201,18 @@ namespace CoolDuel
             }
         }
 
-        private async Task PromptForSkillUpChoice(CharacterViewModel character)
+        private async Task PromptForSkillUpChoice(CharacterViewModel character, string dialogTitle = null)
         {
             var skillUpOptions = new SkillUpOptions();
 
+            if (dialogTitle == null)
+            {
+                dialogTitle = $"{character.Name} Skill Up!";
+            }
+
             var characterSkillUpDialog = new ContentDialog
             {
-                Title = $"{character.Name} Skill Up!",
+                Title = dialogTitle,
                 Content =
                     $"{character.Name} is getting more skilled in combat! Pick a bonus which you'll have for the rest of the duel:",
                 PrimaryButtonText = skillUpOptions.Option1Text,
@@ -230,18 +241,41 @@ namespace CoolDuel
             var announcement = "The players are ready. It's battle time!";
             
             ViewModel.Announcement = announcement;
+
             AttackButton.IsEnabled = true;
+            AttackButton.Visibility = Visibility.Visible;
+            ShiftAttackButtonsToCharacter1();
+
+            PrayButton.IsEnabled = true;
+            PrayButton.Visibility = Visibility.Visible;
+
             ViewModel.RoundNumber = 1;
             RoundNumber.Visibility = Visibility.Visible;
             Character1ContentControl.IsEnabled = false;
             Character2ContentControl.IsEnabled = false;
-            AttackButton.Visibility = Visibility.Visible;
-            ShiftAttackButtonToCharacter1();
         }
 
         private void Attack_Click(object sender, RoutedEventArgs e)
         {
             BattleAsync();
+        }
+
+        private async void PrayButton_OnClick(object sender, RoutedEventArgs e)
+        {
+            var activeCharacter = ViewModel.Character1Turn ? ViewModel.Character1 : ViewModel.Character2;
+
+            var randomNumberUpTo10 = new Random().Next(1, 100);
+            if (randomNumberUpTo10 <= 50)
+            {
+                var dialogTitle = $"{activeCharacter.Name} has been blessed!";
+                await PromptForSkillUpChoice(activeCharacter, dialogTitle);
+            }
+            else
+            {
+                ViewModel.Announcement = $"No blessing was bestowed upon {activeCharacter.Name}.";
+            }
+
+            SwitchTurns();
         }
 
         private void Weapon_SelectionChanged(object sender, RoutedEventArgs e)
@@ -264,5 +298,6 @@ namespace CoolDuel
             var weaponsComboBox = sender as ComboBox;
             weaponsComboBox.SelectedIndex = 0;
         }
+
     }
 }
