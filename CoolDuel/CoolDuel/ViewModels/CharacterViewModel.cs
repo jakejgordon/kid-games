@@ -19,7 +19,7 @@ namespace CoolDuel.ViewModels
         public const int AttributeToAttackRollRatio = 1;
         public const int AttributeToDefenseRollRatio = 1;
         public const int AttributeToCounterattackDamageRatio = 2;
-        public const int PixelsPerHitPoint = 6;
+        public const int PixelsPerHitPoint = 5;
 
         //--this was the only way I could find to get dynamic messages in UWP :(
         public string AddCounterattackDamageMessage = XamlMessages.AddCounterattackDamageMessage;

@@ -37,10 +37,10 @@
                 <TextBlock Grid.Row="2" Grid.Column="1" FontSize="28" Text="{x:Bind Path=HitPoints, Mode=OneWay}"/>
                 <Button Grid.Row="2" Grid.Column="2" IsEnabled="{x:Bind Path=HasAttributePoints, Mode=OneWay}" Content="+" ToolTipService.ToolTip="{x:Bind Path=AddHitPointsMessage, Mode=OneTime}" Click="AddFiveHitPoints_Click" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
-                <Image Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  Source="{x:Bind Path=CharacterImage}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200"/>
+                <Image Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  Source="{x:Bind Path=CharacterImage}" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Width="200"/>
 
-                <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal" VerticalAlignment="Top" Height="9">
-                    <Rectangle Fill="Red" Stroke="Black" Height="7" Width="{x:Bind Path=HealthMeter, Mode=OneWay}"/>
+                <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="9">
+                    <Rectangle Fill="Red" Stroke="Black" Width="7" Height="{x:Bind Path=HealthMeter, Mode=OneWay}"/>
                 </StackPanel>
 
                 <Grid Grid.Row="5" Grid.Column="0" ColumnSpan="6">
