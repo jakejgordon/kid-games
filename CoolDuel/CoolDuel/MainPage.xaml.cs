@@ -41,13 +41,6 @@ namespace CoolDuel
             CheckForBattleStart();
         }
 
-        private void IncreaseMinimumAttackRoll_Click(object sender, RoutedEventArgs e)
-        {
-            var character = GetActiveCharacter<Button>(sender);
-            character.IncreaseBonusMinimumAttackRoll();;
-            CheckForBattleStart();
-        }
-
         private void IncreaseMaxAttackRoll_Click(object sender, RoutedEventArgs e)
         {
             var character = GetActiveCharacter<Button>(sender);
@@ -55,12 +48,6 @@ namespace CoolDuel
             CheckForBattleStart();
         }
 
-        private void IncreaseMinimumDefenseRoll_Click(object sender, RoutedEventArgs e)
-        {
-            var character = GetActiveCharacter<Button>(sender);
-            character.IncreaseBonusMinimumDefenseRoll();
-            CheckForBattleStart();
-        }
         private void IncreaseMaximumDefenseRoll_Click(object sender, RoutedEventArgs e)
         {
             var character = GetActiveCharacter<Button>(sender);
@@ -215,7 +202,7 @@ namespace CoolDuel
         private async void CheckForSkillUp()
         {
             var randomNumberUpTo10 = new Random().Next(1, 100);
-            if (randomNumberUpTo10 <= 30 + (ViewModel.RoundNumber*3))
+            if (randomNumberUpTo10 <= 30 + (ViewModel.RoundNumber*2))
             {
                 await PromptForSkillUpChoice(ViewModel.Character1);
                 await PromptForSkillUpChoice(ViewModel.Character2);
