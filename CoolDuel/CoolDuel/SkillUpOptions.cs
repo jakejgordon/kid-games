@@ -8,7 +8,7 @@ namespace CoolDuel
     {
         private static readonly Random Random = new Random();
 
-        private readonly List<SkillUpOption> _availableOptions = new List<SkillUpOption>
+        private static readonly List<SkillUpOption> AvailableOptions = new List<SkillUpOption>
         {
             new SkillUpOption
             {
@@ -17,7 +17,7 @@ namespace CoolDuel
             },
             new SkillUpOption
             {
-                DisplayText = XamlMessages.AddAttackRollMessage,
+                DisplayText = XamlMessages.AddMaximumAttackRollMessage,
                 SkillUpKey = SkillUpOptionEnum.IncreaseAttackRoll
             },
             new SkillUpOption
@@ -38,15 +38,15 @@ namespace CoolDuel
         };
 
         //private Dictionary<string, >
-        public SkillUpOptions()
+        public SkillUpOptions(int roundNumber)
         {
-            int option1Index = Random.Next(1, _availableOptions.Count);
-            var option1 = _availableOptions[option1Index];
+            int option1Index = Random.Next(1, AvailableOptions.Count);
+            var option1 = AvailableOptions[option1Index];
             Option1Text = option1.DisplayText;
             Option1SkillUp = option1.SkillUpKey;
             //--get the next sequential value, but roll around if going above the max index
-            var option2Index = ++option1Index % _availableOptions.Count;
-            var option2 = _availableOptions[option2Index];
+            var option2Index = ++option1Index % AvailableOptions.Count;
+            var option2 = AvailableOptions[option2Index];
             Option2Text = option2.DisplayText;
             Option2SkillUp = option2.SkillUpKey;
         }
@@ -75,10 +75,10 @@ namespace CoolDuel
                     character.BonusAttackDamage += CharacterViewModel.AttributeToAttackDamageRatio;
                     break;
                 case SkillUpOptionEnum.IncreaseAttackRoll:
-                    character.BonusAttackRoll += CharacterViewModel.AttributeToAttackRollRatio;
+                    character.BonusMaximumAttackRoll += CharacterViewModel.AttributeToMaximumAttackRollRatio;
                     break;
                 case SkillUpOptionEnum.IncreaseDefenseRoll:
-                    character.BonusDefenseRoll += CharacterViewModel.AttributeToDefenseRollRatio;
+                    character.BonusMaximumDefenseRoll += CharacterViewModel.AttributeToMaximumDefenseRollRatio;
                     break;
                 case SkillUpOptionEnum.IncreaseCounterattackDamage:
                     character.BonusCounterattackDamage += CharacterViewModel.AttributeToCounterattackDamageRatio;
@@ -104,6 +104,7 @@ namespace CoolDuel
         IncreaseAttackDamage,
         IncreaseAttackRoll,
         IncreaseDefenseRoll,
-        IncreaseCounterattackDamage
+        IncreaseCounterattackDamage,
+        IncreaseMinimumAttackRoll
     }
 }

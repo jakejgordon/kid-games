@@ -16,16 +16,20 @@ namespace CoolDuel.ViewModels
         public const  int StartingAttributePoints = 3;
         public const  int AttributeToHitPointRatio = 3;
         public const  int AttributeToAttackDamageRatio = 1;
-        public const int AttributeToAttackRollRatio = 1;
-        public const int AttributeToDefenseRollRatio = 1;
+        public const int AttributeToMinimumAttackRollRatio = 1;
+        public const int AttributeToMaximumAttackRollRatio = 1;
+        public const int AttributeToMinimumDefenseRollRatio = 1;
+        public const int AttributeToMaximumDefenseRollRatio = 1;
         public const int AttributeToCounterattackDamageRatio = 2;
         public const int PixelsPerHitPoint = 5;
 
         //--this was the only way I could find to get dynamic messages in UWP :(
         public string AddCounterattackDamageMessage = XamlMessages.AddCounterattackDamageMessage;
         public string AddAttackDamageMessage = XamlMessages.AddAttackDamageMessage;
-        public string AddAttackRollMessage = XamlMessages.AddAttackRollMessage;
-        public string AddDefenseRollMessage = XamlMessages.AddDefenseRollMessage;
+        public string AddMinimumAttackRollMessage = XamlMessages.AddMinimumAttackRollMessage;
+        public string AddMaximumAttackRollMessage = XamlMessages.AddMaximumAttackRollMessage;
+        public string AddMinimumDefenseRollMessage = XamlMessages.AddMinimumDefenseRollMessage;
+        public string AddMaximumDefenseRollMessage = XamlMessages.AddDefenseRollMessage;
         public string AddHitPointsMessage = XamlMessages.AddHitPointsMessage;
         
         private int _maxHitPoints = StartingHitPoints;
@@ -33,8 +37,10 @@ namespace CoolDuel.ViewModels
         private string _name;
         private int _availableAttributePoints = StartingAttributePoints;
         private int _bonusAttackDamage;
-        private int _bonusAttackRoll;
-        private int _bonusDefenseRoll;
+        private int _bonusMinimumAttackRoll;
+        private int _bonusMaximumAttackRoll;
+        private int _bonusMinimumDefenseRoll;
+        private int _bonusMaximumDefenseRoll;
         private int _bonusCounterattackDamage;
 
 
@@ -106,31 +112,57 @@ namespace CoolDuel.ViewModels
 
         public int TotalAttackDamage => BonusAttackDamage + EquippedWeapon.AttackDamage;
 
-        public int BonusAttackRoll
+        public int BonusMinimumAttackRoll
         {
-            get => _bonusAttackRoll;
+            get => _bonusMinimumAttackRoll;
             set
             {
-                _bonusAttackRoll = value;
+                _bonusMinimumAttackRoll = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(TotalAttackRoll));
+                OnPropertyChanged(nameof(TotalMinimumAttackRoll));
             }
         }
 
-        public int TotalAttackRoll => BonusAttackRoll + EquippedWeapon.AttackRoll;
+        public int TotalMinimumAttackRoll => BonusMinimumAttackRoll + EquippedWeapon.MinimumAttackRoll;
 
-        public int BonusDefenseRoll
+        public int BonusMaximumAttackRoll
         {
-            get => _bonusDefenseRoll;
+            get => _bonusMaximumAttackRoll;
             set
             {
-                _bonusDefenseRoll = value;
+                _bonusMaximumAttackRoll = value;
                 OnPropertyChanged();
-                OnPropertyChanged(nameof(TotalDefenseRoll));
+                OnPropertyChanged(nameof(TotalMaximumAttackRoll));
             }
         }
 
-        public int TotalDefenseRoll => BonusDefenseRoll + EquippedWeapon.DefenseRoll;
+        public int TotalMaximumAttackRoll => BonusMaximumAttackRoll + EquippedWeapon.MaximumAttackRoll;
+
+        public int BonusMinimumDefenseRoll
+        {
+            get => _bonusMinimumDefenseRoll;
+            set
+            {
+                _bonusMinimumDefenseRoll = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(TotalMinimumDefenseRoll));
+            }
+        }
+
+        public int TotalMinimumDefenseRoll => BonusMinimumDefenseRoll + EquippedWeapon.MinimumAttackRoll;
+
+        public int BonusMaximumDefenseRoll
+        {
+            get => _bonusMaximumDefenseRoll;
+            set
+            {
+                _bonusMaximumDefenseRoll = value;
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(TotalMaximumDefenseRoll));
+            }
+        }
+
+        public int TotalMaximumDefenseRoll => BonusMaximumDefenseRoll + EquippedWeapon.MaximumDefenseRoll;
 
         public int BonusCounterattackDamage
         {
@@ -154,8 +186,8 @@ namespace CoolDuel.ViewModels
 
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(TotalAttackDamage));
-                OnPropertyChanged(nameof(TotalDefenseRoll));
-                OnPropertyChanged(nameof(TotalAttackRoll));
+                OnPropertyChanged(nameof(TotalMaximumDefenseRoll));
+                OnPropertyChanged(nameof(TotalMaximumAttackRoll));
                 OnPropertyChanged(nameof(TotalCounterattackDamage));
                 OnPropertyChanged(nameof(WeaponImage));
             }
@@ -209,20 +241,36 @@ namespace CoolDuel.ViewModels
             BonusAttackDamage += AttributeToAttackDamageRatio;
         }
 
-        public void IncreaseBonusAttackRoll()
+        public void IncreaseBonusMinimumAttackRoll()
         {
             ValidateAvailableAttributePoints();
 
             AvailableAttributePoints -= 1;
-            BonusAttackRoll += 1;
+            BonusMinimumAttackRoll += AttributeToMinimumAttackRollRatio;
         }
 
-        public void IncreaseBonusDefenseRoll()
+        public void IncreaseBonusMaxAttackRoll()
         {
             ValidateAvailableAttributePoints();
 
             AvailableAttributePoints -= 1;
-            BonusDefenseRoll += AttributeToDefenseRollRatio;
+            BonusMaximumAttackRoll += AttributeToMaximumAttackRollRatio;
+        }
+
+        public void IncreaseBonusMinimumDefenseRoll()
+        {
+            ValidateAvailableAttributePoints();
+
+            AvailableAttributePoints -= 1;
+            BonusMinimumDefenseRoll += AttributeToMinimumDefenseRollRatio;
+        }
+
+        public void IncreaseBonusMaximumDefenseRoll()
+        {
+            ValidateAvailableAttributePoints();
+
+            AvailableAttributePoints -= 1;
+            BonusMaximumDefenseRoll += AttributeToMaximumDefenseRollRatio;
         }
 
         public void IncreaseBonusCounterattackDamage()
@@ -236,23 +284,23 @@ namespace CoolDuel.ViewModels
         public BasicAttack MakeBasicAttack(CharacterViewModel defendingCharacter)
         {
             var attackRoll = GetBasicAttackRoll();
-            return new BasicAttack
-            {
-                AttackingCharacter = this,
-                DefendingCharacter = defendingCharacter,
-                AttackRoll = attackRoll
-            };
+            return new BasicAttack(attackRoll, this, defendingCharacter);
         }
-
 
         public int GetDefenseRoll()
         {
-            return _random.Next(1, TotalDefenseRoll);
+            var maxDefenseRoll = TotalMinimumDefenseRoll < TotalMaximumDefenseRoll
+                ? TotalMaximumDefenseRoll
+                : TotalMinimumDefenseRoll;
+            return _random.Next(TotalMinimumDefenseRoll, maxDefenseRoll);
         }
 
         public int GetBasicAttackRoll()
         {
-            return _random.Next(1, TotalAttackRoll);
+            var maxAttackRoll = TotalMinimumAttackRoll < TotalMaximumAttackRoll
+                ? TotalMaximumAttackRoll
+                : TotalMinimumAttackRoll;
+            return _random.Next(TotalMinimumAttackRoll, maxAttackRoll);
         }
 
         public int TakeDamage(CharacterViewModel attackingCharacter)

@@ -11,17 +11,18 @@ namespace CoolDuel.ViewModels
         public int Id { get; }
         public string Name { get; }
         public int AttackDamage { get; }
-        public int AttackRoll { get; }
-        public int DefenseRoll { get; }
+        public int MinimumAttackRoll { get; }
+        public int MaximumAttackRoll { get; }
+        public int MinimumDefenseRoll { get; }
+        public int MaximumDefenseRoll { get; }
         public int CounterAttackDamage { get; }
-
 
         public BitmapImage ImageSourceFlowDirectionLeftToRight { get; }
 
         public BitmapImage ImageSourceFlowDirectionRightToLeft { get; }
 
-        public Weapon(int id, string name, int attackDamage, 
-            int attackRoll, int defenseRoll, int counterAttackDamage,
+        public Weapon(int id, string name, int attackDamage, int minimumAttackRoll,
+            int maximumAttackRoll, int minimumDefenseRoll, int maximumDefenseRoll, int counterAttackDamage,
             BitmapImage leftToRightImage, BitmapImage rightToLeftImage)
         {
             Id = id;
@@ -29,8 +30,10 @@ namespace CoolDuel.ViewModels
             ImageSourceFlowDirectionLeftToRight = leftToRightImage;
             ImageSourceFlowDirectionRightToLeft = rightToLeftImage;
             AttackDamage = attackDamage;
-            AttackRoll = attackRoll;
-            DefenseRoll = defenseRoll;
+            MinimumAttackRoll = minimumAttackRoll;
+            MaximumAttackRoll = maximumAttackRoll;
+            MinimumDefenseRoll = minimumDefenseRoll;
+            MaximumDefenseRoll = maximumDefenseRoll;
             CounterAttackDamage = counterAttackDamage;
         }
 
@@ -56,8 +59,10 @@ namespace CoolDuel.ViewModels
             id: 1, 
             name: "Sword",
             attackDamage: 3,
-            attackRoll: 7,
-            defenseRoll: 5,
+            minimumAttackRoll:1,
+            maximumAttackRoll: 7,
+            minimumDefenseRoll:1,
+            maximumDefenseRoll: 5,
             counterAttackDamage:3,
             leftToRightImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/sword.png")),
             rightToLeftImage:new BitmapImage(new Uri("ms-appx:///Assets/Weapons/sword_right_to_left.png")));
@@ -66,8 +71,10 @@ namespace CoolDuel.ViewModels
             id: 2,
             name: "Mace",
             attackDamage: 3,
-            attackRoll: 8,
-            defenseRoll: 4,
+            minimumAttackRoll:1,
+            maximumAttackRoll: 8,
+            minimumDefenseRoll: 1,
+            maximumDefenseRoll: 4,
             counterAttackDamage: 3,
             leftToRightImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/mace.jpg")),
             rightToLeftImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/mace_right_to_left.jpg")));
@@ -76,8 +83,10 @@ namespace CoolDuel.ViewModels
             id: 3,
             name: "Spear",
             attackDamage: 3,
-            attackRoll: 9,
-            defenseRoll: 3,
+            minimumAttackRoll: 1,
+            maximumAttackRoll: 10,
+            minimumDefenseRoll: 0,
+            maximumDefenseRoll: 3,
             counterAttackDamage: 3,
              leftToRightImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/spear.png")),
             rightToLeftImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/spear_right_to_left.png")));
@@ -86,8 +95,10 @@ namespace CoolDuel.ViewModels
             id: 4,
             name: "War Hammer",
             attackDamage: 5,
-            attackRoll: 7,
-            defenseRoll: 2,
+            minimumAttackRoll: 3,
+            maximumAttackRoll: 6,
+            minimumDefenseRoll: 0,
+            maximumDefenseRoll: 2,
             counterAttackDamage: 4,
             leftToRightImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/war_hammer.jpg")),
             rightToLeftImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/war_hammer_right_to_left.jpg")));
@@ -96,8 +107,10 @@ namespace CoolDuel.ViewModels
             id: 5,
             name: "One-Handed Axe",
             attackDamage: 4,
-            attackRoll: 6,
-            defenseRoll: 4,
+            minimumAttackRoll: 1,
+            maximumAttackRoll: 6,
+            minimumDefenseRoll: 1,
+            maximumDefenseRoll: 4,
             counterAttackDamage: 4,
             leftToRightImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/one_handed_axe.png")),
             rightToLeftImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/one_handed_axe_right_to_left.png")));
@@ -106,8 +119,10 @@ namespace CoolDuel.ViewModels
             id: 6,
             name: "Two-Handed Axe",
             attackDamage: 6,
-            attackRoll: 5,
-            defenseRoll: 3,
+            minimumAttackRoll:2,
+            maximumAttackRoll: 6,
+            minimumDefenseRoll:0,
+            maximumDefenseRoll: 2,
             counterAttackDamage: 4,
             leftToRightImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/two_handed_axe.jpg")),
             rightToLeftImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/two_handed_axe_right_to_left.jpg")));
@@ -115,9 +130,11 @@ namespace CoolDuel.ViewModels
         public static Weapon BoStaff { get; } = new Weapon(
             id: 7,
             name: "Bo Staff",
-            attackDamage: 2,
-            attackRoll: 9,
-            defenseRoll: 6,
+            attackDamage: 1,
+            minimumAttackRoll: 2,
+            maximumAttackRoll: 9,
+            minimumDefenseRoll: 1,
+            maximumDefenseRoll: 6,
             counterAttackDamage: 1,
             leftToRightImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/bo_staff.png")),
             rightToLeftImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/bo_staff_right_to_left.png")));

@@ -26,14 +26,14 @@ namespace CoolDuel
             ViewModel.Character2.AvailableWeapons[0].IsSelected = true;
         }
 
-        private void AddFiveHitPoints_Click(object sender, RoutedEventArgs e)
+        private void IncreaseHitPoints_Click(object sender, RoutedEventArgs e)
         {
             var character = GetActiveCharacter<Button>(sender);
             character.IncreaseMaxHitPoints();
             CheckForBattleStart();
         }
 
-        private void AddOneAttackDamage_Click(object sender, RoutedEventArgs e)
+        private void AddAttackDamage_Click(object sender, RoutedEventArgs e)
         {
             var character = GetActiveCharacter<Button>(sender);
 
@@ -41,17 +41,30 @@ namespace CoolDuel
             CheckForBattleStart();
         }
 
-        private void AddOneAttackRoll_Click(object sender, RoutedEventArgs e)
+        private void IncreaseMinimumAttackRoll_Click(object sender, RoutedEventArgs e)
         {
             var character = GetActiveCharacter<Button>(sender);
-            character.IncreaseBonusAttackRoll();
+            character.IncreaseBonusMinimumAttackRoll();;
             CheckForBattleStart();
         }
 
-        private void AddOneDefenseRoll_Click(object sender, RoutedEventArgs e)
+        private void IncreaseMaxAttackRoll_Click(object sender, RoutedEventArgs e)
         {
             var character = GetActiveCharacter<Button>(sender);
-            character.IncreaseBonusDefenseRoll();
+            character.IncreaseBonusMaxAttackRoll();
+            CheckForBattleStart();
+        }
+
+        private void IncreaseMinimumDefenseRoll_Click(object sender, RoutedEventArgs e)
+        {
+            var character = GetActiveCharacter<Button>(sender);
+            character.IncreaseBonusMinimumDefenseRoll();
+            CheckForBattleStart();
+        }
+        private void IncreaseMaximumDefenseRoll_Click(object sender, RoutedEventArgs e)
+        {
+            var character = GetActiveCharacter<Button>(sender);
+            character.IncreaseBonusMaximumDefenseRoll();
             CheckForBattleStart();
         }
 
@@ -84,7 +97,7 @@ namespace CoolDuel
                 Title = $"{basicAttack.DefendingCharacter.Name} Is Under Attack!",
                 Content =
                     $"{basicAttack.AttackingCharacter.Name} rolled a {basicAttack.AttackRoll}! Does {basicAttack.DefendingCharacter.Name} "
-                    + $"want to attempt to block the attack with a maximum defense roll of {basicAttack.DefendingCharacter.TotalDefenseRoll} "
+                    + $"want to attempt to block the attack with a maximum defense roll of {basicAttack.DefendingCharacter.TotalMaximumDefenseRoll} "
                     + $" --OR-- do they want to take the hit and {basicAttack.DefendingCharacter.TotalCounterattackDamage} counterattack damage to the next attack if it hits?",
                 CloseButtonText = "Counterattack",
                 PrimaryButtonText = "Block"
@@ -211,7 +224,7 @@ namespace CoolDuel
 
         private async Task PromptForSkillUpChoice(CharacterViewModel character, string dialogTitle = null)
         {
-            var skillUpOptions = new SkillUpOptions();
+            var skillUpOptions = new SkillUpOptions(ViewModel.RoundNumber);
 
             if (dialogTitle == null)
             {

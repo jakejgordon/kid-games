@@ -15,11 +15,17 @@ namespace CoolDuel
         public static string AddAttackDamageMessage =
             $"Plus {CharacterViewModel.AttributeToAttackDamageRatio} Attack Damage";
 
-        public static string AddAttackRollMessage =
-            $"Plus {CharacterViewModel.AttributeToAttackRollRatio} Attack Roll";
+        public static string AddMinimumAttackRollMessage =
+            $"Plus {CharacterViewModel.AttributeToMaximumAttackRollRatio} Minimum Attack Roll";
+
+        public static string AddMaximumAttackRollMessage =
+            $"Plus {CharacterViewModel.AttributeToMaximumAttackRollRatio} Maximum Attack Roll";
+
+        public static string AddMinimumDefenseRollMessage = $"Plus {CharacterViewModel.AttributeToMinimumDefenseRollRatio} Minimum Defense Roll";
+
 
         public static string AddDefenseRollMessage =
-            $"Plus {CharacterViewModel.AttributeToDefenseRollRatio} Defense Roll";
+            $"Plus {CharacterViewModel.AttributeToMaximumDefenseRollRatio} Maximum Defense Roll";
 
         public static string AddHitPointsMessage = $"Plus {CharacterViewModel.AttributeToHitPointRatio} Hit Points";
     }

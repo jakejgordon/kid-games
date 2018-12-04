@@ -35,7 +35,7 @@
                 <TextBlock Grid.Row="2" Grid.Column="0" Text="Hit Points:" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
  
                 <TextBlock Grid.Row="2" Grid.Column="1" FontSize="28" Text="{x:Bind Path=HitPoints, Mode=OneWay}"/>
-                <Button Grid.Row="2" Grid.Column="2" IsEnabled="{x:Bind Path=HasAttributePoints, Mode=OneWay}" Content="+" ToolTipService.ToolTip="{x:Bind Path=AddHitPointsMessage, Mode=OneTime}" Click="AddFiveHitPoints_Click" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                <Button Grid.Row="2" Grid.Column="2" IsEnabled="{x:Bind Path=HasAttributePoints, Mode=OneWay}" Content="+" ToolTipService.ToolTip="{x:Bind Path=AddHitPointsMessage, Mode=OneTime}" Click="IncreaseHitPoints_Click" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
                 <Image Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  Source="{x:Bind Path=CharacterImage}" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Width="200"/>
 
@@ -51,19 +51,21 @@
                         <ColumnDefinition Width="15"></ColumnDefinition>
                         <ColumnDefinition Width="25"></ColumnDefinition>
                         <ColumnDefinition Width="15"></ColumnDefinition>
-                        <ColumnDefinition Width="25"></ColumnDefinition>
+                        <ColumnDefinition Width="30"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition></RowDefinition>
-                        <RowDefinition Height="100"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
 
                     <ComboBox Grid.Row="0" Grid.Column="0" Header="Weapons Arsenal" ItemsSource="{x:Bind AvailableWeapons, Mode=TwoWay}" DisplayMemberPath="AvailableWeapons.Name" Loaded="WeaponsComboBox_OnLoaded" SelectionChanged="Weapon_SelectionChanged"/>
-                    <Image Grid.Row="1" Grid.Column="0" Grid.RowSpan="3" MaxHeight="100" HorizontalAlignment="Center" Source="{x:Bind WeaponImage, Mode=OneWay}" ToolTipService.ToolTip="Your current weapon"></Image>
+                    <Image Grid.Row="1" Grid.Column="0" Grid.RowSpan="5" MaxHeight="150" HorizontalAlignment="Center" Source="{x:Bind WeaponImage, Mode=OneWay}" ToolTipService.ToolTip="Your current weapon"></Image>
 
                     <TextBlock Grid.Row="0" Grid.Column="1" Text="Attack Damage:" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                     <TextBlock Grid.Row="0" Grid.Column="2" Text="{x:Bind Path=EquippedWeapon.AttackDamage, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
@@ -71,31 +73,45 @@
                     <TextBlock Grid.Row="0" Grid.Column="4" Text="{x:Bind Path=BonusAttackDamage, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <TextBlock Grid.Row="0" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center">=</TextBlock>
                     <TextBlock Grid.Row="0" Grid.Column="6" Text="{x:Bind Path=TotalAttackDamage, Mode=OneWay}" FontSize="28"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <Button Grid.Row="0" Grid.Column="7" IsEnabled="{x:Bind Path=HasAttributePoints, Mode=OneWay}" Content="+" ToolTipService.ToolTip="{x:Bind Path=AddAttackDamageMessage, Mode=OneTime}" HorizontalAlignment="Left" VerticalAlignment="Center" Click="AddOneAttackDamage_Click"/>
+                    <Button Grid.Row="0" Grid.Column="7" IsEnabled="{x:Bind Path=HasAttributePoints, Mode=OneWay}" Content="+" ToolTipService.ToolTip="{x:Bind Path=AddAttackDamageMessage, Mode=OneTime}" HorizontalAlignment="Left" VerticalAlignment="Center" Click="AddAttackDamage_Click"/>
 
-                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Attack Roll:" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{x:Bind Path=EquippedWeapon.AttackRoll, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="Min Attack Roll:" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Row="1" Grid.Column="2" Text="{x:Bind Path=EquippedWeapon.MinimumAttackRoll, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                     <TextBlock Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center">+</TextBlock>
-                    <TextBlock Grid.Row="1" Grid.Column="4" Text="{x:Bind Path=BonusAttackRoll, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="1" Grid.Column="4" Text="{x:Bind Path=BonusMinimumAttackRoll, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <TextBlock Grid.Row="1" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center">=</TextBlock>
-                    <TextBlock Grid.Row="1" Grid.Column="6" Text="{x:Bind Path=TotalAttackRoll, Mode=OneWay}" FontSize="28"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <Button Grid.Row="1" Grid.Column="7" IsEnabled="{x:Bind Path=HasAttributePoints, Mode=OneWay}" Content="+" ToolTipService.ToolTip="{x:Bind Path=AddAttackRollMessage, Mode=OneTime}" HorizontalAlignment="Left" VerticalAlignment="Center" Click="AddOneAttackRoll_Click"/>
+                    <TextBlock Grid.Row="1" Grid.Column="6" Text="{x:Bind Path=TotalMinimumAttackRoll, Mode=OneWay}" FontSize="28"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
 
-                    <TextBlock Grid.Row="2" Grid.Column="1" Text="Defense Roll:" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                    <TextBlock Grid.Row="2" Grid.Column="2" Text="{x:Bind Path=EquippedWeapon.DefenseRoll, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Text="Max Attack Roll:" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="2" Text="{x:Bind Path=EquippedWeapon.MaximumAttackRoll, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                     <TextBlock Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center">+</TextBlock>
-                    <TextBlock Grid.Row="2" Grid.Column="4" Text="{x:Bind Path=BonusDefenseRoll, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="2" Grid.Column="4" Text="{x:Bind Path=BonusMaximumAttackRoll, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <TextBlock Grid.Row="2" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center">=</TextBlock>
-                    <TextBlock Grid.Row="2" Grid.Column="6" Text="{x:Bind Path=TotalDefenseRoll, Mode=OneWay}" FontSize="28"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <Button Grid.Row="2" Grid.Column="7" IsEnabled="{x:Bind Path=HasAttributePoints, Mode=OneWay}" Content="+" ToolTipService.ToolTip="{x:Bind Path=AddDefenseRollMessage, Mode=OneTime}" HorizontalAlignment="Left" VerticalAlignment="Center" Click="AddOneDefenseRoll_Click"/>
+                    <TextBlock Grid.Row="2" Grid.Column="6" Text="{x:Bind Path=TotalMaximumAttackRoll, Mode=OneWay}" FontSize="28"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Button Grid.Row="2" Grid.Column="7" IsEnabled="{x:Bind Path=HasAttributePoints, Mode=OneWay}" Content="+" ToolTipService.ToolTip="{x:Bind Path=AddMaximumAttackRollMessage, Mode=OneTime}" HorizontalAlignment="Left" VerticalAlignment="Center" Click="IncreaseMaxAttackRoll_Click"/>
 
-                    <TextBlock Grid.Row="3" Grid.Column="1" Text="Counterattack Damage" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                    <TextBlock Grid.Row="3" Grid.Column="2" Text="{x:Bind Path=EquippedWeapon.CounterAttackDamage, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Row="3" Grid.Column="1" Text="Min Defense Roll:" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Row="3" Grid.Column="2" Text="{x:Bind Path=EquippedWeapon.MinimumDefenseRoll, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                     <TextBlock Grid.Row="3" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center">+</TextBlock>
-                    <TextBlock Grid.Row="3" Grid.Column="4" Text="{x:Bind Path=BonusCounterattackDamage, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="3" Grid.Column="4" Text="{x:Bind Path=BonusMinimumDefenseRoll, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     <TextBlock Grid.Row="3" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center">=</TextBlock>
-                    <TextBlock Grid.Row="3" Grid.Column="6" Text="{x:Bind Path=TotalCounterattackDamage, Mode=OneWay}" FontSize="28"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <Button Grid.Row="3" Grid.Column="7" IsEnabled="{x:Bind Path=HasAttributePoints, Mode=OneWay}" Content="+" ToolTipService.ToolTip="{x:Bind Path=AddCounterattackDamageMessage, Mode=OneTime}" HorizontalAlignment="Left" VerticalAlignment="Center" Click="AddCounterattackDamage_Click"/>
+                    <TextBlock Grid.Row="3" Grid.Column="6" Text="{x:Bind Path=TotalMinimumDefenseRoll, Mode=OneWay}" FontSize="28"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                    <TextBlock Grid.Row="4" Grid.Column="1" Text="Max Defense Roll:" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Row="4" Grid.Column="2" Text="{x:Bind Path=EquippedWeapon.MaximumDefenseRoll, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Row="4" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center">+</TextBlock>
+                    <TextBlock Grid.Row="4" Grid.Column="4" Text="{x:Bind Path=BonusMaximumDefenseRoll, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="4" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center">=</TextBlock>
+                    <TextBlock Grid.Row="4" Grid.Column="6" Text="{x:Bind Path=TotalMaximumDefenseRoll, Mode=OneWay}" FontSize="28"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Button Grid.Row="4" Grid.Column="7" IsEnabled="{x:Bind Path=HasAttributePoints, Mode=OneWay}" Content="+" ToolTipService.ToolTip="{x:Bind Path=AddMaximumDefenseRollMessage, Mode=OneTime}" HorizontalAlignment="Left" VerticalAlignment="Center" Click="IncreaseMaximumDefenseRoll_Click"/>
+
+                    <TextBlock Grid.Row="5" Grid.Column="1" Text="Counterattack Damage" TextWrapping="Wrap" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Row="5" Grid.Column="2" Text="{x:Bind Path=EquippedWeapon.CounterAttackDamage, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Row="5" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center">+</TextBlock>
+                    <TextBlock Grid.Row="5" Grid.Column="4" Text="{x:Bind Path=BonusCounterattackDamage, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Grid.Row="5" Grid.Column="5" HorizontalAlignment="Center" VerticalAlignment="Center">=</TextBlock>
+                    <TextBlock Grid.Row="5" Grid.Column="6" Text="{x:Bind Path=TotalCounterattackDamage, Mode=OneWay}" FontSize="28"  VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Button Grid.Row="5" Grid.Column="7" IsEnabled="{x:Bind Path=HasAttributePoints, Mode=OneWay}" Content="+" ToolTipService.ToolTip="{x:Bind Path=AddCounterattackDamageMessage, Mode=OneTime}" HorizontalAlignment="Left" VerticalAlignment="Center" Click="AddCounterattackDamage_Click"/>
                 </Grid>
             </Grid>
         </DataTemplate>

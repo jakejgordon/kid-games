@@ -7,6 +7,13 @@
         public CharacterViewModel AttackingCharacter { get; set; }
         public CharacterViewModel DefendingCharacter { get; set; }
 
+        public BasicAttack(int attackRoll, CharacterViewModel attackingCharacter, CharacterViewModel defendingCharacter)
+        {
+            AttackRoll = attackRoll;
+            AttackingCharacter = attackingCharacter;
+            DefendingCharacter = defendingCharacter;
+        }
+
         public DefenseResult Defend()
         {
             var defenseRoll = DefendingCharacter.GetDefenseRoll();
