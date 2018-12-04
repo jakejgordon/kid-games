@@ -23,6 +23,8 @@ namespace CoolDuel
 
         public static string AddMinimumDefenseRollMessage = $"Plus {CharacterViewModel.AttributeToMinimumDefenseRollRatio} Minimum Defense Roll";
 
+        public static string AddMaximumDefenseRollMessage =
+            $"Plus {CharacterViewModel.AttributeToMaximumDefenseRollRatio} Maximum Defense Roll";
 
         public static string AddDefenseRollMessage =
             $"Plus {CharacterViewModel.AttributeToMaximumDefenseRollRatio} Maximum Defense Roll";

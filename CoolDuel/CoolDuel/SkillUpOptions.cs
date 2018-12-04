@@ -8,45 +8,82 @@ namespace CoolDuel
     {
         private static readonly Random Random = new Random();
 
-        private static readonly List<SkillUpOption> AvailableOptions = new List<SkillUpOption>
+        private static readonly SkillUpOption IncreaseAttackDamage = new SkillUpOption
         {
-            new SkillUpOption
-            {
-                DisplayText = XamlMessages.AddAttackDamageMessage,
-                SkillUpKey = SkillUpOptionEnum.IncreaseAttackDamage
-            },
-            new SkillUpOption
-            {
-                DisplayText = XamlMessages.AddMaximumAttackRollMessage,
-                SkillUpKey = SkillUpOptionEnum.IncreaseAttackRoll
-            },
-            new SkillUpOption
-            {
-                DisplayText = XamlMessages.AddDefenseRollMessage,
-                SkillUpKey = SkillUpOptionEnum.IncreaseDefenseRoll
-            },
-            new SkillUpOption
-            {
-                DisplayText = XamlMessages.AddCounterattackDamageMessage,
-                SkillUpKey = SkillUpOptionEnum.IncreaseCounterattackDamage
-            },
-            new SkillUpOption
-            {
-                DisplayText = XamlMessages.AddHitPointsMessage,
-                SkillUpKey = SkillUpOptionEnum.IncreaseHealthPoints
-            }
+            DisplayText = XamlMessages.AddAttackDamageMessage,
+            SkillUpKey = SkillUpOptionEnum.IncreaseAttackDamage
+        };
+
+        private static readonly SkillUpOption IncreaseMinimumAttackRoll = new SkillUpOption
+        {
+            DisplayText = XamlMessages.AddMinimumAttackRollMessage,
+            SkillUpKey = SkillUpOptionEnum.IncreaseMinimumAttackRoll
+        };
+
+        private static readonly SkillUpOption IncreaseMaximumAttackRoll = new SkillUpOption
+        {
+            DisplayText = XamlMessages.AddMaximumAttackRollMessage,
+            SkillUpKey = SkillUpOptionEnum.IncreaseMaximumAttackRoll
+        };
+
+        private static readonly SkillUpOption IncreaseMinimumDefenseRoll = new SkillUpOption
+        {
+            DisplayText = XamlMessages.AddMinimumDefenseRollMessage,
+            SkillUpKey = SkillUpOptionEnum.IncreaseMinimumDefenseRoll
+        };
+
+        private static readonly SkillUpOption IncreaseMaximumDefenseRoll = new SkillUpOption
+        {
+            DisplayText = XamlMessages.AddMaximumDefenseRollMessage,
+            SkillUpKey = SkillUpOptionEnum.IncreaseMaximumAttackRoll
+        };
+
+        private static readonly SkillUpOption IncreaseHitPoints = new SkillUpOption
+        {
+            DisplayText = XamlMessages.AddHitPointsMessage,
+            SkillUpKey = SkillUpOptionEnum.IncreaseHitPoints
+        };
+
+        private static readonly SkillUpOption IncreaseCounterAttackDamage = new SkillUpOption
+        {
+            DisplayText = XamlMessages.AddCounterattackDamageMessage,
+            SkillUpKey = SkillUpOptionEnum.IncreaseCounterattackDamage
+        };
+
+        private static readonly List<SkillUpOption> EarlyPhaseSkillUpOptions = new List<SkillUpOption>
+        {
+            IncreaseAttackDamage,
+            IncreaseHitPoints,
+            IncreaseMaximumAttackRoll,
+            IncreaseMaximumDefenseRoll,
+            IncreaseCounterAttackDamage
+        };
+
+        private static readonly List<SkillUpOption> LaterPhaseSkillUpOptions = new List<SkillUpOption>
+        {
+            IncreaseAttackDamage,
+            IncreaseHitPoints,
+            IncreaseMaximumAttackRoll,
+            IncreaseMaximumDefenseRoll,
+            IncreaseCounterAttackDamage,
+            IncreaseMinimumDefenseRoll,
+            IncreaseMinimumAttackRoll
         };
 
         //private Dictionary<string, >
         public SkillUpOptions(int roundNumber)
         {
-            int option1Index = Random.Next(1, AvailableOptions.Count);
-            var option1 = AvailableOptions[option1Index];
+            var optionSet = roundNumber < 15 ? EarlyPhaseSkillUpOptions : LaterPhaseSkillUpOptions;
+            int option1Index = Random.Next(0, optionSet.Count - 1);
+            var option1 = optionSet[option1Index];
             Option1Text = option1.DisplayText;
             Option1SkillUp = option1.SkillUpKey;
-            //--get the next sequential value, but roll around if going above the max index
-            var option2Index = ++option1Index % AvailableOptions.Count;
-            var option2 = AvailableOptions[option2Index];
+
+            //--this will guarantee the next skill is anything other than the current one
+            int incrementValue = Random.Next(1, optionSet.Count - 1);
+            //--modulus so we get a valid index (that isn't the same as the previous)
+            var option2Index = (option1Index + incrementValue) % optionSet.Count;
+            var option2 = optionSet[option2Index];
             Option2Text = option2.DisplayText;
             Option2SkillUp = option2.SkillUpKey;
         }
@@ -74,16 +111,22 @@ namespace CoolDuel
                 case SkillUpOptionEnum.IncreaseAttackDamage:
                     character.BonusAttackDamage += CharacterViewModel.AttributeToAttackDamageRatio;
                     break;
-                case SkillUpOptionEnum.IncreaseAttackRoll:
+                case SkillUpOptionEnum.IncreaseMinimumAttackRoll:
+                    character.BonusMinimumAttackRoll += CharacterViewModel.AttributeToMinimumAttackRollRatio;
+                    break;
+                case SkillUpOptionEnum.IncreaseMaximumAttackRoll:
                     character.BonusMaximumAttackRoll += CharacterViewModel.AttributeToMaximumAttackRollRatio;
                     break;
-                case SkillUpOptionEnum.IncreaseDefenseRoll:
+                case SkillUpOptionEnum.IncreaseMinimumDefenseRoll:
+                    character.BonusMinimumDefenseRoll += CharacterViewModel.AttributeToMinimumDefenseRollRatio;
+                    break;
+                case SkillUpOptionEnum.IncreaseMaximumDefenseRoll:
                     character.BonusMaximumDefenseRoll += CharacterViewModel.AttributeToMaximumDefenseRollRatio;
                     break;
                 case SkillUpOptionEnum.IncreaseCounterattackDamage:
                     character.BonusCounterattackDamage += CharacterViewModel.AttributeToCounterattackDamageRatio;
                     break;
-                case SkillUpOptionEnum.IncreaseHealthPoints:
+                case SkillUpOptionEnum.IncreaseHitPoints:
                     character.HitPoints += CharacterViewModel.AttributeToHitPointRatio;
                     break;
                 default:
@@ -100,11 +143,12 @@ namespace CoolDuel
 
     public enum SkillUpOptionEnum
     {
-        IncreaseHealthPoints,
+        IncreaseHitPoints,
         IncreaseAttackDamage,
-        IncreaseAttackRoll,
-        IncreaseDefenseRoll,
-        IncreaseCounterattackDamage,
-        IncreaseMinimumAttackRoll
+        IncreaseMinimumAttackRoll,
+        IncreaseMaximumAttackRoll,
+        IncreaseMinimumDefenseRoll,
+        IncreaseMaximumDefenseRoll,
+        IncreaseCounterattackDamage
     }
 }
