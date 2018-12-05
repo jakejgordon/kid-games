@@ -37,7 +37,7 @@
                 <TextBlock Grid.Row="2" Grid.Column="1" FontSize="28" Text="{x:Bind Path=HitPoints, Mode=OneWay}"/>
                 <Button Grid.Row="2" Grid.Column="2" IsEnabled="{x:Bind Path=HasAttributePoints, Mode=OneWay}" Content="+" ToolTipService.ToolTip="{x:Bind Path=AddHitPointsMessage, Mode=OneTime}" Click="IncreaseHitPoints_Click" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
-                <Image Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  Source="{x:Bind Path=CharacterImage}" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Width="200"/>
+                <Image Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  Source="{x:Bind Path=CharacterImage, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Width="200"/>
 
                 <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="9">
                     <Rectangle Fill="Red" Stroke="Black" Width="7" Height="{x:Bind Path=HealthMeter, Mode=OneWay}"/>

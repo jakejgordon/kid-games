@@ -303,6 +303,8 @@ namespace CoolDuel
             {
                 AttackImage.Source = character.WeaponImage;
             }
+
+            character.CharacterImage = newWeapon.GetCharacterImage(character.Character1);
         }
 
         private void WeaponsComboBox_OnLoaded(object sender, RoutedEventArgs e)

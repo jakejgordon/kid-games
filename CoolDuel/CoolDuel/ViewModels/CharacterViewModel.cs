@@ -31,7 +31,8 @@ namespace CoolDuel.ViewModels
         public string AddMinimumDefenseRollMessage = XamlMessages.AddMinimumDefenseRollMessage;
         public string AddMaximumDefenseRollMessage = XamlMessages.AddDefenseRollMessage;
         public string AddHitPointsMessage = XamlMessages.AddHitPointsMessage;
-        
+
+        private BitmapImage _characterImage;
         private int _maxHitPoints = StartingHitPoints;
         private int _hitPoints = StartingHitPoints;
         private string _name;
@@ -54,8 +55,8 @@ namespace CoolDuel.ViewModels
             //--use the property so the fancy setter stuff runs
             EquippedWeapon = weapon;
             CharacterImage = character1
-                ? new BitmapImage(new Uri("ms-appx:///Assets/BattleIcons/c1_knight.png"))
-                : new BitmapImage(new Uri("ms-appx:///Assets/BattleIcons/c2_knight.png"));
+                ? Weapon.Sword.Character1HoldingWeaponImage
+                : Weapon.Sword.Character2HoldingWeaponImage;
         }
 
         public int AvailableAttributePoints
@@ -203,7 +204,15 @@ namespace CoolDuel.ViewModels
             }
         }
 
-        public BitmapImage CharacterImage { get; set; }
+        public BitmapImage CharacterImage
+        {
+            get => _characterImage;
+            set
+            {
+                _characterImage = value;
+                OnPropertyChanged();
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
 
@@ -353,10 +362,10 @@ namespace CoolDuel.ViewModels
             {
                 if (Character1)
                 {
-                    return EquippedWeapon.ImageSourceFlowDirectionLeftToRight;
+                    return EquippedWeapon.Character1WeaponImage;
                 }
 
-                return EquippedWeapon.ImageSourceFlowDirectionRightToLeft;
+                return EquippedWeapon.Character2WeaponImage;
             }
         }
 
