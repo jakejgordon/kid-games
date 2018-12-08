@@ -150,7 +150,7 @@ namespace CoolDuel.ViewModels
             }
         }
 
-        public int TotalMinimumDefenseRoll => BonusMinimumDefenseRoll + EquippedWeapon.MinimumAttackRoll;
+        public int TotalMinimumDefenseRoll => BonusMinimumDefenseRoll + EquippedWeapon.MinimumDefenseRoll;
 
         public int BonusMaximumDefenseRoll
         {
