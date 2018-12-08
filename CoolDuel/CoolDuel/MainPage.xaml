@@ -19,7 +19,7 @@
                 
                 <Grid Grid.Row="0" Loaded="FirstCharacterGrid_OnLoaded">
                     <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="63"></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition Height="250"></RowDefinition>
@@ -32,7 +32,8 @@
                         <ColumnDefinition Width="20"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" IsEnabled="True" Text="{x:Bind Path=Name, Mode=TwoWay}" Header="Character Name" PlaceholderText="Enter name"/>
+                    <TextBox Name="CharacterNameTextBox" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" IsEnabled="True" Text="{x:Bind Path=Name, Mode=TwoWay}" Header="Character Name" PlaceholderText="Enter name" />
+                    <TextBlock Name="CharacterName" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Visibility="Collapsed" Text="{x:Bind Path=Name, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom"></TextBlock>
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="Attribute Points:" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind Path=AvailableAttributePoints, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}"/>
 
@@ -151,7 +152,7 @@
 
         <ContentControl Grid.Row="3" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" Name="Character2ContentControl"  HorizontalAlignment="Center" VerticalAlignment="Top" ContentTemplate="{StaticResource CharacterGridDataTemplate}"></ContentControl>
 
-        <TextBlock Grid.Row="4" Grid.Column="2" Name="AnnouncementHeader"  Margin="0,120,0,0" TextAlignment="Center" HorizontalAlignment="Center"  Style="{StaticResource TitleTextBlockStyle}" />
+        <TextBlock Grid.Row="4" Grid.Column="2" Name="AnnouncementHeader"  Margin="0,120,0,0" TextAlignment="Center" HorizontalAlignment="Center"  Style="{StaticResource TitleTextBlockStyle}" FontWeight="Bold" />
         <TextBlock Grid.Row="4" Grid.Column="2" Name="AnnouncementBody" Margin="0,150,0,0" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Style="{StaticResource SubtitleTextBlockStyle}"/>
 
         <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Name="Character1ContentDialogGrid">

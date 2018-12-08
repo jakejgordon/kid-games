@@ -3,7 +3,9 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Media;
 using CoolDuel.ViewModels;
+using TextBox = Windows.UI.Xaml.Controls.TextBox;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -280,6 +282,44 @@ namespace CoolDuel
             RoundNumber.Visibility = Visibility.Visible;
             Character1ContentControl.IsEnabled = false;
             Character2ContentControl.IsEnabled = false;
+
+            var character1NameTextBox = FindElementByName<TextBox>(Character1ContentControl, "CharacterNameTextBox");
+            character1NameTextBox.Visibility = Visibility.Collapsed;
+
+            var character2NameTextBox = FindElementByName<TextBox>(Character2ContentControl, "CharacterNameTextBox");
+            character2NameTextBox.Visibility = Visibility.Collapsed;
+
+            var character1Name = FindElementByName<TextBlock>(Character1ContentControl, "CharacterName");
+            character1Name.Visibility = Visibility.Visible;
+
+            var character2Name = FindElementByName<TextBlock>(Character2ContentControl, "CharacterName");
+            character2Name.Visibility = Visibility.Visible;
+        }
+
+        public T FindElementByName<T>(FrameworkElement element, string childName) where T : FrameworkElement
+        {
+            T childElement = null;
+            var numberOfChildren = VisualTreeHelper.GetChildrenCount(element);
+            for (int i = 0; i < numberOfChildren; i++)
+            {
+                var child = VisualTreeHelper.GetChild(element, i) as FrameworkElement;
+
+                if (child == null)
+                    continue;
+
+                if (child is T && child.Name.Equals(childName))
+                {
+                    childElement = (T) child;
+                    break;
+                }
+
+                childElement = FindElementByName<T>(child, childName);
+
+                if (childElement != null)
+                    break;
+            }
+
+            return childElement;
         }
 
         private void Attack_Click(object sender, RoutedEventArgs e)
@@ -342,5 +382,23 @@ namespace CoolDuel
             var activeCharacter = GetActiveCharacter(grid);
             grid.HorizontalAlignment = activeCharacter.Character1 ? HorizontalAlignment.Left : HorizontalAlignment.Right;
         }
+
+        //private void CharacterNameTextBox_OnIsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
+        //{
+        //    var characterNameTextBox = sender as TextBox;
+        //    var parentGrid = characterNameTextBox.Parent as Grid;
+        //    var characterName = parentGrid.FindName("CharacterName") as TextBlock;
+        //    var isEnabled = (bool) e.NewValue;
+        //    if (isEnabled)
+        //    {
+        //        characterNameTextBox.Visibility = Visibility.Visible;
+        //        characterName.Visibility = Visibility.Collapsed;
+        //    }
+        //    else
+        //    {
+        //        characterNameTextBox.Visibility = Visibility.Collapsed;
+        //        characterName.Visibility = Visibility.Visible;
+        //    }
+        //}
     }
 }
