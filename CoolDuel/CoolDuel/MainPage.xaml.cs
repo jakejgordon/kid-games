@@ -75,7 +75,7 @@ namespace CoolDuel
             }
         }
 
-        private async void BattleAsync()
+        private async void AttackOtherPlayer()
         {
             var basicAttack = ViewModel.NextAttack();
 
@@ -92,6 +92,7 @@ namespace CoolDuel
 
             //--show dialog on opposite side of attacker
             var result = await ShowCharacterSpecificDialog(defenseDialog, !ViewModel.Character1Turn);
+            bool isCounterattack = false;
             if (result == ContentDialogResult.Primary)
             {
                 var defenseResult = basicAttack.Defend();
@@ -105,6 +106,7 @@ namespace CoolDuel
                 AnnouncementBody.Text = defenseResult.ResultText;
             }else if (result == ContentDialogResult.None)
             {
+                isCounterattack = true;
                 var counterattackResult = basicAttack.Counterattack();
                 AnnouncementHeader.Text = "Counterattack!";
                 AnnouncementBody.Text = counterattackResult.ResultText;
@@ -116,7 +118,12 @@ namespace CoolDuel
 
             await CheckForGameEnd(basicAttack);
 
-            SwitchTurns();
+            await SwitchTurns();
+
+            if (isCounterattack)
+            {
+                AttackOtherPlayer();
+            }
         }
 
         private async Task<ContentDialogResult> ShowCharacterSpecificDialog(ContentDialog dialog, bool showOnCharacter1Side)
@@ -166,7 +173,7 @@ namespace CoolDuel
             }
         }
 
-        private void SwitchTurns()
+        private async Task SwitchTurns()
         {
             ViewModel.Character1Turn = !ViewModel.Character1Turn;
             if (ViewModel.Character1Turn)
@@ -174,7 +181,7 @@ namespace CoolDuel
                 ViewModel.RoundNumber++;
                 ShiftAttackButtonsToCharacter1();
                 AttackImage.Source = ViewModel.Character1.WeaponImage;
-                CheckForSkillUp();
+                await CheckForSkillUp();
             }
             else
             {
@@ -199,14 +206,17 @@ namespace CoolDuel
             PrayButton.Margin = new Thickness(250, 200, 0, 0);
         }
 
-        private async void CheckForSkillUp()
+        private async Task<bool> CheckForSkillUp()
         {
             var randomNumberUpTo10 = new Random().Next(1, 100);
             if (randomNumberUpTo10 <= 30 + (ViewModel.RoundNumber*2))
             {
                 await PromptForSkillUpChoice(ViewModel.Character1);
                 await PromptForSkillUpChoice(ViewModel.Character2);
+                return true;
             }
+
+            return false;
         }
 
         private async Task PromptForSkillUpChoice(CharacterViewModel character, string dialogTitle = null)
@@ -268,7 +278,7 @@ namespace CoolDuel
 
         private void Attack_Click(object sender, RoutedEventArgs e)
         {
-            BattleAsync();
+            AttackOtherPlayer();
         }
 
         private async void PrayButton_OnClick(object sender, RoutedEventArgs e)
