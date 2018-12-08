@@ -15,35 +15,40 @@
                 <Grid.RowDefinitions>
                     <RowDefinition></RowDefinition>
                     <RowDefinition></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition Height="200"></RowDefinition>
-                    <RowDefinition Height="10"></RowDefinition>
-                    <RowDefinition></RowDefinition>
-                    <RowDefinition Height="100"></RowDefinition>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="155"></ColumnDefinition>
-                    <ColumnDefinition Width="45"></ColumnDefinition>
-                    <ColumnDefinition Width="50"></ColumnDefinition>
-                    <ColumnDefinition Width="10"></ColumnDefinition>
-                    <ColumnDefinition Width="30"></ColumnDefinition>
-                    <ColumnDefinition Width="30"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" IsEnabled="True" Text="{x:Bind Path=Name, Mode=TwoWay}" Header="Character Name" PlaceholderText="Enter name"/>
-                <TextBlock Grid.Row="1" Grid.Column="0" Text="Attribute Points:" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind Path=AvailableAttributePoints, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}"/>
+                
+                <Grid Grid.Row="0" Loaded="FirstCharacterGrid_OnLoaded">
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="250"></RowDefinition>
+                        <RowDefinition Height="10"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="155"></ColumnDefinition>
+                        <ColumnDefinition Width="45"></ColumnDefinition>
+                        <ColumnDefinition Width="50"></ColumnDefinition>
+                        <ColumnDefinition Width="20"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
 
-                <TextBlock Grid.Row="2" Grid.Column="0" Text="Hit Points:" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
-                <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind Path=HitPoints, Mode=OneWay}"/>
-                <Button Grid.Row="2" Grid.Column="2" IsEnabled="{x:Bind Path=HasAttributePoints, Mode=OneWay}" Content="+" ToolTipService.ToolTip="{x:Bind Path=AddHitPointsMessage, Mode=OneTime}" Click="IncreaseHitPoints_Click" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                    <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" IsEnabled="True" Text="{x:Bind Path=Name, Mode=TwoWay}" Header="Character Name" PlaceholderText="Enter name"/>
+                    <TextBlock Grid.Row="1" Grid.Column="0" Text="Attribute Points:" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind Path=AvailableAttributePoints, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}"/>
 
-                <Image Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"  Source="{x:Bind Path=CharacterImage, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Bottom"  Width="200"/>
+                    <TextBlock Grid.Row="2" Grid.Column="0" Text="Hit Points:" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
+                    <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind Path=HitPoints, Mode=OneWay}"/>
+                    <Button Grid.Row="2" Grid.Column="2" IsEnabled="{x:Bind Path=HasAttributePoints, Mode=OneWay}" Content="+" ToolTipService.ToolTip="{x:Bind Path=AddHitPointsMessage, Mode=OneTime}" Click="IncreaseHitPoints_Click" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
-                <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="9">
-                    <Rectangle Fill="Red" Stroke="Black" Width="7" Height="{x:Bind Path=HealthMeter, Mode=OneWay}"/>
-                </StackPanel>
+                    <Image Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Source="{x:Bind Path=CharacterImage, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
 
-                <Grid Grid.Row="5" Grid.Column="0" ColumnSpan="6">
+                    <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="20" Loaded="HealthBar_OnLoaded">
+                        <Rectangle Fill="Red" Stroke="Black" Height="{x:Bind Path=HealthMeter, Mode=OneWay}"/>
+                    </StackPanel>
+                </Grid>
+               
+
+                <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="155"></ColumnDefinition>
                         <ColumnDefinition Width="25"></ColumnDefinition>
@@ -64,7 +69,7 @@
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
 
-                    <ComboBox Grid.Row="0" Grid.Column="0" Header="Weapons Arsenal" ItemsSource="{x:Bind AvailableWeapons, Mode=TwoWay}" DisplayMemberPath="AvailableWeapons.Name" Loaded="WeaponsComboBox_OnLoaded" SelectionChanged="Weapon_SelectionChanged"/>
+                    <ComboBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" HorizontalAlignment="Center" Header="Weapon of Choice" ItemsSource="{x:Bind AvailableWeapons, Mode=TwoWay}" DisplayMemberPath="AvailableWeapons.Name" Loaded="WeaponsComboBox_OnLoaded" SelectionChanged="Weapon_SelectionChanged"/>
 
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="Attack Damage:" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>
                     <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind Path=EquippedWeapon.AttackDamage, Mode=OneWay}" VerticalAlignment="Center" HorizontalAlignment="Center"></TextBlock>

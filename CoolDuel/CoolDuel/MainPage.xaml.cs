@@ -67,6 +67,12 @@ namespace CoolDuel
             return ((FrameworkElement)(sender as T).Parent).DataContext as CharacterViewModel;
         }
 
+        private static CharacterViewModel GetActiveCharacter<T>(T sender) where T : FrameworkElement
+        {
+            var parent = sender.Parent as FrameworkElement;
+            return parent.DataContext as CharacterViewModel;
+        }
+
         private void CheckForBattleStart()
         {
             if (!ViewModel.Character1.HasAttributePoints && !ViewModel.Character2.HasAttributePoints)
@@ -323,5 +329,18 @@ namespace CoolDuel
             weaponsComboBox.SelectedIndex = 0;
         }
 
+        private void HealthBar_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            var activeCharacter = GetActiveCharacter<StackPanel>(sender);
+            var stackPanel = sender as StackPanel;
+            stackPanel.SetValue(Grid.ColumnProperty, activeCharacter.Character1 ? 0 : 3);
+        }
+
+        private void FirstCharacterGrid_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            var grid = sender as Grid;
+            var activeCharacter = GetActiveCharacter(grid);
+            grid.HorizontalAlignment = activeCharacter.Character1 ? HorizontalAlignment.Left : HorizontalAlignment.Right;
+        }
     }
 }
