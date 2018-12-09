@@ -4,7 +4,9 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using CoolDuel.ViewModels;
+using Microsoft.Toolkit.Uwp.UI.Animations;
 using TextBox = Windows.UI.Xaml.Controls.TextBox;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
@@ -339,11 +341,20 @@ namespace CoolDuel
             }
             else
             {
-                AnnouncementHeader.Text = "Unanswered Prayers";
-                AnnouncementBody.Text = $"No blessing was bestowed upon {activeCharacter.Name}.";
+                await ChangeAnnouncement(activeCharacter, "Unanswered Prayers", $"No blessing was bestowed upon {activeCharacter.Name}.");
             }
 
-            SwitchTurns();
+            await SwitchTurns();
+        }
+
+        private async Task ChangeAnnouncement(CharacterViewModel activeCharacter, string announcementHeader, string announcementBody)
+        {
+            await AnnouncementHeader.Fade().StartAsync();
+            
+            AnnouncementHeader.Text = announcementHeader;
+            AnnouncementBody.Text = announcementBody;
+
+            await AnnouncementHeader.Fade(value: 1F, easingMode: EasingMode.EaseIn).StartAsync();
         }
 
         private void Weapon_SelectionChanged(object sender, RoutedEventArgs e)
