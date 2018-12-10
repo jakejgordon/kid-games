@@ -352,12 +352,17 @@ namespace CoolDuel
 
         private async Task ChangeAnnouncement(string announcementHeader, string announcementBody)
         {
-            await AnnouncementHeader.Fade().StartAsync();
-            
+            var task1 = AnnouncementHeader.Fade(duration: 250).StartAsync();
+            var task2 = AnnouncementBody.Fade(duration: 250).StartAsync();
+
+            await Task.WhenAll(task1, task2);
+
             AnnouncementHeader.Text = announcementHeader;
             AnnouncementBody.Text = announcementBody;
 
-            await AnnouncementHeader.Fade(value: 1F, easingMode: EasingMode.EaseIn).StartAsync();
+            task1 = AnnouncementHeader.Fade(value: 1F, easingMode: EasingMode.EaseIn).StartAsync();
+            task2 = AnnouncementBody.Fade(value: 1F, easingMode: EasingMode.EaseIn).StartAsync();
+            await Task.WhenAll(task1, task2);
         }
 
         private void Weapon_SelectionChanged(object sender, RoutedEventArgs e)
