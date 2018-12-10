@@ -77,11 +77,11 @@ namespace CoolDuel
             return parent.DataContext as CharacterViewModel;
         }
 
-        private void CheckForBattleStart()
+        private async void CheckForBattleStart()
         {
             if (!ViewModel.Character1.HasAttributePoints && !ViewModel.Character2.HasAttributePoints)
             {
-                StartBattleAnimation();
+                await StartBattleAnimation();
             }
         }
 
@@ -106,20 +106,21 @@ namespace CoolDuel
             if (result == ContentDialogResult.Primary)
             {
                 var defenseResult = basicAttack.Defend();
+                string resultTitle = string.Empty;
                 if (defenseResult.DefenseResultType == DefenseResultType.AttackBlocked)
                 {
-                    AnnouncementHeader.Text = "Attack Blocked!";
-                }else if (defenseResult.DefenseResultType == DefenseResultType.AttackHit)
-                {
-                    AnnouncementHeader.Text = "Hit!";
+                    resultTitle = "Attack Blocked!";
                 }
-                AnnouncementBody.Text = defenseResult.ResultText;
+                else if (defenseResult.DefenseResultType == DefenseResultType.AttackHit)
+                {
+                    resultTitle = "Hit!";
+                }
+                await ChangeAnnouncement(resultTitle, $"{defenseResult.ResultText}");
             }else if (result == ContentDialogResult.None)
             {
                 isCounterattack = true;
                 var counterattackResult = basicAttack.Counterattack();
-                AnnouncementHeader.Text = "Counterattack!";
-                AnnouncementBody.Text = counterattackResult.ResultText;
+                await ChangeAnnouncement("Counterattack!", $"{counterattackResult.ResultText}");
             }
             else
             {
@@ -248,30 +249,32 @@ namespace CoolDuel
             };
 
             var result = await ShowCharacterSpecificDialog(characterSkillUpDialog, character.Character1);
-            AnnouncementHeader.Text = $"{character.Name} Skill Up!";
+            string announcementBody;
 
             if (result == ContentDialogResult.Primary)
             {
                 skillUpOptions.ApplyOption1Bonus(character);
-                AnnouncementBody.Text = $"{character.Name} now has {skillUpOptions.Option1Text}";
+                announcementBody = $"{character.Name} now has {skillUpOptions.Option1Text}";
             }
             else if (result == ContentDialogResult.None)
             {
                 skillUpOptions.ApplyOption2Bonus(character);
-                AnnouncementBody.Text = $"{character.Name} now has {skillUpOptions.Option2Text}";
+                announcementBody = $"{character.Name} now has {skillUpOptions.Option2Text}";
             }
             else
             {
                 throw new InvalidOperationException("Invalid ContentDialogResult detected");
             }
+
+            await ChangeAnnouncement($"{character.Name} Skill Up!", announcementBody);
         }
 
-        private void StartBattleAnimation()
+        private async Task StartBattleAnimation()
         {
             var announcement = $"It's battle time! Your turn first, {ViewModel.Character1.Name}!";
 
-            AnnouncementHeader.Text = "Prepare For Battle!";
-            AnnouncementBody.Text = announcement;
+            await ChangeAnnouncement("Prepare For Battle!", announcement);
+
 
             AttackButton.IsEnabled = true;
             AttackButton.Visibility = Visibility.Visible;
@@ -341,13 +344,13 @@ namespace CoolDuel
             }
             else
             {
-                await ChangeAnnouncement(activeCharacter, "Unanswered Prayers", $"No blessing was bestowed upon {activeCharacter.Name}.");
+                await ChangeAnnouncement("Unanswered Prayers", $"No blessing was bestowed upon {activeCharacter.Name}.");
             }
 
             await SwitchTurns();
         }
 
-        private async Task ChangeAnnouncement(CharacterViewModel activeCharacter, string announcementHeader, string announcementBody)
+        private async Task ChangeAnnouncement(string announcementHeader, string announcementBody)
         {
             await AnnouncementHeader.Fade().StartAsync();
             
@@ -393,23 +396,5 @@ namespace CoolDuel
             var activeCharacter = GetActiveCharacter(grid);
             grid.HorizontalAlignment = activeCharacter.Character1 ? HorizontalAlignment.Left : HorizontalAlignment.Right;
         }
-
-        //private void CharacterNameTextBox_OnIsEnabledChanged(object sender, DependencyPropertyChangedEventArgs e)
-        //{
-        //    var characterNameTextBox = sender as TextBox;
-        //    var parentGrid = characterNameTextBox.Parent as Grid;
-        //    var characterName = parentGrid.FindName("CharacterName") as TextBlock;
-        //    var isEnabled = (bool) e.NewValue;
-        //    if (isEnabled)
-        //    {
-        //        characterNameTextBox.Visibility = Visibility.Visible;
-        //        characterName.Visibility = Visibility.Collapsed;
-        //    }
-        //    else
-        //    {
-        //        characterNameTextBox.Visibility = Visibility.Collapsed;
-        //        characterName.Visibility = Visibility.Visible;
-        //    }
-        //}
     }
 }

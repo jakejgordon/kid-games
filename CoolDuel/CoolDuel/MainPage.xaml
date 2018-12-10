@@ -137,18 +137,6 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <Grid.Resources>
-            <Style x:Key="AnnouncementTitleStyle" BasedOn="{StaticResource TitleTextBlockStyle}" TargetType="TextBlock">
-                <Setter Property="Transitions">
-                    <Setter.Value>
-                        <TransitionCollection>
-                            
-                            <EntranceThemeTransition/>
-                        </TransitionCollection>
-                    </Setter.Value>
-                </Setter>
-            </Style>
-        </Grid.Resources>
         <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="Welcome to Cool Duel!" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Center"  HorizontalTextAlignment="Center" Style="{StaticResource SubheaderTextBlockStyle}"/>
 
         <TextBlock Name="RoundNumber" Grid.Row="3" Grid.Column="2" Margin="0,15,0,0" FontSize="20" Visibility="Collapsed" Text="{x:Bind ViewModel.RoundNumberText, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Top"></TextBlock>
@@ -165,12 +153,18 @@
 
         <ContentControl Grid.Row="3" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" Name="Character2ContentControl"  HorizontalAlignment="Center" VerticalAlignment="Top" ContentTemplate="{StaticResource CharacterGridDataTemplate}"></ContentControl>
 
-        <TextBlock Grid.Row="4" Grid.Column="2" Name="AnnouncementHeader"  Margin="0,120,0,0" TextAlignment="Center" HorizontalAlignment="Center"  Style="{StaticResource AnnouncementTitleStyle}" FontWeight="Bold" />
-        <TextBlock Grid.Row="4" Grid.Column="2" Name="AnnouncementBody" Margin="0,150,0,0" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Style="{StaticResource SubtitleTextBlockStyle}"/>
-
         <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Name="Character1ContentDialogGrid">
         </Grid>
         <Grid Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Name="Character2ContentDialogGrid">
         </Grid>
+        <Grid Grid.Row="3" Grid.Column="2" Margin="0 350 0 0">
+            <Grid.RowDefinitions>
+                <RowDefinition></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Name="AnnouncementHeader" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource TitleTextBlockStyle}" FontWeight="Bold" />
+            <TextBlock Grid.Row="1" Name="AnnouncementBody" TextAlignment="Center"  HorizontalAlignment="Center" VerticalAlignment="Top" TextWrapping="Wrap" Style="{StaticResource SubtitleTextBlockStyle}"/>
+        </Grid>
+
     </Grid>
 </Page>
