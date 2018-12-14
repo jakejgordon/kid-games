@@ -187,7 +187,9 @@ namespace CoolDuel.ViewModels
 
                 OnPropertyChanged();
                 OnPropertyChanged(nameof(TotalAttackDamage));
+                OnPropertyChanged(nameof(TotalMinimumDefenseRoll));
                 OnPropertyChanged(nameof(TotalMaximumDefenseRoll));
+                OnPropertyChanged(nameof(TotalMinimumAttackRoll));
                 OnPropertyChanged(nameof(TotalMaximumAttackRoll));
                 OnPropertyChanged(nameof(TotalCounterattackDamage));
                 OnPropertyChanged(nameof(WeaponImage));
