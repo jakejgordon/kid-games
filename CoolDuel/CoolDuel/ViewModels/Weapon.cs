@@ -65,6 +65,7 @@ namespace CoolDuel.ViewModels
             return Id;
         }
 
+        //TODO see the section on "live tree examples" where it says you shouldn't set the source of an image until adding it to a live tree: https://docs.microsoft.com/en-us/windows/uwp/debug-test-perf/optimize-animations-and-media
         public static Weapon Sword { get; } = new Weapon(
             id: 1, 
             name: "Sword",
@@ -88,8 +89,8 @@ namespace CoolDuel.ViewModels
             minimumDefenseRoll: 1,
             maximumDefenseRoll: 4,
             counterAttackDamage: 3,
-            character1WeaponCharacter1WeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/mace.jpg")),
-            character2WeaponCharacter2WeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/mace_right_to_left.jpg")),
+            character1WeaponCharacter1WeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/flail.png")),
+            character2WeaponCharacter2WeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/flail_right_to_left.png")),
             character1HoldingWeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Characters/Knight/flail.png")),
             character2HoldingWeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Characters/Knight/flail_right_to_left.png")));
 
@@ -102,8 +103,8 @@ namespace CoolDuel.ViewModels
             minimumDefenseRoll: 0,
             maximumDefenseRoll: 3,
             counterAttackDamage: 3,
-             character1WeaponCharacter1WeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/spear.png")),
-            character2WeaponCharacter2WeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/spear_right_to_left.png")),
+             character1WeaponCharacter1WeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/long_spear.png")),
+            character2WeaponCharacter2WeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/long_spear_right_to_left.png")),
             character1HoldingWeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Characters/Knight/two_handed_spear.png")),
             character2HoldingWeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Characters/Knight/two_handed_spear_right_to_left.png")));
 
@@ -116,8 +117,8 @@ namespace CoolDuel.ViewModels
             minimumDefenseRoll: 0,
             maximumDefenseRoll: 2,
             counterAttackDamage: 4,
-            character1WeaponCharacter1WeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/war_hammer.jpg")),
-            character2WeaponCharacter2WeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/war_hammer_right_to_left.jpg")),
+            character1WeaponCharacter1WeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/war_hammer.png")),
+            character2WeaponCharacter2WeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/war_hammer_right_to_left.png")),
             character1HoldingWeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Characters/Knight/two_handed_war_hammer.png")),
             character2HoldingWeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Characters/Knight/two_handed_war_hammer_right_to_left.png")));
 
@@ -144,24 +145,24 @@ namespace CoolDuel.ViewModels
             minimumDefenseRoll:0,
             maximumDefenseRoll: 2,
             counterAttackDamage: 4,
-            character1WeaponCharacter1WeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/two_handed_axe.jpg")),
-            character2WeaponCharacter2WeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/two_handed_axe_right_to_left.jpg")),
+            character1WeaponCharacter1WeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/two_handed_axe.png")),
+            character2WeaponCharacter2WeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/two_handed_axe_right_to_left.png")),
             character1HoldingWeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Characters/Knight/two_handed_axe.png")),
             character2HoldingWeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Characters/Knight/two_handed_axe_right_to_left.png")));
 
-        //public static Weapon OneHandedShortSpear { get; } = new Weapon(
-        //    id: 7,
-        //    name: "One Handed Short Spear",
-        //    attackDamage: 1,
-        //    minimumAttackRoll: 2,
-        //    maximumAttackRoll: 9,
-        //    minimumDefenseRoll: 1,
-        //    maximumDefenseRoll: 6,
-        //    counterAttackDamage: 1,
-        //    character1WeaponCharacter1WeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/bo_staff.png")),
-        //    character2WeaponCharacter2WeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/bo_staff_right_to_left.png")),
-        //    character1HoldingWeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Characters/Knight/one_handed_short_spear.png")),
-        //    character2HoldingWeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Characters/Knight/one_handed_short_spear_right_to_left.png")));
+        public static Weapon ShortSpear { get; } = new Weapon(
+            id: 7,
+            name: "One Handed Short Spear",
+            attackDamage: 1,
+            minimumAttackRoll: 2,
+            maximumAttackRoll: 9,
+            minimumDefenseRoll: 1,
+            maximumDefenseRoll: 6,
+            counterAttackDamage: 1,
+            character1WeaponCharacter1WeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/short_spear.png")),
+            character2WeaponCharacter2WeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Weapons/short_spear.png")),
+            character1HoldingWeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Characters/Knight/one_handed_short_spear.png")),
+            character2HoldingWeaponImage: new BitmapImage(new Uri("ms-appx:///Assets/Characters/Knight/one_handed_short_spear_right_to_left.png")));
 
         public static ObservableCollection<Weapon> AllWeapons { get; } = new ObservableCollection<Weapon>
         {
@@ -171,7 +172,7 @@ namespace CoolDuel.ViewModels
             TwoHandedWarHammer,
             OneHandedAxe,
             TwoHandedAxe,
-            //OneHandedShortSpear
+            ShortSpear
         };
 
         public static Weapon GetWeapon(string selectedWeaponName)

@@ -135,20 +135,22 @@
     <Content Include="Assets\Characters\Knight\two_handed_spear_right_to_left.png" />
     <Content Include="Assets\Characters\Knight\two_handed_war_hammer.png" />
     <Content Include="Assets\Characters\Knight\two_handed_war_hammer_right_to_left.png" />
-    <Content Include="Assets\Weapons\bo_staff.png" />
-    <Content Include="Assets\Weapons\bo_staff_right_to_left.png" />
-    <Content Include="Assets\Weapons\mace_right_to_left.jpg" />
+    <Content Include="Assets\Weapons\flail.png" />
+    <Content Include="Assets\Weapons\flail_right_to_left.png" />
+    <Content Include="Assets\Weapons\long_spear.png" />
+    <Content Include="Assets\Weapons\long_spear_right_to_left.png" />
+    <Content Include="Assets\Weapons\one_handed_axe.png" />
     <Content Include="Assets\Weapons\one_handed_axe_right_to_left.png" />
-    <Content Include="Assets\Weapons\spear_right_to_left.png" />
+    <Content Include="Assets\Weapons\short_spear.png" />
+    <Content Include="Assets\Weapons\short_spear_right_to_left.png" />
     <Content Include="Assets\Weapons\sword.png" />
     <Content Include="Assets\Weapons\sword_right_to_left.png" />
-    <Content Include="Assets\Weapons\two_handed_axe_right_to_left.jpg" />
-    <Content Include="Assets\Weapons\war_hammer.jpg" />
-    <Content Include="Assets\Weapons\mace.jpg" />
-    <Content Include="Assets\Weapons\one_handed_axe.png" />
-    <Content Include="Assets\Weapons\spear.png" />
-    <Content Include="Assets\Weapons\two_handed_axe.jpg" />
-    <Content Include="Assets\Weapons\war_hammer_right_to_left.jpg" />
+    <Content Include="Assets\Weapons\two_handed_axe.png" />
+    <Content Include="Assets\Weapons\two_handed_axe_right_to_left.png" />
+    <Content Include="Assets\Weapons\war_hammer.png" />
+    <Content Include="Assets\Weapons\war_hammer_right_to_left.png" />
+    <Content Include="Assets\Weapons\war_mace.png" />
+    <Content Include="Assets\Weapons\war_mace_right_to_left.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -176,6 +178,7 @@
       <Version>5.0.0</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>
