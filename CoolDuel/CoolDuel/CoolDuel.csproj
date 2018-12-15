@@ -92,6 +92,7 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AnnouncementType.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
@@ -118,6 +119,11 @@
     <None Include="CoolDuel_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\Actions\bird_poop.png" />
+    <Content Include="Assets\Actions\blessing.png" />
+    <Content Include="Assets\Actions\blocked.png" />
+    <Content Include="Assets\Actions\hit.png" />
+    <Content Include="Assets\Actions\no_blessing.png" />
     <Content Include="Assets\BattleIcons\c1_knight.png" />
     <Content Include="Assets\BattleIcons\c2_knight.png" />
     <Content Include="Assets\BattleIcons\prayer_hands.png" />

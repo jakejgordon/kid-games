@@ -154,17 +154,22 @@
 
         <ContentControl Grid.Row="3" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" Name="Character2ContentControl"  HorizontalAlignment="Center" VerticalAlignment="Top" ContentTemplate="{StaticResource CharacterGridDataTemplate}"></ContentControl>
 
-        <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Name="Character1ContentDialogGrid">
+        <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Name="Character1ContentDialogGrid" Margin="0 0 0 1">
         </Grid>
         <Grid Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Name="Character2ContentDialogGrid">
         </Grid>
-        <Grid Grid.Row="3" Grid.Column="2" Margin="0 350 0 0">
+        <Grid Grid.Row="3" Grid.Column="2" Margin="0 450 0 0">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Name="AnnouncementHeader" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource TitleTextBlockStyle}" FontWeight="Bold" />
-            <TextBlock Grid.Row="1" Name="AnnouncementBody" TextAlignment="Center"  HorizontalAlignment="Center" VerticalAlignment="Top" TextWrapping="Wrap" Style="{StaticResource SubtitleTextBlockStyle}"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Image Grid.RowSpan="2" Name="AnnouncementImage" Height="200"></Image>
+            <TextBlock Grid.Row="0" Grid.Column="1" Name="AnnouncementHeader" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource TitleTextBlockStyle}" FontWeight="Bold" />
+            <TextBlock Grid.Row="1" Grid.Column="1" Name="AnnouncementBody" TextAlignment="Center"  HorizontalAlignment="Center" VerticalAlignment="Top" TextWrapping="Wrap" Style="{StaticResource SubtitleTextBlockStyle}"/>
         </Grid>
 
     </Grid>

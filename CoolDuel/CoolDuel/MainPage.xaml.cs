@@ -5,6 +5,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Media.Imaging;
 using CoolDuel.ViewModels;
 using Microsoft.Toolkit.Uwp.UI.Animations;
 using TextBox = Windows.UI.Xaml.Controls.TextBox;
@@ -106,16 +107,18 @@ namespace CoolDuel
             if (result == ContentDialogResult.Primary)
             {
                 var defenseResult = basicAttack.Defend();
-                string resultTitle = string.Empty;
+                string resultTitle;
+                AnnouncementType announcementType;
                 if (defenseResult.DefenseResultType == DefenseResultType.AttackBlocked)
                 {
                     resultTitle = "Attack Blocked!";
-                }
-                else if (defenseResult.DefenseResultType == DefenseResultType.AttackHit)
+                    announcementType = AnnouncementType.AttackBlocked;
+                }else
                 {
                     resultTitle = "Hit!";
+                    announcementType = AnnouncementType.AttackHit;
                 }
-                await ChangeAnnouncement(resultTitle, $"{defenseResult.ResultText}");
+                await ChangeAnnouncement(resultTitle, $"{defenseResult.ResultText}", announcementType);
             }else if (result == ContentDialogResult.None)
             {
                 isCounterattack = true;
@@ -340,29 +343,69 @@ namespace CoolDuel
             if (randomNumberUpTo10 <= 40)
             {
                 var dialogTitle = $"{activeCharacter.Name} has been blessed!";
+                await ChangeAnnouncement("Blessing Bestowed!",
+                    $"{activeCharacter.Name} has had a great blessing bestowed upon them!",
+                    AnnouncementType.PrayerSuccess);
                 await PromptForSkillUpChoice(activeCharacter, dialogTitle);
             }
             else
             {
-                await ChangeAnnouncement("Unanswered Prayers", $"No blessing was bestowed upon {activeCharacter.Name}.");
+                await ChangeAnnouncement("Unanswered Prayers", $"No blessing was bestowed upon {activeCharacter.Name}.", AnnouncementType.PrayerFailure);
             }
 
             await SwitchTurns();
         }
 
-        private async Task ChangeAnnouncement(string announcementHeader, string announcementBody)
+        private async Task ChangeAnnouncement(string announcementHeader, string announcementBody, AnnouncementType announcementType = AnnouncementType.None)
         {
             var task1 = AnnouncementHeader.Fade(duration: 250).StartAsync();
             var task2 = AnnouncementBody.Fade(duration: 250).StartAsync();
+            var task3 = AnnouncementImage.Fade(duration: 250).StartAsync();
 
-            await Task.WhenAll(task1, task2);
+            await Task.WhenAll(task1, task2, task3);
 
             AnnouncementHeader.Text = announcementHeader;
             AnnouncementBody.Text = announcementBody;
 
+            switch (announcementType)
+            {
+                case AnnouncementType.AttackHit:
+                    ShowAnnouncementImage(AnnouncementImages.AttackHit);
+                    break;
+                case AnnouncementType.AttackBlocked:
+                    ShowAnnouncementImage(AnnouncementImages.AttackBlocked);
+                    break;
+                case AnnouncementType.PrayerSuccess:
+                    ShowAnnouncementImage(AnnouncementImages.Blessing);
+                    break;
+                case AnnouncementType.PrayerFailure:
+                    ShowAnnouncementImage(AnnouncementImages.NoBlessing);
+                    break;
+                default:
+                    AnnouncementImage.Source = null;
+                    AnnouncementImage.Visibility = Visibility.Collapsed;
+                    AnnouncementHeader.SetValue(Grid.ColumnSpanProperty, 2);
+                    AnnouncementHeader.SetValue(Grid.ColumnProperty, 0);
+                    AnnouncementBody.SetValue(Grid.ColumnSpanProperty, 2);
+                    AnnouncementBody.SetValue(Grid.ColumnProperty, 0);
+                    break;
+
+            }
+
             task1 = AnnouncementHeader.Fade(value: 1F, easingMode: EasingMode.EaseIn).StartAsync();
             task2 = AnnouncementBody.Fade(value: 1F, easingMode: EasingMode.EaseIn).StartAsync();
-            await Task.WhenAll(task1, task2);
+            task3 = AnnouncementImage.Fade(value: 1F, easingMode: EasingMode.EaseIn).StartAsync();
+            await Task.WhenAll(task1, task2, task3);
+        }
+
+        private void ShowAnnouncementImage(ImageSource imageToShow)
+        {
+            AnnouncementImage.Source = imageToShow;
+            AnnouncementImage.Visibility = Visibility.Visible;
+            AnnouncementHeader.SetValue(Grid.ColumnSpanProperty, 1);
+            AnnouncementHeader.SetValue(Grid.ColumnProperty, 1);
+            AnnouncementBody.SetValue(Grid.ColumnSpanProperty, 1);
+            AnnouncementBody.SetValue(Grid.ColumnProperty, 1);
         }
 
         private void Weapon_SelectionChanged(object sender, RoutedEventArgs e)
@@ -401,5 +444,13 @@ namespace CoolDuel
             var activeCharacter = GetActiveCharacter(grid);
             grid.HorizontalAlignment = activeCharacter.Character1 ? HorizontalAlignment.Left : HorizontalAlignment.Right;
         }
+    }
+
+    public class AnnouncementImages
+    {
+        public static ImageSource AttackHit { get; } = new BitmapImage(new Uri("ms-appx:///Assets/Actions/hit.png"));
+        public static ImageSource AttackBlocked { get; } = new BitmapImage(new Uri("ms-appx:///Assets/Actions/blocked.png"));
+        public static ImageSource Blessing { get; } = new BitmapImage(new Uri("ms-appx:///Assets/Actions/blessing.png"));
+        public static ImageSource NoBlessing { get; } = new BitmapImage(new Uri("ms-appx:///Assets/Actions/no_blessing.png"));
     }
 }
