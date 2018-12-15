@@ -17,7 +17,7 @@
                     <RowDefinition></RowDefinition>
                 </Grid.RowDefinitions>
                 
-                <Grid Grid.Row="0" Loaded="FirstCharacterGrid_OnLoaded">
+                <Grid Name="CharacterImageGrid" Grid.Row="0" Loaded="CharacterGrid_OnLoaded" BorderThickness="3" Padding="5">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="63"></RowDefinition>
                         <RowDefinition></RowDefinition>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Data;
@@ -20,6 +21,9 @@ namespace CoolDuel
     public sealed partial class MainPage : Page
     {
         public DuelViewModel ViewModel;
+
+        public Grid Character1ImageGrid { get; set; }
+        public Grid Character2ImageGrid { get; set; }
 
         public MainPage()
         {
@@ -146,10 +150,12 @@ namespace CoolDuel
             if (showOnCharacter1Side)
             {
                 Character1ContentDialogGrid.Children.Add(dialog);
+                HighlightCharacter1();
             }
             else
             {
                 Character2ContentDialogGrid.Children.Add(dialog);
+                HighlightCharacter2();
             }
 
             Grid.SetColumn(dialog, 0);
@@ -194,14 +200,29 @@ namespace CoolDuel
             {
                 ViewModel.RoundNumber++;
                 ShiftAttackButtonsToCharacter1();
+                HighlightCharacter1();
                 AttackImage.Source = ViewModel.Character1.WeaponImage;
                 await CheckForSkillUp();
             }
             else
             {
+                HighlightCharacter2();
                 ShiftAttackImagesToCharacter2();
                 AttackImage.Source = ViewModel.Character2.WeaponImage;
             }
+        }
+
+
+        private void HighlightCharacter1()
+        {
+            Character1ImageGrid.BorderBrush = new SolidColorBrush(Colors.Green);
+            Character2ImageGrid.BorderBrush = null;
+        }
+
+        private void HighlightCharacter2()
+        {
+            Character2ImageGrid.BorderBrush = new SolidColorBrush(Colors.Green);
+            Character1ImageGrid.BorderBrush = null;
         }
 
         private readonly Thickness _actionButtonMarginCharacter1 = new Thickness(0, 50, 250, 0);
@@ -227,6 +248,9 @@ namespace CoolDuel
             {
                 await PromptForSkillUpChoice(ViewModel.Character1);
                 await PromptForSkillUpChoice(ViewModel.Character2);
+
+                //--skill ups only happen on Character 1's turn, so switch the highlighting back
+                HighlightCharacter1();
                 return true;
             }
 
@@ -278,6 +302,8 @@ namespace CoolDuel
 
             await ChangeAnnouncement("Prepare For Battle!", announcement);
 
+            //--default the first player to active once the game starts
+            Character1ImageGrid.BorderBrush = new SolidColorBrush(Colors.Green);
 
             AttackButton.IsEnabled = true;
             AttackButton.Visibility = Visibility.Visible;
@@ -438,12 +464,22 @@ namespace CoolDuel
             stackPanel.SetValue(Grid.ColumnProperty, activeCharacter.Character1 ? 0 : 3);
         }
 
-        private void FirstCharacterGrid_OnLoaded(object sender, RoutedEventArgs e)
+        private void CharacterGrid_OnLoaded(object sender, RoutedEventArgs e)
         {
             var grid = sender as Grid;
             var activeCharacter = GetActiveCharacter(grid);
-            grid.HorizontalAlignment = activeCharacter.Character1 ? HorizontalAlignment.Left : HorizontalAlignment.Right;
+            if (activeCharacter.Character1)
+            {
+                grid.HorizontalAlignment = HorizontalAlignment.Left;
+                Character1ImageGrid = grid;
+            }
+            else
+            {
+                grid.HorizontalAlignment = HorizontalAlignment.Right;
+                Character2ImageGrid = grid;
+            }
         }
+
     }
 
     public class AnnouncementImages
