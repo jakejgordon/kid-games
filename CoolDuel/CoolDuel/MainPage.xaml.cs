@@ -35,40 +35,40 @@ namespace CoolDuel
             ViewModel.Character2.AvailableWeapons[0].IsSelected = true;
         }
 
-        private void IncreaseHitPoints_Click(object sender, RoutedEventArgs e)
+        private async void IncreaseHitPoints_Click(object sender, RoutedEventArgs e)
         {
             var character = GetActiveCharacter<Button>(sender);
             character.IncreaseMaxHitPoints();
-            CheckForBattleStart();
+            await CheckForBattleStart();
         }
 
-        private void AddAttackDamage_Click(object sender, RoutedEventArgs e)
+        private async void AddAttackDamage_Click(object sender, RoutedEventArgs e)
         {
             var character = GetActiveCharacter<Button>(sender);
 
             character.IncreaseBonusAttackDamage();
-            CheckForBattleStart();
+            await CheckForBattleStart();
         }
 
-        private void IncreaseMaxAttackRoll_Click(object sender, RoutedEventArgs e)
+        private async void IncreaseMaxAttackRoll_Click(object sender, RoutedEventArgs e)
         {
             var character = GetActiveCharacter<Button>(sender);
             character.IncreaseBonusMaxAttackRoll();
-            CheckForBattleStart();
+            await CheckForBattleStart();
         }
 
-        private void IncreaseMaximumDefenseRoll_Click(object sender, RoutedEventArgs e)
+        private async void IncreaseMaximumDefenseRoll_Click(object sender, RoutedEventArgs e)
         {
             var character = GetActiveCharacter<Button>(sender);
             character.IncreaseBonusMaximumDefenseRoll();
-            CheckForBattleStart();
+            await CheckForBattleStart();
         }
 
-        private void AddCounterattackDamage_Click(object sender, RoutedEventArgs e)
+        private async void AddCounterattackDamage_Click(object sender, RoutedEventArgs e)
         {
             var character = GetActiveCharacter<Button>(sender);
             character.IncreaseBonusCounterattackDamage();
-            CheckForBattleStart();
+            await CheckForBattleStart();
         }
 
         private static CharacterViewModel GetActiveCharacter<T>(object sender) where T : FrameworkElement
@@ -82,7 +82,7 @@ namespace CoolDuel
             return parent.DataContext as CharacterViewModel;
         }
 
-        private async void CheckForBattleStart()
+        private async Task CheckForBattleStart()
         {
             if (!ViewModel.Character1.HasAttributePoints && !ViewModel.Character2.HasAttributePoints)
             {
@@ -90,7 +90,7 @@ namespace CoolDuel
             }
         }
 
-        private async void AttackOtherPlayer()
+        private async Task AttackOtherPlayer()
         {
             var basicAttack = ViewModel.NextAttack();
 
@@ -140,7 +140,7 @@ namespace CoolDuel
 
             if (isCounterattack)
             {
-                AttackOtherPlayer();
+               await AttackOtherPlayer();
             }
         }
 
@@ -356,9 +356,9 @@ namespace CoolDuel
             return childElement;
         }
 
-        private void Attack_Click(object sender, RoutedEventArgs e)
+        private async void Attack_Click(object sender, RoutedEventArgs e)
         {
-            AttackOtherPlayer();
+            await AttackOtherPlayer();
         }
 
         private async void PrayButton_OnClick(object sender, RoutedEventArgs e)
