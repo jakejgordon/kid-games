@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
+using Windows.ApplicationModel.Core;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -182,9 +184,14 @@ namespace CoolDuel
                 var winnerDialogResult = await winnerDialog.ShowAsync();
                 if (winnerDialogResult == ContentDialogResult.Primary)
                 {
-                    //--TODO THIS DOESN'T WORK
-                    InitializeComponent();
-                    ViewModel = new DuelViewModel();
+                    var result =
+                        await CoreApplication.RequestRestartAsync(string.Empty);
+                    if (result == AppRestartFailureReason.NotInForeground ||
+                        result == AppRestartFailureReason.RestartPending ||
+                        result == AppRestartFailureReason.Other)
+                    {
+                        Debug.WriteLine("RequestRestartAsync failed: {0}", result);
+                    }
                 }
                 else
                 {
