@@ -6,6 +6,7 @@
         AttackHit,
         AttackBlocked,
         PrayerSuccess,
-        PrayerFailure
+        PrayerFailure,
+        SkillUp
     }
 }

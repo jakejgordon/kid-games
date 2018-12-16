@@ -293,7 +293,7 @@ namespace CoolDuel
                 throw new InvalidOperationException("Invalid ContentDialogResult detected");
             }
 
-            await ChangeAnnouncement($"{character.Name} Skill Up!", announcementBody);
+            await ChangeAnnouncement($"{character.Name} Skill Up!", announcementBody, AnnouncementType.SkillUp);
         }
 
         private async Task StartBattleAnimation()
@@ -407,6 +407,9 @@ namespace CoolDuel
                 case AnnouncementType.PrayerFailure:
                     ShowAnnouncementImage(AnnouncementImages.NoBlessing);
                     break;
+                case AnnouncementType.SkillUp:
+                    ShowAnnouncementImage(AnnouncementImages.SkillUp);
+                    break;
                 default:
                     AnnouncementImage.Source = null;
                     AnnouncementImage.Visibility = Visibility.Collapsed;
@@ -488,5 +491,6 @@ namespace CoolDuel
         public static ImageSource AttackBlocked { get; } = new BitmapImage(new Uri("ms-appx:///Assets/Actions/blocked.png"));
         public static ImageSource Blessing { get; } = new BitmapImage(new Uri("ms-appx:///Assets/Actions/blessing.png"));
         public static ImageSource NoBlessing { get; } = new BitmapImage(new Uri("ms-appx:///Assets/Actions/no_blessing.png"));
+        public static ImageSource SkillUp { get; } = new BitmapImage(new Uri("ms-appx:///Assets/Actions/skill_up.png"));
     }
 }
