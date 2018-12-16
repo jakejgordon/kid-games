@@ -200,8 +200,6 @@
     <Content Include="Assets\Weapons\two_handed_axe_right_to_left.png" />
     <Content Include="Assets\Weapons\war_hammer.png" />
     <Content Include="Assets\Weapons\war_hammer_right_to_left.png" />
-    <Content Include="Assets\Weapons\war_mace.png" />
-    <Content Include="Assets\Weapons\war_mace_right_to_left.png" />
     <Content Include="Assets\Wide310x150Logo.scale-100.png" />
     <Content Include="Assets\Wide310x150Logo.scale-125.png" />
     <Content Include="Assets\Wide310x150Logo.scale-150.png" />
