@@ -166,7 +166,7 @@
         </Grid>
         <Grid Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Name="Character2ContentDialogGrid">
         </Grid>
-        <Grid Grid.Row="3" Grid.Column="2" Margin="0 450 0 0">
+        <Grid Grid.Row="3" Grid.Column="2" Margin="0 450 0 0" Canvas.ZIndex="-1">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
