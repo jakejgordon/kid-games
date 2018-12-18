@@ -137,18 +137,26 @@
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="Welcome to Cool Duel!" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Center"  HorizontalTextAlignment="Center" Style="{StaticResource SubheaderTextBlockStyle}"/>
+        <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="Welcome to Cool Duel!" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Center"  Style="{StaticResource SubheaderTextBlockStyle}"/>
 
         <TextBlock Name="RoundNumber" Grid.Row="3" Grid.Column="2" Margin="0,15,0,0" FontSize="20" Visibility="Collapsed" Text="{x:Bind ViewModel.RoundNumberText, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Top"></TextBlock>
 
-        <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Visibility="Collapsed" Name="AttackButton"
-                IsEnabled="False" ToolTipService.ToolTip="Attack the other player!" HorizontalContentAlignment="Center" Click="Attack_Click" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150">
-            <Image Name="AttackImage" HorizontalAlignment="Center" Source="Assets/Weapons/sword.png" VerticalAlignment="Top"/>
-        </Button>
+        <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Canvas.ZIndex="1">
 
-        <Button Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Visibility="Collapsed" Name="PrayButton" IsEnabled="False" ToolTipService.ToolTip="Pray for a 40% chance of a blessing." HorizontalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Top" Width="150" Click="PrayButton_OnClick">
-            <Image HorizontalAlignment="Center" Source="Assets/BattleIcons/prayer_hands.png" VerticalAlignment="Top"/>
-        </Button>
+            <Button Grid.Row="0" Visibility="Collapsed" Name="AttackButton"
+                    IsEnabled="False" ToolTipService.ToolTip="Attack the other player!" 
+                     Click="Attack_Click" 
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Center" 
+                    Width="150">
+                <Image Name="AttackImage" Source="Assets/Weapons/sword.png" />
+            </Button>
+
+            <Button Visibility="Collapsed" Name="PrayButton" IsEnabled="False" HorizontalAlignment="Center" VerticalAlignment="Top" ToolTipService.ToolTip="Pray for a 40% chance of a blessing."  Width="150" Click="PrayButton_OnClick">
+                <Image Source="Assets/BattleIcons/prayer_hands.png" />
+            </Button>
+        </Grid>
+
 
         <ContentControl Grid.Row="3" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" Name="Character1ContentControl"  HorizontalAlignment="Center" VerticalAlignment="Top" ContentTemplate="{StaticResource CharacterGridDataTemplate}"></ContentControl>
 
