@@ -16,7 +16,7 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="CoolDuel.App">
       <uap:VisualElements DisplayName="Cool Duel" Square150x150Logo="Assets\Square150x150Logo.png" Square44x44Logo="Assets\Square44x44Logo.png" Description="Cool Duel is a simple but fun &quot;hot seat&quot; game where two players engage in a turn-based medieval duel. The game introduces young players to simple RPG concepts like choosing skills and attributes to apply to your character. It also has basic strategic elements as each round you can decide whether to attack or take a different action with a longer term payoff. Cool Duel was developed as a means of teaching my 7 year old son some basic programming concepts, while letting him do all of the artwork." BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="Cool Duel" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\SmallTile.png">
+        <uap:DefaultTile Wide310x150Logo="Assets\Wide310x150Logo.png" ShortName="Cool Duel" Square310x310Logo="Assets\LargeTile.png" Square71x71Logo="Assets\Icons\cool_duel_app_icon-284px.png">
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
         <uap:InitialRotationPreference>
