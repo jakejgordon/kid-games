@@ -32,7 +32,9 @@
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Name="CharacterNameTextBox" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" IsEnabled="True" Text="{x:Bind Path=Name, Mode=TwoWay}" Header="Character Name" PlaceholderText="Enter name" />
+                    <TextBox Name="CharacterNameTextBox" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" 
+                             IsEnabled="True" 
+                             Text="{x:Bind Path=Name, Mode=TwoWay}" PlaceholderText="Enter character name" />
                     <TextBlock Name="CharacterName" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Visibility="Collapsed" Text="{x:Bind Path=Name, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom"></TextBlock>
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="Attribute Points:" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind Path=AvailableAttributePoints, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}"/>
@@ -122,7 +124,7 @@
         </DataTemplate>
     </Page.Resources>
 
-    <Grid Padding="20">
+    <Grid Padding="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"></ColumnDefinition>
             <ColumnDefinition Width="2*"></ColumnDefinition>
@@ -160,9 +162,6 @@
                 <Image Source="Assets/BattleIcons/prayer_hands.png" />
             </Button>
         </StackPanel>
-        <!--<Grid Grid.Row="1" Grid.Column="1" VerticalAlignment="Top">
-
-        </Grid>-->
 
         <ContentControl Grid.Row="0" Grid.RowSpan="5" Grid.Column="0" Name="Character1ContentControl" HorizontalAlignment="Center" 
                         VerticalAlignment="Top" ContentTemplate="{StaticResource CharacterGridDataTemplate}"></ContentControl>
@@ -170,9 +169,9 @@
         <ContentControl Grid.Row="0" Grid.RowSpan="5" Grid.Column="2" Name="Character2ContentControl" 
                         HorizontalAlignment="Center" VerticalAlignment="Top" ContentTemplate="{StaticResource CharacterGridDataTemplate}"></ContentControl>
 
-        <Grid Grid.Row="1" Grid.Column="1" Name="Character1ContentDialogGrid">
+        <Grid Grid.Row="1" Grid.Column="0" ColumnSpan="2" Name="Character1ContentDialogGrid">
         </Grid>
-        <Grid Grid.Row="1" Grid.Column="2" Name="Character2ContentDialogGrid">
+        <Grid Grid.Row="1" Grid.Column="1" ColumnSpan="2" Name="Character2ContentDialogGrid">
         </Grid>
         <Grid Grid.Row="3" Grid.Column="1" Canvas.ZIndex="-1">
             <Grid.RowDefinitions>
