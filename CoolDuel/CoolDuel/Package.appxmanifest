@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="11595jakejgordon.CoolDuel" Publisher="CN=3E5DC58A-CA2E-4407-8148-DBFE7C189F68" Version="1.1.1.0" />
+  <Identity Name="11595jakejgordon.CoolDuel" Publisher="CN=3E5DC58A-CA2E-4407-8148-DBFE7C189F68" Version="1.2.2.0" />
   <mp:PhoneIdentity PhoneProductId="c19d3edd-761e-431f-bfbc-3328488b4f54" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>Cool Duel</DisplayName>

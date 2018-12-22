@@ -178,7 +178,8 @@ namespace CoolDuel
                     Content =
                         $"{basicAttack.AttackingCharacter.Name} defeated {basicAttack.DefendingCharacter.Name}! Do you want to play again?",
                     CloseButtonText = "Exit Game",
-                    PrimaryButtonText = "Play Again"
+                    PrimaryButtonText = "Play Again",
+                    
                 };
 
                 var winnerDialogResult = await winnerDialog.ShowAsync();
