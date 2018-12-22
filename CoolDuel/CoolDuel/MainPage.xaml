@@ -138,11 +138,16 @@
             <RowDefinition Height="4*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="1" Text="Welcome to Cool Duel!" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Center" Style="{StaticResource TitleTextBlockStyle}"/>
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            <TextBlock Text="Welcome to Cool Duel!" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Center" Style="{StaticResource TitleTextBlockStyle}"/>
 
-        <TextBlock Name="RoundNumber" Grid.Row="0" Margin="0 30 0 0" Grid.Column="1" Visibility="Collapsed" 
-                   Text="{x:Bind ViewModel.RoundNumberText, Mode=OneWay}" HorizontalAlignment="Center" 
-                   VerticalAlignment="Top" Style="{StaticResource SubtitleTextBlockStyle}"></TextBlock>
+            <TextBlock Name="RoundNumber" Visibility="Collapsed" 
+                       Text="{x:Bind ViewModel.RoundNumberText, Mode=OneWay}" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Top" 
+                       Style="{StaticResource SubtitleTextBlockStyle}">
+            </TextBlock>
+        </StackPanel>
 
         <StackPanel Name="TurnActionsStackPanel" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top">
 
@@ -150,14 +155,16 @@
                     IsEnabled="False" ToolTipService.ToolTip="Attack the other player!" 
                     Click="Attack_Click" 
                     VerticalAlignment="Top"
-                    MaxWidth="150">
+                    MaxWidth="130"
+                    Background="Green">
                 <Image Name="AttackImage" Source="Assets/Weapons/sword.png" />
             </Button>
 
             <Button Visibility="Collapsed" Name="PrayButton" IsEnabled="False" VerticalAlignment="Top" 
                     ToolTipService.ToolTip="Pray for a 40% chance of a blessing." 
-                    MaxWidth="150"
+                    MaxWidth="130"
                     Margin="0 15 0 0"
+                    Background="Green"
                     Click="PrayButton_OnClick">
                 <Image Source="Assets/BattleIcons/prayer_hands.png" />
             </Button>
@@ -173,7 +180,7 @@
         </Grid>
         <Grid Grid.Row="1" Grid.Column="1" ColumnSpan="2" Name="Character2ContentDialogGrid">
         </Grid>
-        <Grid Grid.Row="3" Grid.Column="1" Canvas.ZIndex="-1">
+        <Grid Grid.Row="2" Grid.RowSpan="3" Grid.Column="1" VerticalAlignment="Top" Canvas.ZIndex="-1">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -182,8 +189,8 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Image Grid.Row="0" Grid.RowSpan="2" Name="AnnouncementImage"></Image>
-            <TextBlock Grid.Row="0" Grid.Column="1" Name="AnnouncementHeader" TextAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource TitleTextBlockStyle}" FontWeight="Bold" />
+            <Image Grid.Row="0" Grid.RowSpan="2" Name="AnnouncementImage" MaxHeight="250"></Image>
+            <TextBlock Grid.Row="0" Grid.Column="1" Name="AnnouncementHeader" TextAlignment="Center" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource TitleTextBlockStyle}" FontWeight="Bold" />
             <TextBlock Grid.Row="1" Grid.Column="1" Name="AnnouncementBody" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Style="{StaticResource SubtitleTextBlockStyle}"/>
         </Grid>
 
