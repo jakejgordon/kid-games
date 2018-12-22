@@ -124,29 +124,29 @@
 
     <Grid Padding="20">
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
             <ColumnDefinition Width="2*"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
-            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" Grid.Column="1" Text="Welcome to Cool Duel!" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Center" Style="{StaticResource TitleTextBlockStyle}"/>
 
-        <TextBlock Name="RoundNumber" Grid.Row="1" Grid.Column="1" Visibility="Collapsed" 
+        <TextBlock Name="RoundNumber" Grid.Row="0" Margin="0 30 0 0" Grid.Column="1" Visibility="Collapsed" 
                    Text="{x:Bind ViewModel.RoundNumberText, Mode=OneWay}" HorizontalAlignment="Center" 
                    VerticalAlignment="Top" Style="{StaticResource SubtitleTextBlockStyle}"></TextBlock>
 
-        <Grid Grid.Row="2" Grid.Column="1">
+        <StackPanel Name="TurnActionsStackPanel" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top">
 
-            <Button Grid.Row="0" Visibility="Collapsed" Name="AttackButton"
+            <Button Visibility="Collapsed" Name="AttackButton"
                     IsEnabled="False" ToolTipService.ToolTip="Attack the other player!" 
-                     Click="Attack_Click" 
+                    Click="Attack_Click" 
                     VerticalAlignment="Top"
                     MaxWidth="150">
                 <Image Name="AttackImage" Source="Assets/Weapons/sword.png" />
@@ -154,11 +154,15 @@
 
             <Button Visibility="Collapsed" Name="PrayButton" IsEnabled="False" VerticalAlignment="Top" 
                     ToolTipService.ToolTip="Pray for a 40% chance of a blessing." 
-                    MaxWidth="150" Click="PrayButton_OnClick">
+                    MaxWidth="150"
+                    Margin="0 15 0 0"
+                    Click="PrayButton_OnClick">
                 <Image Source="Assets/BattleIcons/prayer_hands.png" />
             </Button>
-        </Grid>
+        </StackPanel>
+        <!--<Grid Grid.Row="1" Grid.Column="1" VerticalAlignment="Top">
 
+        </Grid>-->
 
         <ContentControl Grid.Row="0" Grid.RowSpan="5" Grid.Column="0" Name="Character1ContentControl" HorizontalAlignment="Center" 
                         VerticalAlignment="Top" ContentTemplate="{StaticResource CharacterGridDataTemplate}"></ContentControl>
@@ -170,7 +174,7 @@
         </Grid>
         <Grid Grid.Row="1" Grid.Column="2" Name="Character2ContentDialogGrid">
         </Grid>
-        <Grid Grid.Row="4" Grid.Column="2" Canvas.ZIndex="-1">
+        <Grid Grid.Row="3" Grid.Column="1" Canvas.ZIndex="-1">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>

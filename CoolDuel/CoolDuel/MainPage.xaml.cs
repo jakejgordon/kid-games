@@ -232,21 +232,15 @@ namespace CoolDuel
             Character2ImageGrid.BorderBrush = new SolidColorBrush(Colors.Green);
             Character1ImageGrid.BorderBrush = null;
         }
-
-        private readonly Thickness _actionButtonMarginCharacter1 = new Thickness(0, 50, 250, 0);
-        private readonly Thickness _actionButtonMarginCharacter2 = new Thickness(250, 50, 0, 0);
-
-
+ 
         private void ShiftAttackButtonsToCharacter1()
         {
-            AttackButton.Margin = _actionButtonMarginCharacter1;
-            PrayButton.Margin = new Thickness(0, 200, 250, 0);
+            TurnActionsStackPanel.HorizontalAlignment = HorizontalAlignment.Left;
         }
 
         private void ShiftAttackImagesToCharacter2()
         {
-            AttackButton.Margin = _actionButtonMarginCharacter2;
-            PrayButton.Margin = new Thickness(250, 200, 0, 0);
+            TurnActionsStackPanel.HorizontalAlignment = HorizontalAlignment.Right;
         }
 
         private async Task<bool> CheckForSkillUp()
