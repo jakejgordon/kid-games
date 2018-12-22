@@ -148,6 +148,9 @@ namespace CoolDuel
 
         private async Task<ContentDialogResult> ShowCharacterSpecificDialog(ContentDialog dialog, bool showOnCharacter1Side)
         {
+            AttackButton.IsEnabled = false;
+            PrayButton.IsEnabled = false;
+
             //--add the dialog to the grid so it will show in the appropriate place on the page
             if (showOnCharacter1Side)
             {
@@ -165,6 +168,7 @@ namespace CoolDuel
 
             //--set to in place so the dialog shows centered in the parent grid 
             var result = await dialog.ShowAsync(ContentDialogPlacement.InPlace);
+
             return result;
         }
 
@@ -218,6 +222,9 @@ namespace CoolDuel
                 ShiftAttackImagesToCharacter2();
                 AttackImage.Source = ViewModel.Character2.WeaponImage;
             }
+
+            AttackButton.IsEnabled = true;
+            PrayButton.IsEnabled = true;
         }
 
 
