@@ -19,15 +19,15 @@
                 
                 <Grid Name="CharacterImageGrid" Grid.Row="0" Loaded="CharacterGrid_OnLoaded" BorderThickness="3" Padding="5">
                     <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="6*"></RowDefinition>
                         <RowDefinition></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition MinWidth="120"></ColumnDefinition>
+                        <ColumnDefinition MinWidth="30"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
@@ -43,7 +43,7 @@
 
                     <Image Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Source="{x:Bind Path=CharacterImage, Mode=OneWay}" MaxHeight="300" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
 
-                    <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="20" Loaded="HealthBar_OnLoaded">
+                    <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="20" Loaded="HealthBar_OnLoaded">
                         <Rectangle Fill="Red" Stroke="Black" Height="{x:Bind Path=HealthMeter, Mode=OneWay}"/>
                     </StackPanel>
                 </Grid>
@@ -51,17 +51,17 @@
 
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
+                        <ColumnDefinition MinWidth="120"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
-                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition MinWidth="20"></ColumnDefinition>
+                        <ColumnDefinition MinWidth="20"></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
@@ -121,13 +121,12 @@
             </Grid>
         </DataTemplate>
     </Page.Resources>
+
     <Grid Padding="20">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
             <ColumnDefinition Width="2*"></ColumnDefinition>
-            <!--<ColumnDefinition></ColumnDefinition>-->
-            <!--<ColumnDefinition></ColumnDefinition>-->
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -180,7 +179,7 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Image Grid.Row="0" Grid.RowSpan="2" Name="AnnouncementImage" MaxHeight="200"></Image>
+            <Image Grid.Row="0" Grid.RowSpan="2" Name="AnnouncementImage"></Image>
             <TextBlock Grid.Row="0" Grid.Column="1" Name="AnnouncementHeader" TextAlignment="Center" HorizontalAlignment="Center" Style="{StaticResource TitleTextBlockStyle}" FontWeight="Bold" />
             <TextBlock Grid.Row="1" Grid.Column="1" Name="AnnouncementBody" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Style="{StaticResource SubtitleTextBlockStyle}"/>
         </Grid>
