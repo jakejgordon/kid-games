@@ -35,7 +35,7 @@ namespace CoolDuel
         private static readonly SkillUpOption IncreaseMaximumDefenseRoll = new SkillUpOption
         {
             DisplayText = XamlMessages.AddMaximumDefenseRollMessage,
-            SkillUpKey = SkillUpOptionEnum.IncreaseMaximumAttackRoll
+            SkillUpKey = SkillUpOptionEnum.IncreaseMaximumDefenseRoll
         };
 
         private static readonly SkillUpOption IncreaseHitPoints = new SkillUpOption
