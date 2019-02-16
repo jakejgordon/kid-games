@@ -19,20 +19,22 @@
                 
                 <Grid Name="CharacterImageGrid" Grid.Row="0" Loaded="CharacterGrid_OnLoaded" BorderThickness="3" Padding="5">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="63"></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                        <RowDefinition Height="6*"></RowDefinition>
                         <RowDefinition></RowDefinition>
-                        <RowDefinition></RowDefinition>
-                        <RowDefinition Height="250"></RowDefinition>
-                        <RowDefinition Height="10"></RowDefinition>
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="155"></ColumnDefinition>
-                        <ColumnDefinition Width="45"></ColumnDefinition>
-                        <ColumnDefinition Width="50"></ColumnDefinition>
-                        <ColumnDefinition Width="20"></ColumnDefinition>
+                        <ColumnDefinition MinWidth="120"></ColumnDefinition>
+                        <ColumnDefinition MinWidth="30"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
 
-                    <TextBox Name="CharacterNameTextBox" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" IsEnabled="True" Text="{x:Bind Path=Name, Mode=TwoWay}" Header="Character Name" PlaceholderText="Enter name" />
+                    <TextBox Name="CharacterNameTextBox" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" 
+                             IsEnabled="True" 
+                             Text="{x:Bind Path=Name, Mode=TwoWay}" PlaceholderText="Enter character name" />
                     <TextBlock Name="CharacterName" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" Visibility="Collapsed" Text="{x:Bind Path=Name, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Bottom"></TextBlock>
                     <TextBlock Grid.Row="1" Grid.Column="0" Text="Attribute Points:" VerticalAlignment="Center" HorizontalAlignment="Center" />
                     <TextBlock Grid.Row="1" Grid.Column="1" Text="{x:Bind Path=AvailableAttributePoints, Mode=OneWay}" Style="{StaticResource TitleTextBlockStyle}"/>
@@ -41,9 +43,9 @@
                     <TextBlock Grid.Row="2" Grid.Column="1" Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind Path=HitPoints, Mode=OneWay}"/>
                     <Button Grid.Row="2" Grid.Column="2" IsEnabled="{x:Bind Path=HasAttributePoints, Mode=OneWay}" Content="+" ToolTipService.ToolTip="{x:Bind Path=AddHitPointsMessage, Mode=OneTime}" Click="IncreaseHitPoints_Click" HorizontalAlignment="Left" VerticalAlignment="Center" />
 
-                    <Image Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Source="{x:Bind Path=CharacterImage, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+                    <Image Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="4" Source="{x:Bind Path=CharacterImage, Mode=OneWay}" MaxHeight="300" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
 
-                    <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="20" Loaded="HealthBar_OnLoaded">
+                    <StackPanel Grid.Row="3" Grid.Column="0" Orientation="Vertical" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="20" Loaded="HealthBar_OnLoaded">
                         <Rectangle Fill="Red" Stroke="Black" Height="{x:Bind Path=HealthMeter, Mode=OneWay}"/>
                     </StackPanel>
                 </Grid>
@@ -51,17 +53,17 @@
 
                 <Grid Grid.Row="1">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="155"></ColumnDefinition>
-                        <ColumnDefinition Width="25"></ColumnDefinition>
-                        <ColumnDefinition Width="25"></ColumnDefinition>
-                        <ColumnDefinition Width="15"></ColumnDefinition>
-                        <ColumnDefinition Width="25"></ColumnDefinition>
-                        <ColumnDefinition Width="25"></ColumnDefinition>
-                        <ColumnDefinition Width="35"></ColumnDefinition>
+                        <ColumnDefinition MinWidth="120"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition MinWidth="20"></ColumnDefinition>
+                        <ColumnDefinition MinWidth="20"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
                         <ColumnDefinition></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition></RowDefinition>
+                        <RowDefinition Height="2*"></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
                         <RowDefinition></RowDefinition>
@@ -121,52 +123,64 @@
             </Grid>
         </DataTemplate>
     </Page.Resources>
-    <Grid Padding="20">
+
+    <Grid Padding="10">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
+            <ColumnDefinition Width="2*"></ColumnDefinition>
+            <ColumnDefinition Width="3*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="45"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="4*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Text="Welcome to Cool Duel!" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Center"  Style="{StaticResource SubheaderTextBlockStyle}"/>
+        <StackPanel Grid.Row="0" Grid.Column="1">
+            <TextBlock Text="Welcome to Cool Duel!" TextWrapping="Wrap" VerticalAlignment="Top" HorizontalAlignment="Center" Style="{StaticResource TitleTextBlockStyle}"/>
 
-        <TextBlock Name="RoundNumber" Grid.Row="3" Grid.Column="2" Margin="0,15,0,0" FontSize="20" Visibility="Collapsed" Text="{x:Bind ViewModel.RoundNumberText, Mode=OneWay}" HorizontalAlignment="Center" VerticalAlignment="Top"></TextBlock>
+            <TextBlock Name="RoundNumber" Visibility="Collapsed" 
+                       Text="{x:Bind ViewModel.RoundNumberText, Mode=OneWay}" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Top" 
+                       Style="{StaticResource SubtitleTextBlockStyle}">
+            </TextBlock>
+        </StackPanel>
 
-        <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Canvas.ZIndex="1">
+        <StackPanel Name="TurnActionsStackPanel" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top">
 
-            <Button Grid.Row="0" Visibility="Collapsed" Name="AttackButton"
+            <Button Visibility="Collapsed" Name="AttackButton"
                     IsEnabled="False" ToolTipService.ToolTip="Attack the other player!" 
-                     Click="Attack_Click" 
+                    Click="Attack_Click" 
                     VerticalAlignment="Top"
-                    HorizontalAlignment="Center" 
-                    Width="150">
+                    MaxWidth="130"
+                    Background="Green">
                 <Image Name="AttackImage" Source="Assets/Weapons/sword.png" />
             </Button>
 
-            <Button Visibility="Collapsed" Name="PrayButton" IsEnabled="False" HorizontalAlignment="Center" VerticalAlignment="Top" ToolTipService.ToolTip="Pray for a 40% chance of a blessing."  Width="150" Click="PrayButton_OnClick">
+            <Button Visibility="Collapsed" Name="PrayButton" IsEnabled="False" VerticalAlignment="Top" 
+                    ToolTipService.ToolTip="Pray for a 40% chance of a blessing." 
+                    MaxWidth="130"
+                    Margin="0 15 0 0"
+                    Background="Green"
+                    Click="PrayButton_OnClick">
                 <Image Source="Assets/BattleIcons/prayer_hands.png" />
             </Button>
+        </StackPanel>
+
+        <ContentControl Grid.Row="0" Grid.RowSpan="5" Grid.Column="0" Name="Character1ContentControl" HorizontalAlignment="Center" 
+                        VerticalAlignment="Top" ContentTemplate="{StaticResource CharacterGridDataTemplate}"></ContentControl>
+
+        <ContentControl Grid.Row="0" Grid.RowSpan="5" Grid.Column="2" Name="Character2ContentControl" 
+                        HorizontalAlignment="Center" VerticalAlignment="Top" ContentTemplate="{StaticResource CharacterGridDataTemplate}"></ContentControl>
+
+        <Grid Grid.Row="1" Grid.Column="0" ColumnSpan="2" Name="Character1ContentDialogGrid">
         </Grid>
-
-
-        <ContentControl Grid.Row="3" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2" Name="Character1ContentControl"  HorizontalAlignment="Center" VerticalAlignment="Top" ContentTemplate="{StaticResource CharacterGridDataTemplate}"></ContentControl>
-
-        <ContentControl Grid.Row="3" Grid.RowSpan="2" Grid.Column="3" Grid.ColumnSpan="2" Name="Character2ContentControl"  HorizontalAlignment="Center" VerticalAlignment="Top" ContentTemplate="{StaticResource CharacterGridDataTemplate}"></ContentControl>
-
-        <Grid Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Name="Character1ContentDialogGrid" Margin="0 0 0 1">
+        <Grid Grid.Row="1" Grid.Column="1" ColumnSpan="2" Name="Character2ContentDialogGrid">
         </Grid>
-        <Grid Grid.Row="3" Grid.Column="2" Grid.ColumnSpan="2" Name="Character2ContentDialogGrid">
-        </Grid>
-        <Grid Grid.Row="3" Grid.Column="2" Margin="0 450 0 0" Canvas.ZIndex="-1">
+        <Grid Grid.Row="2" Grid.RowSpan="3" Grid.Column="1" VerticalAlignment="Top" Canvas.ZIndex="-1">
             <Grid.RowDefinitions>
                 <RowDefinition></RowDefinition>
                 <RowDefinition></RowDefinition>
@@ -175,9 +189,9 @@
                 <ColumnDefinition></ColumnDefinition>
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Image Grid.RowSpan="2" Name="AnnouncementImage" Height="200"></Image>
-            <TextBlock Grid.Row="0" Grid.Column="1" Name="AnnouncementHeader" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Bottom" Style="{StaticResource TitleTextBlockStyle}" FontWeight="Bold" />
-            <TextBlock Grid.Row="1" Grid.Column="1" Name="AnnouncementBody" TextAlignment="Center"  HorizontalAlignment="Center" VerticalAlignment="Top" TextWrapping="Wrap" Style="{StaticResource SubtitleTextBlockStyle}"/>
+            <Image Grid.Row="0" Grid.RowSpan="2" Name="AnnouncementImage" MaxHeight="250"></Image>
+            <TextBlock Grid.Row="0" Grid.Column="1" Name="AnnouncementHeader" TextAlignment="Center" VerticalAlignment="Bottom" HorizontalAlignment="Center" Style="{StaticResource TitleTextBlockStyle}" FontWeight="Bold" />
+            <TextBlock Grid.Row="1" Grid.Column="1" Name="AnnouncementBody" TextAlignment="Center" HorizontalAlignment="Center" TextWrapping="Wrap" Style="{StaticResource SubtitleTextBlockStyle}"/>
         </Grid>
 
     </Grid>

@@ -148,6 +148,9 @@ namespace CoolDuel
 
         private async Task<ContentDialogResult> ShowCharacterSpecificDialog(ContentDialog dialog, bool showOnCharacter1Side)
         {
+            AttackButton.IsEnabled = false;
+            PrayButton.IsEnabled = false;
+
             //--add the dialog to the grid so it will show in the appropriate place on the page
             if (showOnCharacter1Side)
             {
@@ -165,6 +168,7 @@ namespace CoolDuel
 
             //--set to in place so the dialog shows centered in the parent grid 
             var result = await dialog.ShowAsync(ContentDialogPlacement.InPlace);
+
             return result;
         }
 
@@ -178,7 +182,8 @@ namespace CoolDuel
                     Content =
                         $"{basicAttack.AttackingCharacter.Name} defeated {basicAttack.DefendingCharacter.Name}! Do you want to play again?",
                     CloseButtonText = "Exit Game",
-                    PrimaryButtonText = "Play Again"
+                    PrimaryButtonText = "Play Again",
+                    
                 };
 
                 var winnerDialogResult = await winnerDialog.ShowAsync();
@@ -217,6 +222,9 @@ namespace CoolDuel
                 ShiftAttackImagesToCharacter2();
                 AttackImage.Source = ViewModel.Character2.WeaponImage;
             }
+
+            AttackButton.IsEnabled = true;
+            PrayButton.IsEnabled = true;
         }
 
 
@@ -231,21 +239,15 @@ namespace CoolDuel
             Character2ImageGrid.BorderBrush = new SolidColorBrush(Colors.Green);
             Character1ImageGrid.BorderBrush = null;
         }
-
-        private readonly Thickness _actionButtonMarginCharacter1 = new Thickness(0, 50, 250, 0);
-        private readonly Thickness _actionButtonMarginCharacter2 = new Thickness(250, 50, 0, 0);
-
-
+ 
         private void ShiftAttackButtonsToCharacter1()
         {
-            AttackButton.Margin = _actionButtonMarginCharacter1;
-            PrayButton.Margin = new Thickness(0, 200, 250, 0);
+            TurnActionsStackPanel.HorizontalAlignment = HorizontalAlignment.Left;
         }
 
         private void ShiftAttackImagesToCharacter2()
         {
-            AttackButton.Margin = _actionButtonMarginCharacter2;
-            PrayButton.Margin = new Thickness(250, 200, 0, 0);
+            TurnActionsStackPanel.HorizontalAlignment = HorizontalAlignment.Right;
         }
 
         private async Task<bool> CheckForSkillUp()
